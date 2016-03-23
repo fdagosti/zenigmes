@@ -20,6 +20,8 @@
     "bootstrap": "^3.3.6",
     "angular": "^1.5.2",
     "font-awesome": "^4.5.0",
-    "angular-route": "^1.5.2"
+    "angular-route": "^1.5.2",
+    "tinymce": "^4.3.8",
+    "angular-ui-tinymce": "^0.0.14"
   }
 }

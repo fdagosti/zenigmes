@@ -1,5 +1,8 @@
 angular.module('zenigmesApp').controller('enigmeDetailsCtrl', function($scope) {
 
-    $scope.tagline = "les détails d'une enigme";   
+    var vm = this;
+    vm.pageHeader = {
+        title: "La roulette intrepide"
+    };
 
 });

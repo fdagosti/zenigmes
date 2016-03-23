@@ -1,5 +1,119 @@
+    <navigation></navigation>
+
+<div class="container">
+
+
 <div class="jumbotron text-center">
-    <h1>Liste des enigmes</h1>
+
+<h1>Bienvenue sur Z'ENIGMES</h1>
 
     <p>{{ vm.tagline }}</p>
 </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      <label for="filter">Trouver rapidement une enigme</label>
+      <input id="filter" type="text", name="filter", ng-model="textFilter">
+      <!-- <div class="error">{{ vm.message }}</div> -->
+      <div class="row list-group">
+        <div class="col-xs-12 list-group-item" >
+          <h4>
+            <a href="/#/location/{{ location._id }}">Enigme des Trois allumettes</a>
+            <small class="rating-stars" rating-stars rating="4"></small>
+            <span class="label pull-right label-success">6ème/5ème</span>
+            <span class="badge">3 points</span>
+          </h4>
+          <!-- <p>
+            <span class="label label-warning label-facility" ng-repeat="facility in location.facilities">
+              {{ facility }}
+            </span>
+          </p> -->
+        </div>
+        <div class="col-xs-12 list-group-item" >
+          <h4>
+            <a href="/#/location/{{ location._id }}">La roulette maléfique</a>
+            <small class="rating-stars" rating-stars rating="4"></small>
+            <span class="label pull-right label-danger">Lycée</span>
+            <span class="badge">1 points</span>
+          </h4>
+          <!-- <p>
+            <span class="label label-warning label-facility" ng-repeat="facility in location.facilities">
+              {{ facility }}
+            </span>
+          </p> -->
+        </div>
+        <div class="col-xs-12 list-group-item" >
+          <h4>
+            <a href="/#/location/{{ location._id }}">La question d'Aristote</a>
+            <small class="rating-stars" rating-stars rating="4"></small>
+            <span class="label pull-right label-success">6ème/5ème</span>
+            <span class="badge">2 points</span>
+          </h4>
+          <!-- <p>
+            <span class="label label-warning label-facility" ng-repeat="facility in location.facilities">
+              {{ facility }}
+            </span>
+          </p> -->
+        </div>
+        <div class="col-xs-12 list-group-item" >
+          <h4>
+            <a href="/#/location/{{ location._id }}">Le casse tête renversant</a>
+            <small class="rating-stars" rating-stars rating="4"></small>
+            <span class="label pull-right label-warning">4ème/3ème</span>
+            <span class="badge">1 points</span>
+          </h4>
+        </div>
+        <div class="col-xs-12 list-group-item" >
+          <h4>
+            <a href="/#/location/{{ location._id }}">La danse de la pieuve</a>
+            <small class="rating-stars" rating-stars rating="4"></small>
+            <span class="label pull-right label-warning">4ème/3ème</span>
+            <span class="badge">1 points</span>
+          </h4>
+        </div>
+        <div class="col-xs-12 list-group-item" >
+          <h4>
+            <a href="/#/location/{{ location._id }}">Tu pèses une tonne, Newton</a>
+            <small class="rating-stars" rating-stars rating="4"></small>
+            <span class="label pull-right label-success">6ème/5ème</span>
+            <span class="badge">1 points</span>
+          </h4>
+        </div>
+        <div class="col-xs-12 list-group-item" >
+          <h4>
+            <a href="/#/location/{{ location._id }}">Le Cury de Marie</a>
+            <small class="rating-stars" rating-stars rating="4"></small>
+            <span class="label pull-right label-warning">4ème/3ème</span>
+            <span class="badge">1 points</span>
+          </h4>
+        </div>
+        <div class="col-xs-12 list-group-item" >
+          <h4>
+            <a href="/#/location/{{ location._id }}">Gauss repart à la hausse</a>
+            <small class="rating-stars" rating-stars rating="4"></small>
+            <span class="label pull-right label-danger">Lycée</span>
+            <span class="badge">1 points</span>
+          </h4>
+        </div>
+        <div class="col-xs-12 list-group-item" >
+          <h4>
+            <a href="/#/location/{{ location._id }}">Les inégalités entre poissons</a>
+            <small class="rating-stars" rating-stars rating="4"></small>
+            <span class="label pull-right label-warning">4ème/3ème</span>
+            <span class="badge">1 points</span>
+          </h4>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <p class="lead">Les zenigmes sont faites pour stimuler la reflexion et la créativité des élèves<br/>
+      Chaque Enigme appartient à un niveau particulier. Verifier votre niveau avant de selectionner des enigmes
+      </p>
+    </div>
+ </div>
+
+</div>
+    
+  <footer-generic></footer-generic>

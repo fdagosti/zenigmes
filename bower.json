@@ -1,0 +1,25 @@
+{
+  "name": "zenigmes",
+  "description": "math riddles for students",
+  "main": "index.html",
+  "authors": [
+    "Francois D'Agostini <francois.dagostini@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/fdagosti/zenigmes",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "angular": "^1.5.2",
+    "font-awesome": "^4.5.0",
+    "angular-route": "^1.5.2"
+  }
+}

@@ -6,9 +6,30 @@
 
   zenigmeData.$inject = ["$http"];   
   function zenigmeData ($http) {
+
+      var enigmeById = function(id){
+        var data = allEnigmes();
+        for (i=0; i<data.length;i++){
+          if (data[i]._id === id){
+            return data[i];
+          }
+        }
+      };
+
+      var addEnigme = function(enigme){
+          enigme._id = totalData.length + 1;
+          totalData.push(enigme);
+      };
+
+
+
    var allEnigmes = function () {
          // return $http.get('/api/locations?lng=' + lng + '&lat=' + lat + '&maxDistance=200');
-         return [
+         return totalData;
+      };
+      
+
+   var totalData =  [
          {
           _id : 1,
           titre: "Enigme des trois allumettes",
@@ -91,22 +112,11 @@
           trivia: "Cette enigme prend sa source dans le grand livre des mathématiques, écrit par Jean de Bouvier en 1633. Elle a été utilisé trés souvent pour la validation des acquis des élèves"
         },
         ];
-      };
-
-      var enigmeById = function(id){
-        var data = allEnigmes();
-        for (i=0; i<data.length;i++){
-          if (data[i]._id === id){
-            return data[i];
-          }
-        }
-      };
-
-      
 
       return {
        allEnigmes : allEnigmes,
        enigmeById: enigmeById,
+       addEnigme: addEnigme,
      };
    };
  })();

@@ -15,81 +15,15 @@
       <label for="filter">Trouver rapidement une enigme</label>
       <input id="filter" type="text", name="filter", ng-model="textFilter">
       <div class="row list-group">
-        <div class="col-xs-12 list-group-item" >
+        <div class="col-xs-12 list-group-item" ng-repeat="enigme in vm.enigmes | filter: textFilter" >
           <h4>
-            <a href="/#/enigmes/1">Enigme des Trois allumettes</a>
-            <small class="rating-stars" rating-stars rating="4"></small>
-            <span class="label pull-right label-success">6ème/5ème</span>
-            <span class="badge">3 points</span>
+            <a href="/#/enigmes/1">{{enigme.titre}}</a>
+            
+            <niveau enigme="enigme"></niveau>
+            <span class="badge">{{enigme.points}} points</span>
           </h4>
          
         </div>
-        <div class="col-xs-12 list-group-item" >
-          <h4>
-            <a href="/#/enigmes/1">La roulette maléfique</a>
-            <small class="rating-stars" rating-stars rating="4"></small>
-            <span class="label pull-right label-danger">Lycée</span>
-            <span class="badge">1 points</span>
-          </h4>
-        </div>
-        <div class="col-xs-12 list-group-item" >
-          <h4>
-            <a href="/#/enigmes/1">La question d'Aristote</a>
-            <small class="rating-stars" rating-stars rating="4"></small>
-            <span class="label pull-right label-success">6ème/5ème</span>
-            <span class="badge">2 points</span>
-          </h4>
-    
-        </div>
-        <div class="col-xs-12 list-group-item" >
-          <h4>
-            <a href="/#/enigmes/1">Le casse tête renversant</a>
-            <small class="rating-stars" rating-stars rating="4"></small>
-            <span class="label pull-right label-warning">4ème/3ème</span>
-            <span class="badge">1 points</span>
-          </h4>
-        </div>
-        <div class="col-xs-12 list-group-item" >
-          <h4>
-            <a href="/#/enigmes/1">La danse de la pieuve</a>
-            <small class="rating-stars" rating-stars rating="4"></small>
-            <span class="label pull-right label-warning">4ème/3ème</span>
-            <span class="badge">1 points</span>
-          </h4>
-        </div>
-        <div class="col-xs-12 list-group-item" >
-          <h4>
-            <a href="/#/enigmes/1">Tu pèses une tonne, Newton</a>
-            <small class="rating-stars" rating-stars rating="4"></small>
-            <span class="label pull-right label-success">6ème/5ème</span>
-            <span class="badge">1 points</span>
-          </h4>
-        </div>
-        <div class="col-xs-12 list-group-item" >
-          <h4>
-            <a href="/#/enigmes/1">Le Cury de Marie</a>
-            <small class="rating-stars" rating-stars rating="4"></small>
-            <span class="label pull-right label-warning">4ème/3ème</span>
-            <span class="badge">1 points</span>
-          </h4>
-        </div>
-        <div class="col-xs-12 list-group-item" >
-          <h4>
-            <a href="/#/enigmes/1">Gauss repart à la hausse</a>
-            <small class="rating-stars" rating-stars rating="4"></small>
-            <span class="label pull-right label-danger">Lycée</span>
-            <span class="badge">1 points</span>
-          </h4>
-        </div>
-        <div class="col-xs-12 list-group-item" >
-          <h4>
-            <a href="/#/enigmes/1">Les inégalités entre poissons</a>
-            <small class="rating-stars" rating-stars rating="4"></small>
-            <span class="label pull-right label-warning">4ème/3ème</span>
-            <span class="badge">1 points</span>
-          </h4>
-        </div>
-
 
       </div>
     </div>

@@ -5,19 +5,19 @@
 <div class="row">
     <div class="col-xs-12 col-md-8">
 
-        <form>
+        <form ng-submit="vm.create(enigme)">
           <div role="alert" ng-show="vm.formError" class="alert alert-danger">{{vm.formError}}</div>
           <div class="form-group">
             <label for="title">Titre de l'énigme</label>
-            <input type="email" class="form-control" id="title" placeholder="Titre">
+            <input class="form-control" id="title" ng-model="enigme.titre" placeholder="Titre">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Description</label>
-            <textArea ui-tinymce="tinymceOptions" name="review" rows="6" ng-model="tinymceModel" class="form-control"></textArea>
+            <textArea ui-tinymce="tinymceOptions" name="review" rows="6" ng-model="enigme.description" class="form-control"></textArea>
           </div>
           <div class="form-group">
             <label for="illustration">Illustration de l'énigme</label>
-            <input type="file" id="illustration">
+            <input type="file" id="illustration" ng-model="enigme.illustration">
             <p class="help-block">Choisissez une image qui illustrera le mieux votre énigme.</p>
           </div>
        
@@ -29,20 +29,20 @@
                           <div class="panel-body">
                             <div class="radio">
                               <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                                <span class="label pull-right label-success">6ème/5ème</span>
+                                <input type="radio" name="niveauRadios" id="optionsRadios1" value="1" ng-model="enigme.niveau" checked>
+                                <niveau enigme="{niveau:1}"/>
                               </label>
                             </div>
                             <div class="radio">
                               <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                <span class="label pull-right label-warning">4ème/3ème</span>
+                                <input type="radio" name="niveauRadios" id="optionsRadios2" value="2" ng-model="enigme.niveau">
+                                <niveau enigme="{niveau:2}"/>
                               </label>
                             </div>
                             <div class="radio">
                               <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                <span class="label pull-right label-danger">Lycée</span>
+                                <input type="radio" name="niveauRadios" id="optionsRadios3" value="3" ng-model="enigme.niveau">
+                                <niveau enigme="{niveau:3}"/>
                               </label>
                             </div>
                           </div>
@@ -58,19 +58,19 @@
                           <div class="panel-body">
                             <div class="radio">
                               <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                <input type="radio" name="pointsRadios" id="optionsRadios1" value="1" ng-model="enigme.points" checked>
                                 <span class="badge">1 point</span>
                               </label>
                             </div>
                             <div class="radio">
                               <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                <input type="radio" name="pointsRadios" id="optionsRadios2" value="2" ng-model="enigme.points">
                                 <span class="badge">2 points</span>
                               </label>
                             </div>
                             <div class="radio">
                               <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                                <input type="radio" name="pointsRadios" id="optionsRadios3" value="3" ng-model="enigme.points">
                                 <span class="badge">3 points</span>
                               </label>
                             </div>
@@ -81,7 +81,7 @@
             </div>
           <div class="form-group">
             <label >Réponse</label>
-            <textArea ui-tinymce="tinymceOptions" name="answer" rows="4" ng-model="tinymceModel" class="form-control"></textArea>
+            <textArea ui-tinymce="tinymceOptions" name="answer" rows="4" ng-model="enigme.answer" class="form-control"></textArea>
           </div>
           <button type="submit" class="btn btn-default">Créer L'énigme</button>
         </form>

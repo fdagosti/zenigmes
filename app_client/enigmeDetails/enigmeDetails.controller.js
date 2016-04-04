@@ -1,8 +1,10 @@
-angular.module('zenigmesApp').controller('enigmeDetailsCtrl', function($scope) {
+(function(){
+	angular.module('zenigmesApp').controller('enigmeDetailsCtrl', function($scope, $routeParams, zenigmeData ) {
 
-    var vm = this;
-    vm.pageHeader = {
-        title: "La roulette intrepide"
-    };
+		var vm = this;
 
-});
+		vm.enigme = zenigmeData.enigmeById(parseInt($routeParams.enigmeId));
+
+
+	});
+})();

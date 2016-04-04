@@ -17,9 +17,9 @@
       <div class="row list-group">
         <div class="col-xs-12 list-group-item" ng-repeat="enigme in vm.enigmes | filter: textFilter" >
           <h4>
-            <a href="/#/enigmes/1">{{enigme.titre}}</a>
+            <a href="/#/enigmes/{{enigme._id}}">{{enigme.titre}}</a>
             
-            <niveau enigme="enigme"></niveau>
+            <niveau enigme="enigme"/>
             <span class="badge">{{enigme.points}} points</span>
           </h4>
          

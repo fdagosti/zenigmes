@@ -9,4 +9,4 @@ var enigmeSchema = new mongoose.Schema({
     trivia: String,
 });
 
-mongoose.model("zenigmes", enigmeSchema);
+mongoose.model("enigmes", enigmeSchema);

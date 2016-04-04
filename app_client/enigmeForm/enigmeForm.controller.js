@@ -16,15 +16,18 @@
   		};
 
         vm.create = function(enigme){
-            zenigmeData.addEnigme(enigme);
-            console.log("titre to save "+enigme.titre);
-            console.log("description to save "+enigme.description);
-            console.log("illustrqtion  to save "+enigme.illustration);
-            console.log("niveau  to save "+enigme.niveau);
-            console.log("points  to save "+enigme.points);
-            console.log("reponse  to save "+enigme.answer);
-            $location.url("/enigmes/"+enigme._id);
+            zenigmeData.addEnigme(enigme).success(function(data){
+                console.log("SUCCESS "+data);
+                $location.url("/enigmes/"+data._id);
+            })
+            .error(function(data){
+                vm.formError = "Votre enigme n'a pas pu etre sauvegarde ";
+            });
+            return false
         };
+            
+            
+    
 
 
     };

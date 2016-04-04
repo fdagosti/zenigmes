@@ -8,24 +8,20 @@
   function zenigmeData ($http) {
 
       var enigmeById = function(id){
-        var data = allEnigmes();
-        for (i=0; i<data.length;i++){
-          if (data[i]._id === id){
-            return data[i];
-          }
-        }
+        console.log("enigmeId = "+id);
+        return $http.get('/api/enigmes/'+id);
       };
 
       var addEnigme = function(enigme){
-          enigme._id = totalData.length + 1;
-          totalData.push(enigme);
+          
+          return $http.post("/api/enigmes/", enigme);
       };
 
 
 
    var allEnigmes = function () {
-         // return $http.get('/api/locations?lng=' + lng + '&lat=' + lat + '&maxDistance=200');
-         return totalData;
+         return $http.get('/api/enigmes');
+         
       };
       
 

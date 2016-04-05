@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 require("./enigmes");
+require("./users");
 
 mongoose.connection.on("connected", function(){
     console.log("Mongoose connected to "+dbURI);

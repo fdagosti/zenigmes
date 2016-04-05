@@ -4,8 +4,8 @@
   .module('zenigmesApp')
   .service('zenigmeData', zenigmeData);
 
-  zenigmeData.$inject = ["$http"];   
-  function zenigmeData ($http) {
+  zenigmeData.$inject = ["$http", "authentication"];   
+  function zenigmeData ($http, authentication) {
 
       var enigmeById = function(id){
         console.log("enigmeId = "+id);
@@ -14,7 +14,11 @@
 
       var addEnigme = function(enigme){
           
-          return $http.post("/api/enigmes/", enigme);
+          return $http.post("/api/enigmes/", enigme, {
+            headers: {
+              Authorization: "Bearer "+ authentication.getToken()
+            }
+          });
       };
 
 

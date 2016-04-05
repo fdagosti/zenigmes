@@ -18,7 +18,7 @@
         vm.create = function(enigme){
             zenigmeData.addEnigme(enigme).success(function(data){
                 console.log("SUCCESS "+data);
-                $location.url("/enigmes/"+data._id);
+                $location.path("/enigmes/"+data._id);
             })
             .error(function(data){
                 vm.formError = "Votre enigme n'a pas pu etre sauvegarde ";

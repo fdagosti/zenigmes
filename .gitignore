@@ -39,3 +39,6 @@ node_modules
 
 # Mac files
 .DS_Store
+
+# .env files are only for local development
+.env

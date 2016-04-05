@@ -12,11 +12,10 @@
         vm.isLoggedIn = authentication.isLoggedIn();
 
         vm.currentUser = authentication.currentUser();
-console.log("logged in ? "+vm.isLoggedIn);
-console.log("current user ? "+vm.currentUser);
+
         vm.logout = function() {
             authentication.logout();
-            $location.path("/");
+            $location.path("/#");
         };
     };
 })();

@@ -6,6 +6,17 @@
     width:100%; 
 }
 
+footer {
+    position:fixed;
+    bottom:0px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    background-color: white;
+    
+      
+    width:100%; 
+}
+
 /* rotate and fall */
 @-webkit-keyframes rotateFall {
     0% { -webkit-transform: rotateZ(0deg); }
@@ -91,8 +102,8 @@
 }
 
 /* about ------------------------ */
-.page.ng-leave  { z-index:9999; }
-.page.ng-enter  { z-index:8888; }
+.page.ng-leave  { z-index:-1; }
+.page.ng-enter  { z-index:-2; }
 
 
 .page.ng-leave        {

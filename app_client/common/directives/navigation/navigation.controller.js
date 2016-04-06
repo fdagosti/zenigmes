@@ -3,8 +3,8 @@
         .module("zenigmesApp")
         .controller("navigationCtrl", navigationCtrl);
 
-    navigationCtrl.$inject = ["$scope", "$location", "authentication"];
-    function navigationCtrl($scope, $location, authentication){
+    navigationCtrl.$inject = ["$scope", "$location", "authentication", "$animate"];
+    function navigationCtrl($scope, $location, authentication, $animate){
         var vm = this;
 
         vm.currentPath = function() {
@@ -21,6 +21,14 @@
             
 
         };
+
+        vm.toggleAnims = function(){
+            $animate.enabled(!$animate.enabled());
+        }
+
+        vm.isAnimOn = function(){
+            return $animate.enabled();
+        }
 
        authentication.subscribe($scope, function somethingChanged() {
         console.log("Something has changed, reload navbar");

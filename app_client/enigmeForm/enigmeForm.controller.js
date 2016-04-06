@@ -15,7 +15,10 @@
     		statusbar: false
   		};
 
+
+
         vm.create = function(enigme){
+            console.log("CREATE "+vm.myFile);
             zenigmeData.addEnigme(enigme).success(function(data){
                 console.log("SUCCESS "+data);
                 $location.path("/enigmes/"+data._id);

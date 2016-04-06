@@ -3,8 +3,8 @@
     .module("zenigmesApp")
     .service("authentication", authentication);
 
-    authentication.$inject = ["$window", "$http", "$q"];
-    function authentication($window, $http, $q) {
+    authentication.$inject = ["$window", "$http", "$rootScope"];
+    function authentication($window, $http, $rootScope) {
         var saveToken = function(token) {
             $window.localStorage["zenigme-token"] = token;
         };
@@ -18,19 +18,20 @@
        var register = function(user) {
             return $http.post("/api/register", user).success(function(data){
                 saveToken(data.token);
+                notify();
             });
         };
 
         var login = function(user) {
             return $http.post("/api/login", user).success(function(data) {
                 saveToken(data.token);
+                notify();
             });
-            
-            
         };
 
         var logout = function(){
             $window.localStorage.removeItem("zenigme-token");
+            notify();
         };
 
         var isLoggedIn = function() {
@@ -57,7 +58,18 @@
             }
         };
 
+        var notify = function(){
+            console.log("notifying");
+            $rootScope.$emit('auth-service-event');
+        }
+
         return {
+            subscribe: function(scope, callback) {
+                var handler = $rootScope.$on('auth-service-event', callback);
+                scope.$on('$destroy', handler);
+            },
+
+            notify: notify,
             saveToken: saveToken,
             getToken: getToken,
             register: register,

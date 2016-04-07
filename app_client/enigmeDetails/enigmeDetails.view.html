@@ -3,43 +3,48 @@
 <div class="container">
   <page-header content="{title:vm.enigme.titre}"></page-header>
 
-    <div class="row">
-        <div class="col-xs-12 col-md-9">
-            <div class="row">
-                <div class="col-xs-12 ">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h2 class="panel-title">Description <points enigme="vm.enigme"/>     <niveau enigme="vm.enigme"/></h2>
+  <div class="row">
+    <div class="col-xs-12 col-md-9">
 
-                        </div>
-                        <div class="panel-body">
-                            <p ng-bind-html="vm.enigme.description">
-                            </p>
-                        </div>
+        <div class="row">
+            <div class="col-xs-12 ">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+
+                        <h2 class="panel-title">Description <points enigme="vm.enigme"/>     <niveau enigme="vm.enigme"/></h2>
+
                     </div>
-                    
+                    <div class="panel-body">
+                        <p ng-bind-html="vm.enigme.description">
+                        </p>
+                    </div>
+                    <div ng-show="vm.isLoggedIn" class="panel-footer"><div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default">Modifier</button>
+                        <button type="button" class="btn btn-default" ng-click="vm.delete()">Effacer</button>
+                    </div></div>
                 </div>
-                
+
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel panel-primary review-panel">
-                        <div class="panel-heading">
-                            <a ng-show="vm.isLoggedIn" ng-click="vm.popupReviewForm()" class="btn btn-default pull-right">Répondre</a>
-                            <a href="/#/login?page={{vm.currentPath}}" ng-hide="vm.isLoggedIn" class="btn btn-default pull-right">Identifiez-vous pour répondre</a>
-                            <h2 class="panel-title">Réponse</h2>
-                        </div>
-                        <div class="panel-body review-container">
-                            <div class="review" ng-repeat="review in vm.data.location.reviews | orderBy: 'createdOn': true">
-                                <div class="row">
-                                    <div class="well well-sm review-header">
-                                        <span class="rating" rating-stars rating="review.rating"></span>
-                                        <span class="reviewAuthor">{{review.author}}</span>
-                                        <small class="reviewTimestamp">{{review.createdOn | date: 'd MMMM yyyy'}}</small>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <p ng-bind-html="review.reviewText | addHtmlLineBreaks"></p>
-                                    </div>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-primary review-panel">
+                    <div class="panel-heading">
+                        <a ng-show="vm.isLoggedIn" ng-click="vm.popupReviewForm()" class="btn btn-default pull-right">Répondre</a>
+                        <a href="/#/login?page={{vm.currentPath}}" ng-hide="vm.isLoggedIn" class="btn btn-default pull-right">Identifiez-vous pour répondre</a>
+                        <h2 class="panel-title">Réponse</h2>
+                    </div>
+                    <div class="panel-body review-container">
+                        <div class="review" ng-repeat="review in vm.data.location.reviews | orderBy: 'createdOn': true">
+                            <div class="row">
+                                <div class="well well-sm review-header">
+                                    <span class="rating" rating-stars rating="review.rating"></span>
+                                    <span class="reviewAuthor">{{review.author}}</span>
+                                    <small class="reviewTimestamp">{{review.createdOn | date: 'd MMMM yyyy'}}</small>
+                                </div>
+                                <div class="col-xs-12">
+                                    <p ng-bind-html="review.reviewText | addHtmlLineBreaks"></p>
                                 </div>
                             </div>
                         </div>
@@ -47,10 +52,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-md-3">
-            <p class="lead">{{vm.enigme.trivia}}</p>
-        </div>
     </div>
+    <div class="col-xs-12 col-md-3">
+        <p class="lead">{{vm.enigme.trivia}}</p>
+    </div>
+</div>
 
-  
+
 </div>

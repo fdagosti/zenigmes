@@ -8,6 +8,12 @@
 
 		vm.enigme = {};
 
+		vm.delete = function(){
+			zenigmeData.deleteEnigme(vm.enigme).success(function(data){
+				console.log("Delete Success ");
+				$location.path("/");
+			});
+		};
 
 		zenigmeData.enigmeById($routeParams.enigmeId).success(function(data){
 			console.log("success "+data);

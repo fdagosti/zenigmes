@@ -7,116 +7,42 @@
   zenigmeData.$inject = ["$http", "authentication"];   
   function zenigmeData ($http, authentication) {
 
-      var enigmeById = function(id){
-        console.log("enigmeId = "+id);
-        return $http.get('/api/enigmes/'+id);
-      };
+    var enigmeById = function(id){
+      console.log("enigmeId = "+id);
+      return $http.get('/api/enigmes/'+id);
+    };
 
-      var addEnigme = function(enigme){
-          
-          return $http.post("/api/enigmes/", enigme, {
-            headers: {
-              Authorization: "Bearer "+ authentication.getToken()
-            }
-          });
-      };
+    var addEnigme = function(enigme){
+
+      return $http.post("/api/enigmes/", enigme, {
+        headers: {
+          Authorization: "Bearer "+ authentication.getToken()
+        }
+      });
+    };
 
 
 
-   var allEnigmes = function () {
-         return $http.get('/api/enigmes');
-         
-      };
-      
+    var allEnigmes = function () {
+     return $http.get('/api/enigmes');
 
-   var totalData =  [
-         {
-          _id : 1,
-          titre: "Enigme des trois allumettes",
-          description: "Ceci est la description d'une enigme pour rigoler",
-          illustration: "rsc/riddle.jpg",
-          niveau: "3",
-          points: "1",
-          trivia: "Cette enigme prend sa source dans le grand livre des mathématiques, écrit par Jean de Bouvier en 1633. Elle a été utilisé trés souvent pour la validation des acquis des élèves"
-        },
-        {
-          _id : 2,
-          titre: "La roulette maléfique",
-          description: "ed (saepe enim redeo ad Scipionem, cuius omnis sermo erat de amicitia) querebatur, quod omnibus in rebus homines diligentiores essent; capras et oves quot quisque haberet, dicere posse, amicos quot haberet, non posse dicere et in illis quidem parandis adhibere curam, in amicis eligendis neglegentis esse nec habere quasi signa quaedam et notas, quibus eos qui ad amicitias essent idonei, iudicarent. Sunt igitur firmi et stabiles et constantes eligendi; cuius generis est magna penuria. Et iudicare difficile est sane nisi expertum; experiendum autem est in ipsa amicitia. Ita praecurrit amicitia iudicium tollitque experiendi potestatem.",
-          illustration: "rsc/riddle.jpg",
-          niveau: "3",
-          points: "1",
-          trivia: "Cette enigme prend sa source dans le grand livre des mathématiques, écrit par Jean de Bouvier en 1633. Elle a été utilisé trés souvent pour la validation des acquis des élèves"
-        },
-        {
-          _id : 3,
-          titre: "La question d'Aristote",
-          description: "ed (saepe enim redeo ad Scipionem, cuius omnis sermo erat de amicitia) querebatur, quod omnibus in rebus homines diligentiores essent; capras et oves quot quisque haberet, dicere posse, amicos quot haberet, non posse dicere et in illis quidem parandis adhibere curam, in amicis eligendis neglegentis esse nec habere quasi signa quaedam et notas, quibus eos qui ad amicitias essent idonei, iudicarent. Sunt igitur firmi et stabiles et constantes eligendi; cuius generis est magna penuria. Et iudicare difficile est sane nisi expertum; experiendum autem est in ipsa amicitia. Ita praecurrit amicitia iudicium tollitque experiendi potestatem.",
-          illustration: "rsc/riddle.jpg",
-          niveau: "1",
-          points: "2",
-          trivia: "Cette enigme prend sa source dans le grand livre des mathématiques, écrit par Jean de Bouvier en 1633. Elle a été utilisé trés souvent pour la validation des acquis des élèves"
-        },
-        {
-          _id : 4,
-          titre: "Le casse tête renversant",
-          description: "ed (saepe enim redeo ad Scipionem, cuius omnis sermo erat de amicitia) querebatur, quod omnibus in rebus homines diligentiores essent; capras et oves quot quisque haberet, dicere posse, amicos quot haberet, non posse dicere et in illis quidem parandis adhibere curam, in amicis eligendis neglegentis esse nec habere quasi signa quaedam et notas, quibus eos qui ad amicitias essent idonei, iudicarent. Sunt igitur firmi et stabiles et constantes eligendi; cuius generis est magna penuria. Et iudicare difficile est sane nisi expertum; experiendum autem est in ipsa amicitia. Ita praecurrit amicitia iudicium tollitque experiendi potestatem.",
-          illustration: "rsc/riddle.jpg",
-          niveau: "3",
-          points: "2",
-          trivia: "Cette enigme prend sa source dans le grand livre des mathématiques, écrit par Jean de Bouvier en 1633. Elle a été utilisé trés souvent pour la validation des acquis des élèves"
-        },
-        {
-          _id : 5,
-          titre: "La danse de la pieuve",
-          description: "ed (saepe enim redeo ad Scipionem, cuius omnis sermo erat de amicitia) querebatur, quod omnibus in rebus homines diligentiores essent; capras et oves quot quisque haberet, dicere posse, amicos quot haberet, non posse dicere et in illis quidem parandis adhibere curam, in amicis eligendis neglegentis esse nec habere quasi signa quaedam et notas, quibus eos qui ad amicitias essent idonei, iudicarent. Sunt igitur firmi et stabiles et constantes eligendi; cuius generis est magna penuria. Et iudicare difficile est sane nisi expertum; experiendum autem est in ipsa amicitia. Ita praecurrit amicitia iudicium tollitque experiendi potestatem.",
-          illustration: "rsc/riddle.jpg",
-          niveau: "2",
-          points: "3",
-          trivia: "Cette enigme prend sa source dans le grand livre des mathématiques, écrit par Jean de Bouvier en 1633. Elle a été utilisé trés souvent pour la validation des acquis des élèves"
-        },
-        {
-          _id : 6,
-          titre: "Tu pèses une tonne, Newton",
-          description: "ed (saepe enim redeo ad Scipionem, cuius omnis sermo erat de amicitia) querebatur, quod omnibus in rebus homines diligentiores essent; capras et oves quot quisque haberet, dicere posse, amicos quot haberet, non posse dicere et in illis quidem parandis adhibere curam, in amicis eligendis neglegentis esse nec habere quasi signa quaedam et notas, quibus eos qui ad amicitias essent idonei, iudicarent. Sunt igitur firmi et stabiles et constantes eligendi; cuius generis est magna penuria. Et iudicare difficile est sane nisi expertum; experiendum autem est in ipsa amicitia. Ita praecurrit amicitia iudicium tollitque experiendi potestatem.",
-          illustration: "rsc/riddle.jpg",
-          niveau: "1",
-          points: "1",
-          trivia: "Cette enigme prend sa source dans le grand livre des mathématiques, écrit par Jean de Bouvier en 1633. Elle a été utilisé trés souvent pour la validation des acquis des élèves"
-        },
-        {
-          _id : 7,
-          titre: "Le Cury de Marie",
-          description: "ed (saepe enim redeo ad Scipionem, cuius omnis sermo erat de amicitia) querebatur, quod omnibus in rebus homines diligentiores essent; capras et oves quot quisque haberet, dicere posse, amicos quot haberet, non posse dicere et in illis quidem parandis adhibere curam, in amicis eligendis neglegentis esse nec habere quasi signa quaedam et notas, quibus eos qui ad amicitias essent idonei, iudicarent. Sunt igitur firmi et stabiles et constantes eligendi; cuius generis est magna penuria. Et iudicare difficile est sane nisi expertum; experiendum autem est in ipsa amicitia. Ita praecurrit amicitia iudicium tollitque experiendi potestatem.",
-          illustration: "rsc/riddle.jpg",
-          niveau: "3",
-          points: "3",
-          trivia: "Cette enigme prend sa source dans le grand livre des mathématiques, écrit par Jean de Bouvier en 1633. Elle a été utilisé trés souvent pour la validation des acquis des élèves"
-        },
-        {
-          _id : 8,
-          titre: "Gauss repart à la hausse",
-          description: "ed (saepe enim redeo ad Scipionem, cuius omnis sermo erat de amicitia) querebatur, quod omnibus in rebus homines diligentiores essent; capras et oves quot quisque haberet, dicere posse, amicos quot haberet, non posse dicere et in illis quidem parandis adhibere curam, in amicis eligendis neglegentis esse nec habere quasi signa quaedam et notas, quibus eos qui ad amicitias essent idonei, iudicarent. Sunt igitur firmi et stabiles et constantes eligendi; cuius generis est magna penuria. Et iudicare difficile est sane nisi expertum; experiendum autem est in ipsa amicitia. Ita praecurrit amicitia iudicium tollitque experiendi potestatem.",
-          illustration: "rsc/riddle.jpg",
-          niveau: "2",
-          points: "1",
-          trivia: "Cette enigme prend sa source dans le grand livre des mathématiques, écrit par Jean de Bouvier en 1633. Elle a été utilisé trés souvent pour la validation des acquis des élèves"
-        },
-        {
-          _id : 9,
-          titre: "Les inégalités entre poissons",
-          description: "ed (saepe enim redeo ad Scipionem, cuius omnis sermo erat de amicitia) querebatur, quod omnibus in rebus homines diligentiores essent; capras et oves quot quisque haberet, dicere posse, amicos quot haberet, non posse dicere et in illis quidem parandis adhibere curam, in amicis eligendis neglegentis esse nec habere quasi signa quaedam et notas, quibus eos qui ad amicitias essent idonei, iudicarent. Sunt igitur firmi et stabiles et constantes eligendi; cuius generis est magna penuria. Et iudicare difficile est sane nisi expertum; experiendum autem est in ipsa amicitia. Ita praecurrit amicitia iudicium tollitque experiendi potestatem.",
-          illustration: "rsc/riddle.jpg",
-          niveau: "2",
-          points: "2",
-          trivia: "Cette enigme prend sa source dans le grand livre des mathématiques, écrit par Jean de Bouvier en 1633. Elle a été utilisé trés souvent pour la validation des acquis des élèves"
-        },
-        ];
-
-      return {
-       allEnigmes : allEnigmes,
-       enigmeById: enigmeById,
-       addEnigme: addEnigme,
-     };
    };
- })();
+
+   var deleteEnigme = function(enigme) {
+      return $http.delete("/api/enigmes/"+enigme._id, {
+        headers: {
+          Authorization: "Bearer "+ authentication.getToken()
+        }
+      });
+   };
+
+
+   
+   return {
+     allEnigmes : allEnigmes,
+     enigmeById: enigmeById,
+     addEnigme: addEnigme,
+     deleteEnigme: deleteEnigme,
+   };
+ };
+})();

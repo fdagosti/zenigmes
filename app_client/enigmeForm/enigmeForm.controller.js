@@ -23,9 +23,8 @@
             ],
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor",
             
-            
-        };
 
+        };
 
 
         vm.create = function(enigme){
@@ -39,9 +38,9 @@
             });
             return false
         };
-        
-        
-        
+
+
+
 
 
     };

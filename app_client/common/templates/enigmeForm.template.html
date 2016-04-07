@@ -1,0 +1,87 @@
+
+<div class="container">
+<page-header content="vm.pageHeader"></page-header>
+
+<div class="row">
+    <div class="col-xs-12 col-md-8">
+
+        <form ng-submit="vm.updateOrCreate(vm.enigme)">
+          <div role="alert" ng-show="vm.formError" class="alert alert-danger">{{vm.formError}}</div>
+          <div class="form-group">
+            <label for="title">Titre de l'énigme</label>
+            <input class="form-control" id="title" ng-model="vm.enigme.titre" placeholder="Titre">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Description</label>
+            <textArea ui-tinymce="tinymceOptions" name="review" rows="6" ng-model="vm.enigme.description" class="form-control"></textArea>
+          </div>
+        
+       
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label for="">Niveau de l'énigme</label>
+                        <div class="panel panel-default">
+                          <div class="panel-body">
+                            <div class="radio">
+                              <label>
+                                <input type="radio" name="niveauRadios" id="optionsRadios1" value="1" ng-model="vm.enigme.niveau" checked>
+                                <niveau enigme="{niveau:1}"/>
+                              </label>
+                            </div>
+                            <div class="radio">
+                              <label>
+                                <input type="radio" name="niveauRadios" id="optionsRadios2" value="2" ng-model="vm.enigme.niveau">
+                                <niveau enigme="{niveau:2}"/>
+                              </label>
+                            </div>
+                            <div class="radio">
+                              <label>
+                                <input type="radio" name="niveauRadios" id="optionsRadios3" value="3" ng-model="vm.enigme.niveau">
+                                <niveau enigme="{niveau:3}"/>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                        
+                
+                <div class="col-xs-12 col-md-6">
+                    <div class="form-group">
+                        <label for="">Nombre de points</label>
+                        <div class="panel panel-default">
+                          <div class="panel-body">
+                            <div class="radio">
+                              <label>
+                                <input type="radio" name="pointsRadios" id="optionsRadios1" value="1" ng-model="vm.enigme.points" checked>
+                                <points enigme="{points:1}"/>
+                              </label>
+                            </div>
+                            <div class="radio">
+                              <label>
+                                <input type="radio" name="pointsRadios" id="optionsRadios2" value="2" ng-model="vm.enigme.points">
+                                <points enigme="{points:2}"/>
+                              </label>
+                            </div>
+                            <div class="radio">
+                              <label>
+                                <input type="radio" name="pointsRadios" id="optionsRadios3" value="3" ng-model="vm.enigme.points">
+                                <points enigme="{points:3}"/>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="form-group">
+            <label >Réponse</label>
+            <textArea ui-tinymce="tinymceOptions" name="answer" rows="4" ng-model="vm.enigme.answer" class="form-control"></textArea>
+          </div>
+          <button type="submit" class="btn btn-default">{{vm.buttonTitle}}</button>
+        </form>
+    </div>
+</div>
+   
+</div>

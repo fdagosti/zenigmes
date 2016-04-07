@@ -1,5 +1,5 @@
 (function(){
-	angular.module('zenigmesApp').controller('enigmeDetailsCtrl', function($scope, $routeParams, zenigmeData, authentication, $location ) {
+	angular.module('zenigmesApp').controller('enigmeDetailsCtrl', function($scope, $routeParams, zenigmeData, authentication, $location, $sce ) {
 
 		var vm = this;
 
@@ -19,6 +19,8 @@
 		};
 
 		zenigmeData.enigmeById($routeParams.enigmeId).success(function(data){
+			console.log("RETRIEVED ENIGME desc = "+data.description);
+			data.description = $sce.trustAsHtml(data.description);
 			vm.enigme = data;
 			
 		})

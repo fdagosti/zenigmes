@@ -28,7 +28,9 @@ module.exports.enigmeCreate = function(req, res){
         titre: req.body.titre,
         description: req.body.description,
         niveau: req.body.niveau,
-        points: req.body.points
+        points: req.body.points,
+        reponse: req.body.reponse,
+
     }, function(err, location){
 
         if (err){
@@ -80,6 +82,7 @@ module.exports.enigmeUpdateOne = function(req, res){
                 enigme.description = req.body.description;
                 enigme.points = parseInt(req.body.points);
                 enigme.niveau = parseInt(req.body.niveau);
+                enigme.reponse = req.body.reponse;
                 
                 enigme.save(function(err, enigme){
                     if (err){

@@ -9,7 +9,8 @@
                 <div class="col-xs-12 col-md-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h2 class="panel-title">Description</h2>
+                            <h2 class="panel-title">Description <span class="badge pull-right">{{vm.enigme.points}} points</span>     <niveau enigme="vm.enigme"/></h2>
+
                         </div>
                         <div class="panel-body">
                             <p ng-bind-html="vm.enigme.description">

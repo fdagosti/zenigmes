@@ -10,8 +10,13 @@
                 controllerAs: "vm"
             })
             .when("/enigmes/new", {
-                templateUrl: "/enigmeForm/enigmeForm.view.html",
+                templateUrl: "/common/templates/enigmeForm.template.html",
                 controller: "enigmeFormCtrl",
+                controllerAs: "vm"
+            })
+            .when("/enigmes/:enigmeId/update", {
+                templateUrl: "/common/templates/enigmeForm.template.html",
+                controller: "enigmeUpdateCtrl",
                 controllerAs: "vm"
             })
             .when("/enigmes/:enigmeId", {

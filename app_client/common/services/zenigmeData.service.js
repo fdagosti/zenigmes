@@ -36,6 +36,14 @@
       });
    };
 
+   var updateEnigme = function(enigme) {
+      return $http.put("/api/enigmes/"+enigme._id, enigme, {
+        headers: {
+          Authorization: "Bearer "+ authentication.getToken()
+        }
+      });
+   };
+
 
    
    return {
@@ -43,6 +51,7 @@
      enigmeById: enigmeById,
      addEnigme: addEnigme,
      deleteEnigme: deleteEnigme,
+     updateEnigme: updateEnigme,
    };
  };
 })();

@@ -9,6 +9,7 @@
         vm.pageHeader = {
             title: "Créer une nouvelle enigme"
         };
+        vm.buttonTitle = "Créer l'énigme";
 
         $scope.tinymceOptions = {
             languages: "fr_FR",
@@ -27,7 +28,7 @@
         };
 
 
-        vm.create = function(enigme){
+        vm.updateOrCreate = function(enigme){
             console.log("CREATE "+vm.myFile);
             zenigmeData.addEnigme(enigme).success(function(data){
                 console.log("SUCCESS "+data);

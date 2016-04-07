@@ -15,6 +15,11 @@
 			});
 		};
 
+		vm.update = function(){
+			console.log("URL to go to : "+"/#enigmes/"+vm.enigme._id+"/update")
+			$location.path("/enigmes/"+vm.enigme._id+"/update");
+		};
+
 		zenigmeData.enigmeById($routeParams.enigmeId).success(function(data){
 			console.log("success "+data);
 			vm.enigme = data;

@@ -26,12 +26,26 @@
 			console.log(e);
 		});
 
+		var areBothNumbers = function(a, b){
+			return parseInt(a) != NaN && parseInt(b) != NaN;
+		};
+
+		var areEqual = function(a, b){
+			if (areBothNumbers(a, b)){
+				return parseInt(a) === parseInt(b);
+			}else {
+				return a === b;
+			}
+		}
+
 		vm.checkReponse = function(){
+			
+
 			if (vm.reponse === vm.enigme.reponse){
 				vm.reponseResult = "Bravo";
 				vm.reponseClass = "alert alert-success";
 			}else {
-				vm.reponseResult = "Faux, tu es Nul !!";
+				vm.reponseResult = "Désolé, ce n'est pas la bonne réponse";
 				vm.reponseClass = "alert alert-danger";
 			}
 		};

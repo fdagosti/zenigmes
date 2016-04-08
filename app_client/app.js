@@ -1,6 +1,6 @@
 (function(){
 
-    angular.module("zenigmesApp", ["ngRoute", "ngSanitize", "ui.tinymce", "ngAnimate"]);
+    angular.module("zenigmesApp", ["ngRoute", "ngSanitize", "ui.tinymce", "ngAnimate", "angularCSS"]);
 
     function config ($routeProvider, $locationProvider) {
         $routeProvider
@@ -33,6 +33,12 @@
                 templateUrl: "/auth/register/register.view.html",
                 controller: "registerCtrl",
                 controllerAs: "vm"
+            })
+            .when("/users", {
+                templateUrl: "/users/users.template.html",
+                controller: "usersCtrl",
+                controllerAs: "vm",
+                css: "users/users.css"
             })
             .otherwise({redirectTo: "/"});
 

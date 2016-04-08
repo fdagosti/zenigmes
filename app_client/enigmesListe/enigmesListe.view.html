@@ -13,8 +13,14 @@
 
   <div class="row">
     <div class="col-xs-12 col-md-8">
-      <label for="filter">Trouver rapidement une enigme</label>
-      <input id="filter" type="text", name="filter", ng-model="textFilter">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-4 control-label" for="filter">Trouver rapidement une enigme</label>
+          <div class="col-sm-8">
+            <input id="filter" class="form-control col-sm-10" type="text", name="filter", ng-model="textFilter"/>
+          </div>
+        </div>
+      </form>
       <div class="row list-group">
         <div class="col-xs-12 list-group-item" ng-repeat="enigme in vm.enigmes | filter: textFilter" >
           <h4>

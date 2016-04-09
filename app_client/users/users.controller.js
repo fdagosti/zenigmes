@@ -10,6 +10,7 @@
             zenigmeUsers.allUsers().success(function(data){
             vm.users = data;
             
+            
         })
         .error(function(e){
             vm.error=e;

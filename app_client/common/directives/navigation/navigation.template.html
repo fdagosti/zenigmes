@@ -16,8 +16,8 @@
         <li ng-show="navvm.isLoggedIn" class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">{{navvm.currentUser.name}}<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="/#enigmes/new">Créer une nouvelle énigme</a></li>
-            <li><a href="/#users">Gestion des utilisateurs</a></li>
+            <li ng-show="navvm.isAdmin"><a href="/#enigmes/new">Créer une nouvelle énigme</a></li>
+            <li ng-show="navvm.isAdmin" ><a href="/#users">Gestion des utilisateurs</a></li>
             <li><a href="" ng-click="navvm.logout()">Logout</a></li>
           </ul>
         </li>

@@ -13,6 +13,7 @@ var userSchema = new mongoose.Schema({
         required: true
     },
     createdOn: {type: Date, "default": Date.now},
+    role: {type: String, enum: ["admin", "member"], default: "member"},
     hash: String,
     salt: String
 });
@@ -35,6 +36,7 @@ userSchema.methods.generateJwt = function() {
         _id: this._id,
         email: this.email,
         name: this.name,
+        admin: this.role === "admin",
         exp: parseInt(expiry.getTime() / 1000)
     }, process.env.JWT_SECRET);
 }

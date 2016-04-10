@@ -22,7 +22,8 @@ module.exports.enigmesList = function(req, res){
 };
 
 module.exports.enigmeCreate = function(req, res){
-        console.log("Enigme create "+req.body);
+    
+    if (!req.user.admin) return res.sendStatus(401);
 
     zngm.create({
         titre: req.body.titre,
@@ -41,7 +42,7 @@ module.exports.enigmeCreate = function(req, res){
     });
 };
 module.exports.enigmeReadOne = function(req, res){
-        if (req.params && req.params.enigmeid){
+    if (req.params && req.params.enigmeid){
         zngm.findById(req.params.enigmeid).exec(function(err, enigme){
             if (!enigme){
                 sendJsonResponse(res, 404, {"message":"enigmeid not found"});
@@ -59,53 +60,59 @@ module.exports.enigmeReadOne = function(req, res){
     }
 };
 module.exports.enigmeUpdateOne = function(req, res){
-        if (!req.params.enigmeid) {
+
+    if (!req.user.admin) return res.sendStatus(401);
+
+    if (!req.params.enigmeid) {
         sendJsonResponse(res, 404, {
             message: "Not found, enigmeid is required"
         });
         return;
     }
     zngm
-        .findById(req.params.enigmeid)
-        .exec(
-            function(err, enigme) {
-                if (!enigme){
-                    sendJsonResponse(res, 404, {
-                        message: "enigmeid not found"
-                    });
-                    return;
-                } else if (err) {
-                    sendJsonResponse(res, 400, err);
-                    return;
-                }
-                enigme.titre = req.body.titre;
-                enigme.description = req.body.description;
-                enigme.points = parseInt(req.body.points);
-                enigme.niveau = parseInt(req.body.niveau);
-                enigme.reponse = req.body.reponse;
-                
-                enigme.save(function(err, enigme){
-                    if (err){
-                        sendJsonResponse(res, 404, err);
-                    } else {
-                        sendJsonResponse(res, 200, enigme);
-                    }
+    .findById(req.params.enigmeid)
+    .exec(
+        function(err, enigme) {
+            if (!enigme){
+                sendJsonResponse(res, 404, {
+                    message: "enigmeid not found"
                 });
-            })
+                return;
+            } else if (err) {
+                sendJsonResponse(res, 400, err);
+                return;
+            }
+            enigme.titre = req.body.titre;
+            enigme.description = req.body.description;
+            enigme.points = parseInt(req.body.points);
+            enigme.niveau = parseInt(req.body.niveau);
+            enigme.reponse = req.body.reponse;
+            
+            enigme.save(function(err, enigme){
+                if (err){
+                    sendJsonResponse(res, 404, err);
+                } else {
+                    sendJsonResponse(res, 200, enigme);
+                }
+            });
+        })
 };
 module.exports.enigmeDeleteOne = function(req, res){
-        var enigmeid = req.params.enigmeid;
+
+    if (!req.user.admin) return res.sendStatus(401);
+    
+    var enigmeid = req.params.enigmeid;
     if (enigmeid){
         zngm
-            .findByIdAndRemove(enigmeid)
-            .exec(
-                function(err, enigme) {
-                    if (err) {
-                        sendJsonResponse(res, 404, err);
-                        return;
-                    }
-                    sendJsonResponse(res, 204, null);
-                });
+        .findByIdAndRemove(enigmeid)
+        .exec(
+            function(err, enigme) {
+                if (err) {
+                    sendJsonResponse(res, 404, err);
+                    return;
+                }
+                sendJsonResponse(res, 204, null);
+            });
     } else {
         sendJsonResponse(res, 404, {
             message : "No enigmeid"

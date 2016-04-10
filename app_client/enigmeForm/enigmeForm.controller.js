@@ -29,13 +29,11 @@
 
 
         vm.updateOrCreate = function(enigme){
-            console.log("CREATE "+vm.myFile);
             zenigmeData.addEnigme(enigme).success(function(data){
-                console.log("SUCCESS "+data);
                 $location.path("/enigmes/"+data._id);
             })
             .error(function(data){
-                vm.formError = "Votre énigme n'a pas pu être sauvegardée ";
+                vm.formError = data;
             });
             return false
         };

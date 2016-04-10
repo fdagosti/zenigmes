@@ -4,6 +4,7 @@
 		var vm = this;
 
 		vm.isLoggedIn = authentication.isLoggedIn();
+		vm.isAdmin = vm.isLoggedIn && authentication.currentUser().admin;
 		vm.currentPath = $location.path();
 
 		vm.enigme = {};

@@ -26,7 +26,7 @@
                                     <td>
                                         <img src="http://bootdey.com/img/Content/user_1.jpg" alt="">
                                         <a href="#" class="user-link">{{user.name}}</a>
-                                        <span class="user-subhead">Member</span>
+                                        <span class="user-subhead">{{user.role | formatMembership}}</span>
                                     </td>
                                     <td>{{user.createdOn | date: 'd MMMM yyyy'}}</td>
                                     <td class="text-center">

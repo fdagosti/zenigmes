@@ -29,7 +29,6 @@
 
         vm.enigme = {};
         zenigmeData.enigmeById($routeParams.enigmeId).success(function(data){
-            console.log("success "+data.titre);
             vm.enigme = data;
         })
         .error(function(e){

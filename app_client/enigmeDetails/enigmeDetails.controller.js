@@ -20,7 +20,6 @@
 		};
 
 		zenigmeData.enigmeById($routeParams.enigmeId).success(function(data){
-			console.log("RETRIEVED ENIGME desc = "+data.description);
 			data.description = $sce.trustAsHtml(data.description);
 			vm.enigme = data;
 			

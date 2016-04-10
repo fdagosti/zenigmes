@@ -8,7 +8,6 @@
   function zenigmeData ($http, authentication) {
 
     var enigmeById = function(id){
-      console.log("enigmeId = "+id);
       return $http.get('/api/enigmes/'+id);
     };
 

@@ -8,8 +8,6 @@ var sendJsonResponse = function(res, status, content) {
 
 module.exports.usersList = function(req, res){
 
-    if (!req.user.admin) return res.sendStatus(401);
-
     users.find()
     .select("-hash -salt")
     .exec(
@@ -25,8 +23,6 @@ module.exports.usersList = function(req, res){
 };
 
 module.exports.userDelete = function(req, res){
-
-    if (!req.user.admin) return res.sendStatus(401);
 
     var userid = req.params.userid;
     if (userid){
@@ -48,8 +44,6 @@ module.exports.userDelete = function(req, res){
 };
 module.exports.userUpdate = function(req, res){
 
-    if (!req.user.admin) return res.sendStatus(401);
-    
     if (!req.params.userid) {
         sendJsonResponse(res, 404, {
             message: "Not found, userid is required"

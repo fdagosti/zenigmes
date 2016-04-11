@@ -23,8 +23,6 @@ module.exports.enigmesList = function(req, res){
 
 module.exports.enigmeCreate = function(req, res){
     
-    if (!req.user.admin) return res.sendStatus(401);
-
     zngm.create({
         titre: req.body.titre,
         description: req.body.description,
@@ -60,8 +58,6 @@ module.exports.enigmeReadOne = function(req, res){
     }
 };
 module.exports.enigmeUpdateOne = function(req, res){
-
-    if (!req.user.admin) return res.sendStatus(401);
 
     if (!req.params.enigmeid) {
         sendJsonResponse(res, 404, {
@@ -99,8 +95,6 @@ module.exports.enigmeUpdateOne = function(req, res){
 };
 module.exports.enigmeDeleteOne = function(req, res){
 
-    if (!req.user.admin) return res.sendStatus(401);
-    
     var enigmeid = req.params.enigmeid;
     if (enigmeid){
         zngm

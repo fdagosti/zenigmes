@@ -6,7 +6,7 @@
     function footerGeneric(){
         return {
             restrict: "EA",
-            templateUrl: "/common/directives/footerGeneric/footerGeneric.template.html"
+            templateUrl: "app/common/directives/footerGeneric/footerGeneric.template.html"
         };
     };
 })();

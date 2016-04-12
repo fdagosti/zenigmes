@@ -1,0 +1,48 @@
+<!-- public/index.html -->
+<!doctype html>
+<html ng-app="zenigmesApp" lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <meta charset="UTF-8">
+        <base href="/">
+
+        <title>Zenigmes</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.css">
+        <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap-theme.min.css">
+
+        <!-- App CSS -->
+        <!--inject:css-->
+        <!--endinject-->
+        
+        
+
+        <!-- Vendor JS -->
+        <script src="libs/jquery/dist/jquery.js"></script>
+        <script src="libs/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="libs/tinymce/tinymce.js"></script>
+        <script src="libs/angular/angular.js"></script>
+        <script src="libs/angular-i18n/angular-locale_fr-fr.js"></script>
+        <script src="libs/angular-route/angular-route.js"></script>
+        <script src="libs/angular-animate/angular-animate.js"></script>
+        <script src="/libs/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-css/1.0.8/angular-css.js"></script>
+        <script src="libs/angular-ui-tinymce/src/tinymce.js"></script>
+        <script src="libs/fr_FR.js"></script>
+
+        <!-- Application JS -->
+        <!--inject:js-->
+        <!--endinject-->
+
+        
+
+    </head>
+    <body>
+    <navigation></navigation>
+    <div class="page">   </div>
+    <div class="page" ng-view>   </div>
+    <footer-generic></footer-generic>
+    </body>
+</html>

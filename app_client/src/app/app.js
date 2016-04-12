@@ -5,40 +5,40 @@
     function config ($routeProvider, $locationProvider) {
         $routeProvider
             .when("/", {
-                templateUrl: "enigmesListe/enigmesListe.view.html",
+                templateUrl: "app/enigmesListe/enigmesListe.view.html",
                 controller: "enigmesListCtrl",
                 controllerAs: "vm"
             })
             .when("/enigmes/new", {
-                templateUrl: "/common/templates/enigmeForm.template.html",
+                templateUrl: "app/common/templates/enigmeForm.template.html",
                 controller: "enigmeFormCtrl",
                 controllerAs: "vm"
             })
             .when("/enigmes/:enigmeId/update", {
-                templateUrl: "/common/templates/enigmeForm.template.html",
+                templateUrl: "app/common/templates/enigmeForm.template.html",
                 controller: "enigmeUpdateCtrl",
                 controllerAs: "vm"
             })
             .when("/enigmes/:enigmeId", {
-                templateUrl: "/enigmeDetails/enigmeDetails.view.html",
+                templateUrl: "app/enigmeDetails/enigmeDetails.view.html",
                 controller: "enigmeDetailsCtrl",
                 controllerAs: "vm"
             })
             .when("/login", {
-                templateUrl: "/auth/login/login.view.html",
+                templateUrl: "app/auth/login/login.view.html",
                 controller: "loginCtrl",
                 controllerAs: "vm"
             })
             .when("/register", {
-                templateUrl: "/auth/register/register.view.html",
+                templateUrl: "app/auth/register/register.view.html",
                 controller: "registerCtrl",
                 controllerAs: "vm"
             })
             .when("/users", {
-                templateUrl: "/users/users.template.html",
+                templateUrl: "app/users/users.template.html",
                 controller: "usersCtrl",
                 controllerAs: "vm",
-                css: "users/users.css"
+                css: "app/users/users.css"
             })
             .otherwise({redirectTo: "/"});
 

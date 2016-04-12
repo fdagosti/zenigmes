@@ -10,7 +10,7 @@
             scope: {
                 enigme: "=enigme"
             },
-            templateUrl: "/common/directives/points/points.template.html",
+            templateUrl: "app/common/directives/points/points.template.html",
             controller: function(){
                 var vm = this;
                 vm.points = function(enigme){

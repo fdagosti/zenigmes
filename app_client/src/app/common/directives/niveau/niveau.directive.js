@@ -10,7 +10,7 @@
             scope: {
                 enigme: "=enigme"
             },
-            templateUrl: "/common/directives/niveau/niveau.template.html",
+            templateUrl: "app/common/directives/niveau/niveau.template.html",
             controller: function(){
                 var vm = this;
                 vm.getLevelText = function(enigme){

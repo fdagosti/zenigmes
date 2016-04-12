@@ -45,3 +45,4 @@ node_modules
 
 # build directory used by Gulp
 app_client/build
+app_client/bin

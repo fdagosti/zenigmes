@@ -50,14 +50,14 @@ gulp.task('build-src', function (callback) {
  Use 'del', a standard npm lib, to completely delete the build dir
  */
 gulp.task('clean', function () {
-    return del(['./app_client/build'], {force: true})
+    return del(['./app_client/build'], {force: true});
 });
 
 /*
  Use 'del', a standard npm lib, to completely delete the bin (production) dir
  */
 gulp.task('clean-bin', function (callback) {
-    del(['./bin'], {force: true}, callback)
+    return del(['./app_client/bin'], {force: true});
 });
 
 gulp.task('copy-build', ['copy-assets', 'copy-app', 'copy-libs-js']);
@@ -78,11 +78,16 @@ gulp.task('copy-libs-js', function () {
     .pipe(gulp.dest('./app_client/build/libs'));
 });
 
+gulp.task('copy-libs-js-compile', function () {
+  return gulp.src(files.app_files.vendor)
+    .pipe(gulp.dest('./app_client/bin/libs'));
+});
+
 gulp.task('copy-compile', ['copy-compile-assets']);
 
 gulp.task('copy-compile-assets', function () {
     return gulp.src(files.app_files.assets_compile)
-        .pipe(gulp.dest('./bin/assets'));
+        .pipe(gulp.dest('./app_client/bin'));
 });
 
 gulp.task('html2js', function () {
@@ -114,8 +119,9 @@ gulp.task('index', function () {
  from the "bin" folder during compile task.
  */
 gulp.task('index-compile', function () {
-    return gulp.src('./src/index.html')
-        .pipe(inject(gulp.src(['./bin/**/*.js', './bin/**/*.css'], {read: false}), {
+    return gulp.src('./app_client/src/index.html')
+        .pipe(inject(
+            gulp.src(['./app_client/bin/**/*.js', './app_client/bin/css/**/*.css'], {read: false}), {
             ignorePath: files.compile_dir + '/'
         }))
         .pipe(gulp.dest("./" + files.compile_dir));
@@ -129,14 +135,15 @@ gulp.task('ngmin', function () {
 
 gulp.task('uglify', function () {
     return gulp.src(files.app_files.ngmin_js)
-        .pipe(uglify());
+        .pipe(uglify())
+        .pipe(gulp.dest(files.compile_dir));
 });
 
 gulp.task('concat', function () {
 
     return gulp.src(files.app_files.js_compile)
         .pipe(concat(pkg.name + '-' + pkg.version + '.min.js'))
-        .pipe(gulp.dest('./bin/assets'))
+        .pipe(gulp.dest('./app_client/bin/assets'))
 });
 
 gulp.task('serve', function () {
@@ -154,6 +161,7 @@ gulp.task('compile', function (callback) {
         'ngmin',
         'uglify',
         'index-compile',
+        "copy-libs-js-compile",
         callback);
 });
 

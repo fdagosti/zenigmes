@@ -7,8 +7,10 @@ var path = path = require('path');
 //   res.render('index', { title: 'Express' });
 // });
 
+var indexLoc = process.env.NODE_ENV === "production" ? "bin":"build";
+
 router.get("*", function(req, res) {
-    res.sendFile('index.html', { root: path.join(__dirname, '../../app_client/build') });
+    res.sendFile('index.html', { root: path.join(__dirname, '../../app_client/' + indexLoc) });
 });
 
 module.exports = router;

@@ -14,7 +14,7 @@ module.exports = {
         atpl: ['app_client/src/**/*.view.html', 'app_client/src/**/*.template.html'],
         tpl_src: ["./app_client/build/app/**/*.js", "./app_client/build/css/**/*.css"],
         // the index.html
-        html: ['app_client/index.html'],
+        html: ['app_client/src/index.html'],
         assets_compile: ['app_client/build/**/*.css'],
         ngmin_js: ['./app_client/bin/**/*.js']
     },

@@ -153,6 +153,14 @@ gulp.task('serve', function () {
         })
 });
 
+gulp.task('set-prod-node-env', function () {
+    process.env.MONGOLAB_URI='mongodb://localhost/zenigmes';
+    return process.env.NODE_ENV = 'production';
+});
+
+gulp.task('serve-bin', ["set-prod-node-env", "serve"]);
+
+
 gulp.task('compile', function (callback) {
     runSequence('build',
         'clean-bin',

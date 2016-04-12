@@ -24,6 +24,7 @@ var files = require('./gulp/gulp.config.js');
 gulp.task('build', function (callback) {
     runSequence('clean',
         'copy-build',
+        "html2js",
         'index',
         callback);
 });

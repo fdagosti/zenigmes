@@ -1,6 +1,6 @@
 (function(){
 
-    angular.module("zenigmesApp", ["ngRoute", "ngSanitize", "ui.tinymce", "ngAnimate", "angularCSS"]);
+    angular.module("zenigmesApp", ["ngRoute", "ngSanitize", "ui.tinymce", "ngAnimate", "angularCSS", "templates-app"]);
 
     function config ($routeProvider, $locationProvider) {
         $routeProvider

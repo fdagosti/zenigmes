@@ -11,6 +11,6 @@
                 content: "=content"
             },
             templateUrl: "app/common/directives/pageHeader/pageHeader.template.html"
-        }
+        };
     }
 })();

@@ -52,5 +52,5 @@
      deleteEnigme: deleteEnigme,
      updateEnigme: updateEnigme,
    };
- };
+ }
 })();

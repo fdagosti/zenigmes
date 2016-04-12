@@ -8,5 +8,5 @@
             restrict: "EA",
             templateUrl: "app/common/directives/footerGeneric/footerGeneric.template.html"
         };
-    };
+    }
 })();

@@ -8,7 +8,7 @@ var path = path = require('path');
 // });
 
 router.get("*", function(req, res) {
-    res.sendFile('index.html', { root: path.join(__dirname, '../../app_client/bin') });
+    res.sendFile('index.html', { root: path.join(__dirname, '../../app_client/build') });
 });
 
 module.exports = router;

@@ -29,7 +29,7 @@
 		});
 
 		var areBothNumbers = function(a, b){
-			return parseInt(a) != NaN && parseInt(b) != NaN;
+			return !isNaN(parseInt(a)) && !isNaN(parseInt(b));
 		};
 
 		var areEqual = function(a, b){
@@ -38,7 +38,7 @@
 			}else {
 				return a === b;
 			}
-		}
+		};
 
 		vm.checkReponse = function(){
 			

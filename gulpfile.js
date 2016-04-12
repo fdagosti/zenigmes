@@ -166,7 +166,7 @@ gulp.task('compile', function (callback) {
 });
 
 gulp.task('lint', function() {
-    return gulp.src(files.app_files.js)
+    return gulp.src("app_client/src/**/*.js")
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });

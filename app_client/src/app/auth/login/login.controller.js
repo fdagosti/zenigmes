@@ -38,6 +38,6 @@
                     $location.search("page", null);
                     $location.path(vm.returnPage);
                 });
-        }
-    };
+        };
+    }
 })();

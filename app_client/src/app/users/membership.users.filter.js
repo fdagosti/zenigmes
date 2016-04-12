@@ -10,5 +10,5 @@
       else
         return "Membre";
     };
-  };
+  }
 })();

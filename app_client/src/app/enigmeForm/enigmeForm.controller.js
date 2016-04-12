@@ -35,12 +35,12 @@
             .error(function(data){
                 vm.formError = data;
             });
-            return false
+            return false;
         };
 
 
 
 
 
-    };
+    }
 })();

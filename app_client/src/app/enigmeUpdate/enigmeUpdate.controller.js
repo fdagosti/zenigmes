@@ -42,12 +42,12 @@
             .error(function(data){
                 vm.formError = "Votre énigme n'a pas pu être mis à jour ";
             });
-            return false
+            return false;
         };
 
 
 
 
 
-    };
+    }
 })();

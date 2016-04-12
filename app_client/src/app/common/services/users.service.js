@@ -41,5 +41,5 @@
      deleteUser: deleteUser,
      updateUser: updateUser,
    };
- };
+ }
 })();

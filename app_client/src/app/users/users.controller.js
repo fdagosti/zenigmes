@@ -5,21 +5,18 @@
         vm.tagline = 'Jouons un peu';   
 
         var listUsers = function() {
-            zenigmeUsers.allUsers().success(function(data){
-                vm.users = data;
-                
-                
-            })
-            .error(function(e){
-                vm.error=e;
+            zenigmeUsers.allUsers().then(function(response){
+                vm.users = response.data;
+            },function(e){
+                vm.error=e.data;
             });
         };
 
         vm.deleteUser = function(user){
-            zenigmeUsers.deleteUser(user).success(function(data){
+            zenigmeUsers.deleteUser(user).then(function(response){
                 listUsers();
-            }).error(function(e){
-                console.log(e);
+            },function(e){
+                console.log(e.data);
             });
         };
 

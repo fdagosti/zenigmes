@@ -12,7 +12,6 @@ module.exports.usersList = function(req, res){
     .select("-hash -salt")
     .exec(
         function(err, users){
-            console.log("after DB query "+err+" "+users);
             if (err){
                 sendJsonResponse(res, 404, err);
             }else{

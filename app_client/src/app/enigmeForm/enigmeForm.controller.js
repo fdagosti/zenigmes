@@ -29,11 +29,10 @@
 
 
         vm.updateOrCreate = function(enigme){
-            zenigmeData.addEnigme(enigme).success(function(data){
-                $location.path("/enigmes/"+data._id);
-            })
-            .error(function(data){
-                vm.formError = data;
+            zenigmeData.addEnigme(enigme).then(function(response){
+                $location.path("/enigmes/"+response.data._id);
+            },function(response){
+                vm.formError = response.data;
             });
             return false;
         };

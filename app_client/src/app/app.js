@@ -2,7 +2,9 @@
 
     angular.module("zenigmesApp", ["ngRoute", "ngSanitize", "ui.tinymce", "ngAnimate", "angularCSS", "templates-app"]);
 
-    function config ($routeProvider, $locationProvider) {
+    function config ($routeProvider, $locationProvider,$httpProvider) {
+        $httpProvider.useLegacyPromiseExtensions(false);
+
         $routeProvider
             .when("/", {
                 templateUrl: "app/enigmesListe/enigmesListe.view.html",
@@ -47,5 +49,5 @@
 
     angular
         .module("zenigmesApp")
-        .config(["$routeProvider", "$locationProvider", config]);
+        .config(["$routeProvider", "$locationProvider","$httpProvider", config]);
 })();

@@ -4,13 +4,14 @@
 		var vm = this;
 		vm.tagline = 'Jouons un peu';   
 
-		zenigmeData.allEnigmes().success(function(data){
-			vm.enigmes = data;
+		zenigmeData.allEnigmes()
+			.then(function(response){
+				vm.enigmes = response.data;
 			
-		})
-		.error(function(e){
-			console.log(e);
-		});
+			},function(e){
+				console.log(e.data);
+			}
+		);
 
 	});
 })();

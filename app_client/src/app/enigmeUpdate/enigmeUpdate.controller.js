@@ -28,18 +28,16 @@
         };
 
         vm.enigme = {};
-        zenigmeData.enigmeById($routeParams.enigmeId).success(function(data){
-            vm.enigme = data;
-        })
-        .error(function(e){
+        zenigmeData.enigmeById($routeParams.enigmeId).then(function(response){
+            vm.enigme = response.data;
+        },function(e){
             console.log(e);
         });
 
         vm.updateOrCreate = function(enigme){
-            zenigmeData.updateEnigme(enigme).success(function(data){
-                $location.path("/enigmes/"+data._id);
-            })
-            .error(function(data){
+            zenigmeData.updateEnigme(enigme).then(function(response){
+                $location.path("/enigmes/"+response.data._id);
+            },function(data){
                 vm.formError = "Votre énigme n'a pas pu être mis à jour ";
             });
             return false;

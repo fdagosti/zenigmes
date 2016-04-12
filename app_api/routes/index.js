@@ -7,7 +7,6 @@ var auth = jwt({
 });
 
 var adminCheck = function(req, res, next){
-    console.log("Admin Check");
     if (!req.user.admin) return res.sendStatus(401);
     next();
 };

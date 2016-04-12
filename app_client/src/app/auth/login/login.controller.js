@@ -31,12 +31,11 @@
             vm.formError = "";
             authentication
                 .login(vm.credentials)
-                .error(function(err) {
-                    vm.formError = err;
-                })
                 .then(function() {
                     $location.search("page", null);
                     $location.path(vm.returnPage);
+                }, function(err) {
+                    vm.formError = err.data;
                 });
         };
     }

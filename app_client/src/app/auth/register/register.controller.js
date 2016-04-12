@@ -32,12 +32,15 @@
             vm.formError = "";
             authentication
                 .register(vm.credentials)
-                .error(function(err) {
-                    vm.formError = err;
-                })
                 .then(function() {
                     $location.search("page", null);
                     $location.path(vm.returnPage);
+                }, function(response) {
+                    if (response.data.code===11000){
+                        vm.formError = "L'adresse Email est déja utilisée";
+                    }else{
+                        vm.formError = response.data;
+                    }
                 });
         };
     }

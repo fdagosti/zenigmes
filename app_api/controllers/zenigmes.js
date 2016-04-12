@@ -11,7 +11,6 @@ module.exports.enigmesList = function(req, res){
     .select("-description")
     .exec(
         function(err, enigmes){
-            console.log("after DB query "+err+" "+enigmes);
             if (err){
                 sendJsonResponse(res, 404, err);
             }else{

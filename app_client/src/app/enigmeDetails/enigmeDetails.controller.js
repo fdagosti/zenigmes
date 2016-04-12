@@ -10,7 +10,8 @@
 		vm.enigme = {};
 
 		vm.delete = function(){
-			zenigmeData.deleteEnigme(vm.enigme).success(function(data){
+			zenigmeData.deleteEnigme(vm.enigme)
+			.then(function(data){
 				$location.path("/");
 			});
 		};
@@ -19,13 +20,12 @@
 			$location.path("/enigmes/"+vm.enigme._id+"/update");
 		};
 
-		zenigmeData.enigmeById($routeParams.enigmeId).success(function(data){
-			data.description = $sce.trustAsHtml(data.description);
-			vm.enigme = data;
-			
-		})
-		.error(function(e){
-			console.log(e);
+		zenigmeData.enigmeById($routeParams.enigmeId)
+			.then(function(response){
+				response.data.description = $sce.trustAsHtml(response.data.description);
+				vm.enigme = response.data;
+			},function(e){
+				console.log(e);
 		});
 
 		var areBothNumbers = function(a, b){

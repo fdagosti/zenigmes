@@ -43,7 +43,7 @@ gulp.task('default', function (callback) {
  Selectively build JUST the JS source.
  */
 gulp.task('build-src', function (callback) {
-    runSequence('copy-build', 'index', callback)
+    runSequence('copy-assets', 'copy-app', 'index', callback)
 });
 
 /*

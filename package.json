@@ -42,7 +42,7 @@
 
   },
   "devDependencies": {
-    "gulp-serve": "^1.2.0",
+    "gulp-serve": "^1.2.0"
     
   },
   "scripts" :

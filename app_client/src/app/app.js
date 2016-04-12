@@ -1,6 +1,6 @@
 (function(){
 
-    angular.module("zenigmesApp", ["ngRoute", "ngSanitize", "ui.tinymce", "ngAnimate", "angularCSS", "templates-app"]);
+    angular.module("zenigmesApp", ["ngRoute", "ngSanitize", "ui.tinymce", "ngAnimate", "angularCSS", "templates-app", "ui.calendar"]);
 
     function config ($routeProvider, $locationProvider,$httpProvider) {
         $httpProvider.useLegacyPromiseExtensions(false);
@@ -34,6 +34,11 @@
             .when("/register", {
                 templateUrl: "app/auth/register/register.view.html",
                 controller: "registerCtrl",
+                controllerAs: "vm"
+            })
+            .when("/sessions/new", {
+                templateUrl: "app/sessionForm/sessionForm.template.html",
+                controller: "sessionFormCtrl",
                 controllerAs: "vm"
             })
             .when("/users", {

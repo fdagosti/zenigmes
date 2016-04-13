@@ -7,6 +7,26 @@
     function sessionFormCtrl($scope, $location, zenigmeData){
 
         var vm = this;
+
+        vm.session = {};
+        vm.session.start = new Date();
+        vm.openDatePicker = function(){
+            console.log("openDatePicker");
+            vm.datePickerOpened = true;
+        };
+
+        vm.session.enigmes = {};
+
+
+        vm.enigmes=[
+        "salut",
+        "ca va",
+        "bien",
+        "je met des mots",
+        "en general",
+
+        ];
+
         vm.pageHeader = {   
             title: "Créer une nouvelle session"
         };
@@ -60,7 +80,7 @@
 
 
         ];
-        var vm = this;
+        
 
 
 

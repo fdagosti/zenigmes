@@ -1,10 +1,88 @@
 <div class="container">
-    <page-header content="vm.pageHeader"></page-header>
+  <page-header content="vm.pageHeader"></page-header>
 
-    <div class="row">
-        <div class="col-xs-12 col-md-8">
+  <div class="row">
+    <div class="col-xs-12 col-md-8">
 
-            <div ui-calendar ng-model="eventSources"></div>
+      <form ng-submit="vm.updateOrCreate(vm.enigme)">
+        <div role="alert" ng-show="vm.formError" class="alert alert-danger">{{vm.formError}}</div>
+        <div class="form-group">
+          <label for="title">Nom de la session</label>
+          <input class="form-control" id="title" ng-model="vm.enigme.titre" placeholder="Titre">
         </div>
+        
+
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+            <div class="form-group">
+              <label for="">Niveau de l'énigme</label>
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="niveauRadios" id="optionsRadios1" value="1" ng-model="vm.enigme.niveau" checked>
+                      <niveau enigme="{niveau:1}"/>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="niveauRadios" id="optionsRadios2" value="2" ng-model="vm.enigme.niveau">
+                      <niveau enigme="{niveau:2}"/>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="niveauRadios" id="optionsRadios3" value="3" ng-model="vm.enigme.niveau">
+                      <niveau enigme="{niveau:3}"/>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label for="">Début de la session</label>
+            <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup ng-model="vm.session.start" is-open="vm.datePickerOpened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="vm.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">Listes Des enigmes pour le niveau <niveau  enigme="{niveau:2}"></niveau> </div>
+              <div class="panel-body">
+                <ul class="list-group" ui-sortable ng-model="vm.enigmes">
+                  <li class="list-group-item" ng-repeat="enigme in vm.enigmes">{{ enigme }}</li>
+                </ul>
+              </div>  
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">Listes Des enigmes pour la session en cours</niveau> </div>
+              <div class="panel-body">
+                <ul class="screen draggable-element-container list-group" ui-sortable ng-model="vm.session.enigmes">
+                  <li class="list-group-item" ng-repeat="enigme in vm.session.enigmes">{{ enigme }}</li>
+                </ul>
+              </div>  
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <div class="panel panel-default">
+              <div class="panel-heading">Vue de calendrier</div>
+              <div class="panel-body">
+                <div ui-calendar ng-model="eventSources"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
     </div>
+  </div>
 </div>

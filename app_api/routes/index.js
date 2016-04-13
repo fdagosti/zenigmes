@@ -14,6 +14,7 @@ var adminCheck = function(req, res, next){
 var ctrlEnigmes = require("../controllers/zenigmes");
 var ctrlAuth = require("../controllers/authentication");
 var ctrlUsers = require("../controllers/users");
+var ctrlSessions = require("../controllers/sessions");
 
 // enigmes
 router.get("/enigmes", ctrlEnigmes.enigmesList);
@@ -30,6 +31,13 @@ router.post("/login", ctrlAuth.login);
 router.get("/users", auth, adminCheck, ctrlUsers.usersList);
 router.delete("/users/:userid", auth, adminCheck, ctrlUsers.userDelete);
 router.put("/users/:userid", auth, adminCheck, ctrlUsers.userUpdate);
+
+// sessions
+router.get("/sessions", auth, adminCheck, ctrlSessions.sessionsList);
+router.post("/sessions", auth, adminCheck, ctrlSessions.sessionCreate);
+router.get("/sessions/:sessionid", auth, adminCheck, ctrlSessions.sessionsListOne);
+router.put("/sessions/:sessionid", auth, adminCheck, ctrlSessions.sessionUpdateOne);
+router.delete("/sessions/:sessionid", auth, adminCheck, ctrlSessions.sessionDeleteOne);
 
  
 module.exports = router;

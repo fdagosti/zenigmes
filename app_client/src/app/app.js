@@ -36,6 +36,11 @@
                 controller: "registerCtrl",
                 controllerAs: "vm"
             })
+            .when("/sessions", {
+                templateUrl: "app/sessions/sessionsList.template.html",
+                controller: "sessionsCtrl",
+                controllerAs: "vm",
+            })
             .when("/sessions/new", {
                 templateUrl: "app/sessionForm/sessionForm.template.html",
                 controller: "sessionFormCtrl",

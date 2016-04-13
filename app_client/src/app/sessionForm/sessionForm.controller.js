@@ -4,8 +4,7 @@
     .module("zenigmesApp")
     .controller("sessionFormCtrl", sessionFormCtrl);
 
-    function sessionFormCtrl($scope, $location, zenigmeData, uiCalendarConfig){
-
+    function sessionFormCtrl($scope, $location, zenigmeData, sessionsData){
 
         var vm = this;
         vm.pageHeader = {   
@@ -17,13 +16,16 @@
         vm.session.niveau = 1;
         vm.session.start = new Date();
 
+        vm.openDatePicker = function(){
+            vm.datePickerOpened = true;
+        };
         
         vm.selectedEnigmes = [{ titre: 'Glissez vos enigmes ici', avoid:true }];
 
         var updateEvents = function(){
-            console.log("update");
             var src = vm.selectedEnigmes;
             $scope.events.length = 0;
+            vm.session.enigmes = [];
             var res = $scope.events;
             var sd = new Date(vm.session.start);
             var ed = new Date(sd.getTime());
@@ -37,11 +39,20 @@
                         stick: true,
                         allDay : true
                     });
+
+                    vm.session.enigmes.push({
+                        enigme: src[i]._id,
+                        start: new Date(sd.getTime()),
+                        end: new Date(ed.getTime()),
+                    });
+
                     sd.setDate(sd.getDate() + 7);
                     ed.setDate(ed.getDate() + 7);
                 }
             }
         };
+
+
 
         $scope.$watch("vm.selectedEnigmes", function(){
             updateEvents();
@@ -49,15 +60,8 @@
 
         $scope.$watch("vm.session.start", function(){
             updateEvents();
-        }, true);
+        });
         
-
-        vm.openDatePicker = function(){
-            console.log("DATE PICKER "+vm.selectedEnigmes.length);
-            vm.datePickerOpened = true;
-        };
-
-
 
         $scope.draggableOptions = {
             connectWith: ".connected-drop-target-sortable",
@@ -66,7 +70,6 @@
         $scope.sortableOptions = {
             connectWith: ".draggable-element-container",
         };
-
 
         zenigmeData.allEnigmes()
         .then(function(response){
@@ -78,15 +81,18 @@
         }
         );
 
-
-        
-
-
         $scope.events = [];
-
-        
-
         $scope.eventSources = [$scope.events];
 
-}
+        vm.createSession = function(){
+            console.log("creating session "+vm.session);
+            console.log("toto");
+            sessionsData.addSession(vm.session)
+            .then(function(){
+                $location.path("/");
+            }, function(err){
+                vm.formError = err;
+            });
+        };
+    }
 })();

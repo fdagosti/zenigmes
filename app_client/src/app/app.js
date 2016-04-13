@@ -39,7 +39,7 @@
             .when("/sessions/new", {
                 templateUrl: "app/sessionForm/sessionForm.template.html",
                 controller: "sessionFormCtrl",
-                controllerAs: "vm"
+                controllerAs: "vm",
             })
             .when("/users", {
                 templateUrl: "app/users/users.template.html",

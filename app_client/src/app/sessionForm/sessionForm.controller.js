@@ -4,87 +4,89 @@
     .module("zenigmesApp")
     .controller("sessionFormCtrl", sessionFormCtrl);
 
-    function sessionFormCtrl($scope, $location, zenigmeData){
+    function sessionFormCtrl($scope, $location, zenigmeData, uiCalendarConfig){
+
 
         var vm = this;
-
-        vm.session = {};
-        vm.session.start = new Date();
-        vm.openDatePicker = function(){
-            console.log("openDatePicker");
-            vm.datePickerOpened = true;
-        };
-
-        vm.session.enigmes = {};
-
-
-        vm.enigmes=[
-        "salut",
-        "ca va",
-        "bien",
-        "je met des mots",
-        "en general",
-
-        ];
-
         vm.pageHeader = {   
             title: "Créer une nouvelle session"
         };
 
-        $scope.eventSources = [
-        {
-            events: [
-            {
-                title: 'Enigmes des 6eme. Semaine 1',
-                start: '2016-09-05',
-                end: '2016-09-09'
-            },
-            {
-                title: 'Enigmes des 6eme. Semaine 2',
-                start: '2016-09-12',
-                end: '2016-09-16'
-            }           
-            ],
-            color: 'green',
-        },
-        {
-            events: [
-            {
-                title: 'Enigmes des 4eme. Semaine 1',
-                start: '2016-09-05',
-                end: '2016-09-09'
-            },
-            {
-                title: 'Enigmes des 4eme. Semaine 2',
-                start: '2016-09-12',
-                end: '2016-09-16'
-            }           
-            ],
-            color: 'orange',
-        },
-        {
-            events: [
-            {
-                title: 'Enigmes des Lycées. Semaine 1',
-                start: '2016-09-05',
-                end: '2016-09-09'
-            },
-            {
-                title: 'Enigmes des Lycées. Semaine 2',
-                start: '2016-09-12',
-                end: '2016-09-16'
-            }           
-            ],
-            color: 'red',
+        vm.enigmes = {};
+        vm.session = {};
+        vm.session.niveau = 1;
+        vm.session.start = new Date();
+
+        
+        vm.selectedEnigmes = [{ titre: 'Glissez vos enigmes ici', avoid:true }];
+
+        var updateEvents = function(){
+            console.log("update");
+            var src = vm.selectedEnigmes;
+            $scope.events.length = 0;
+            var res = $scope.events;
+            var sd = new Date(vm.session.start);
+            var ed = new Date(sd.getTime());
+            ed.setDate(ed.getDate() + 7);
+            for (i = 0; i < src.length;i++){
+                if (!src[i].avoid){
+                    res.push({
+                        title: src[i].titre,
+                        start: new Date(sd.getTime()).toISOString(),
+                        end: new Date(ed.getTime()).toISOString(),
+                        stick: true,
+                        allDay : true
+                    });
+                    sd.setDate(sd.getDate() + 7);
+                    ed.setDate(ed.getDate() + 7);
+                }
+            }
+        };
+
+        $scope.$watch("vm.selectedEnigmes", function(){
+            updateEvents();
+        }, true);
+
+        $scope.$watch("vm.session.start", function(){
+            updateEvents();
+        }, true);
+        
+
+        vm.openDatePicker = function(){
+            console.log("DATE PICKER "+vm.selectedEnigmes.length);
+            vm.datePickerOpened = true;
+        };
+
+
+
+        $scope.draggableOptions = {
+            connectWith: ".connected-drop-target-sortable",
+        };
+
+        $scope.sortableOptions = {
+            connectWith: ".draggable-element-container",
+        };
+
+
+        zenigmeData.allEnigmes()
+        .then(function(response){
+            vm.enigmes = response.data.map(function(x){
+                return [x];
+            });
+        },function(e){
+            console.log(e.data);
         }
+        );
 
 
-        ];
         
 
 
+        $scope.events = [];
 
+        
 
+        $scope.eventSources = [$scope.events];
 
-    }
+}
 })();

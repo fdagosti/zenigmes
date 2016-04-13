@@ -2,13 +2,13 @@
   <page-header content="vm.pageHeader"></page-header>
 
   <div class="row">
-    <div class="col-xs-12 col-md-8">
+    <div class="col-xs-12">
 
       <form ng-submit="vm.updateOrCreate(vm.enigme)">
         <div role="alert" ng-show="vm.formError" class="alert alert-danger">{{vm.formError}}</div>
         <div class="form-group">
           <label for="title">Nom de la session</label>
-          <input class="form-control" id="title" ng-model="vm.enigme.titre" placeholder="Titre">
+          <input class="form-control" id="title" ng-model="vm.session.nom" placeholder="Titre">
         </div>
         
 
@@ -20,19 +20,19 @@
                 <div class="panel-body">
                   <div class="radio">
                     <label>
-                      <input type="radio" name="niveauRadios" id="optionsRadios1" value="1" ng-model="vm.enigme.niveau" checked>
+                      <input type="radio" name="niveauRadios" id="optionsRadios1" value="1" ng-model="vm.session.niveau" checked>
                       <niveau enigme="{niveau:1}"/>
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="niveauRadios" id="optionsRadios2" value="2" ng-model="vm.enigme.niveau">
+                      <input type="radio" name="niveauRadios" id="optionsRadios2" value="2" ng-model="vm.session.niveau">
                       <niveau enigme="{niveau:2}"/>
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="niveauRadios" id="optionsRadios3" value="3" ng-model="vm.enigme.niveau">
+                      <input type="radio" name="niveauRadios" id="optionsRadios3" value="3" ng-model="vm.session.niveau">
                       <niveau enigme="{niveau:3}"/>
                     </label>
                   </div>
@@ -51,38 +51,43 @@
 
           </div>
         </div>
-        <div class="row">
-          <div class="col-xs-12 col-md-4">
-            <div class="panel panel-default">
-              <div class="panel-heading">Listes Des enigmes pour le niveau <niveau  enigme="{niveau:2}"></niveau> </div>
-              <div class="panel-body">
-                <ul class="list-group" ui-sortable ng-model="vm.enigmes">
-                  <li class="list-group-item" ng-repeat="enigme in vm.enigmes">{{ enigme }}</li>
-                </ul>
-              </div>  
-            </div>
-          </div>
-          <div class="col-xs-12 col-md-4">
-            <div class="panel panel-default">
-              <div class="panel-heading">Listes Des enigmes pour la session en cours</niveau> </div>
-              <div class="panel-body">
-                <ul class="screen draggable-element-container list-group" ui-sortable ng-model="vm.session.enigmes">
-                  <li class="list-group-item" ng-repeat="enigme in vm.session.enigmes">{{ enigme }}</li>
-                </ul>
-              </div>  
-            </div>
-          </div>
-          <div class="col-xs-12 col-md-4">
-            <div class="panel panel-default">
-              <div class="panel-heading">Vue de calendrier</div>
-              <div class="panel-body">
-                <div ui-calendar ng-model="eventSources"></div>
+
+        
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">Enigmes de niveau <niveau  enigme="vm.session"></niveau> </div>
+          <div class="panel-body">
+          <div class="list-group">
+              <div ui-sortable="draggableOptions" class="screen draggable-element-container" ng-repeat="enigmeArray in vm.enigmes track by $index" ng-model="enigmeArray">
+                <div ng-repeat="enigme in enigmeArray  | filter:{niveau: vm.session.niveau}" class="list-group-item">{{enigme.titre}}</div>
               </div>
+          </div>  
+        </div>
+      </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">Enigmes de la session en cours </div>
+          <div class="panel-body">
+            <div ui-sortable="sortableOptions" class=" list-group screen connected-drop-target-sortable" ng-model="vm.selectedEnigmes">
+              <div class="list-group-item" ng-repeat="component in vm.selectedEnigmes track by $index">{{component.titre}}</div>
             </div>
+          </div>  
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Vue de calendrier</div>
+          <div class="panel-body">
+            <div calendar="toto" ui-calendar ng-model="eventSources"></div>
           </div>
         </div>
-      </form>
-
+      </div>
     </div>
-  </div>
+  </form>
+
+</div>
+</div>
 </div>

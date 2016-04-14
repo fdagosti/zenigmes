@@ -22,6 +22,7 @@
             "searchreplace visualblocks code fullscreen",
             "insertdatetime media table contextmenu paste imagetools textcolor colorpicker"
             ],
+            extended_valid_elements : "iframe[src|frameborder|style|scrolling|class|width|height|name|align]",
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor",
             
 

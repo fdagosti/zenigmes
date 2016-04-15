@@ -87,7 +87,7 @@
 
                     });  
 
-                };
+                }
 
                 vm.draggableOptions = {
                     connectWith: ".connected-drop-target-sortable",

@@ -23,7 +23,7 @@
             .then(function(){
                 $location.path("/");
             }, function(err){
-                vm.formError = err;
+                vm.formError = err.data;
             });
         };
     }

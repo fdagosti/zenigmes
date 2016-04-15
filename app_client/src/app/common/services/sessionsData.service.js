@@ -4,14 +4,37 @@
   .module('zenigmesApp')
   .factory('sessionsData', sessionsData);
 
-  sessionsData.$inject = ["$http", "authentication"];   
-  function sessionsData ($http, authentication) {
+  sessionsData.$inject = ["$http", "authentication","$q","zenigmeData"];   
+  function sessionsData ($http, authentication, $q,zenigmeData) {
 
     var sessionById = function(id){
       return $http.get('/api/sessions/'+id, {
         headers: {
           Authorization: "Bearer "+ authentication.getToken()
         }
+      });
+    };
+
+    var allSessionsWithEnigmes = function(){
+      var sessionP = allSessions();
+      var enigmesP = zenigmeData.allEnigmes();
+
+      return $q.all([sessionP, enigmesP]).then(function(data){
+        sessions = data[0].data;
+        enigmes = data[1].data;
+
+        sessions.forEach(function(session){
+          session.enigmes.forEach(function(enigme){
+            enigmes.forEach(function(dbEnigme){
+              if (dbEnigme._id === enigme.enigme){
+                enigme.enigme = dbEnigme;
+              }
+
+            });
+
+          });
+        });
+        return sessions;
       });
     };
 
@@ -59,6 +82,7 @@
      addSession: addSession,
      deleteSession: deleteSession,
      updateSession: updateSession,
+     allSessionsWithEnigmes:allSessionsWithEnigmes
    };
  }
 })();

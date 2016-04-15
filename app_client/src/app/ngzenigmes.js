@@ -1,6 +1,6 @@
 (function(){
 
-    angular.module("zenigmesApp", ["ngRoute", "ngSanitize", "ui.tinymce", "ngAnimate", "angularCSS", "templates-app", "ui.calendar", "ui.bootstrap", "ui.sortable","checklist-model"]);
+    angular.module("zenigmesApp", ["ngRoute", "ngSanitize", "ui.tinymce", "ngAnimate", "angularCSS", "templates-app", "ui.calendar", "ui.bootstrap", "ui.sortable","checklist-model", "ui.grid"]);
 
     function config ($routeProvider, $locationProvider,$httpProvider) {
         $httpProvider.useLegacyPromiseExtensions(false);

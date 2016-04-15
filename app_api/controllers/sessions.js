@@ -20,19 +20,14 @@ module.exports.sessionsList = function(req, res){
 };
 
 module.exports.sessionCreate = function(req, res){
-    console.log("Creating a session array = "+req.body.enigmes);
 
-    var tab = req.body.enigmes;
-
-    for (i = 0; i < tab.length; i++){
-        console.log("tab["+i+"] = "+tab[i].enigme+" "+tab[i].start+" "+tab[i].end);
-    }
 
     sessionDB.create({
         nom: req.body.nom,
         niveau: req.body.niveau,
         start: req.body.start,
-        enigmes: req.body.enigmes
+        enigmes: req.body.enigmes,
+        participants: req.body.particpants
 
     }, function(err, session){
 
@@ -62,7 +57,6 @@ module.exports.sessionsListOne = function(req, res){
     }
 };
 module.exports.sessionUpdateOne = function(req, res){
-
     if (!req.params.sessionid) {
         sendJsonResponse(res, 404, {
             message: "Not found, sessionid is required"
@@ -86,6 +80,7 @@ module.exports.sessionUpdateOne = function(req, res){
             session.niveau = parseInt(req.body.niveau);
             session.start = req.body.start;
             session.enigmes = req.body.enigmes;
+            session.participants = req.body.participants;
             
             session.save(function(err, session){
                 if (err){

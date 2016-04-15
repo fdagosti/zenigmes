@@ -37,13 +37,20 @@
         </div>
       </div>
       <div class="col-xs-12 col-md-6">
-        <label for="">Début de la session</label>
-        <p class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup ng-model="session.start" is-open="vm.datePickerOpened" datepicker-options ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-          <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="vm.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
-          </span>
-        </p>
+        <div class="row">
+          <div class="col-xs-12">
+            <label for="">Début de la session</label>
+            <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup ng-model="session.start" is-open="vm.datePickerOpened" datepicker-options ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="vm.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+          </div>
+          <div class="col-xs-12">
+              <user-picker users="session.users"></user-picker>          
+          </div>
+        </div>
 
       </div>
     </div>

@@ -1,6 +1,6 @@
 <div class="container">
   <page-header content="vm.pageHeader" ></page-header>
-  
+  <div role="alert" ng-show="vm.formError" class="alert alert-danger">{{vm.formError}}</div>  
   <session-form session="vm.session" button-title="vm.buttonTitle" save-session="createOrUpdateSession()" ></session-form>
   
 </div>

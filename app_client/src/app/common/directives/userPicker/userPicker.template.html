@@ -1,0 +1,9 @@
+<div class="form-group">
+<label for="toto">Utilisateurs participant à la session</label>
+<div class="checkbox" id="toto" ng-repeat="user in allUsers">
+  <label>
+    <input type="checkbox" checklist-model="session.participants" checklist-value="user._id" value="">
+    {{user.name}}
+  </label>
+</div>
+</div>

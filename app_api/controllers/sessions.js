@@ -27,7 +27,7 @@ module.exports.sessionCreate = function(req, res){
         niveau: req.body.niveau,
         start: req.body.start,
         enigmes: req.body.enigmes,
-        participants: req.body.particpants
+        participants: req.body.participants
 
     }, function(err, session){
 

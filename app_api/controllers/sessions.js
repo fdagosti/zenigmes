@@ -82,11 +82,10 @@ module.exports.sessionUpdateOne = function(req, res){
                 sendJsonResponse(res, 400, err);
                 return;
             }
-            session.titre = req.body.titre;
-            session.description = req.body.description;
-            session.points = parseInt(req.body.points);
+            session.nom = req.body.nom;
             session.niveau = parseInt(req.body.niveau);
-            session.reponse = req.body.reponse;
+            session.start = req.body.start;
+            session.enigmes = req.body.enigmes;
             
             session.save(function(err, session){
                 if (err){

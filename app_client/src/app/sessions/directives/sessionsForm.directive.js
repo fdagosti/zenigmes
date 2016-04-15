@@ -1,22 +1,131 @@
 (function(){
-	angular.module("zenigmesApp").directive('sessionForm', ['', function(){
+	angular.module("zenigmesApp").directive('sessionForm', function(){
 		// Runs during compile
 		return {
-			// name: '',
-			// priority: 1,
-			// terminal: true,
-			// scope: {}, // {} = isolate, true = child, false/undefined = no change
-			// controller: function($scope, $element, $attrs, $transclude) {},
-			// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
+          scope: {
+             session: "=",
+             saveSession: "&",
+             buttonTitle: "="
+			 }, // {} = isolate, true = child, false/undefined = no change
 			restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-			// template: '',
 			templateUrl: 'app/sessions/directives/sessionForm.template.html',
-			// replace: true,
-			// transclude: true,
-			// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
-			link: function($scope, iElm, iAttrs, controller) {
-				console.log("in the session form directive link function");
-			}
-		};
-	}]);
+			
+			controller: function($scope, $element, $attrs, $transclude, zenigmeData) {
+               var vm = this;
+               var sessionUpdated = false, enigmesUpdated = false;
+
+               vm.events = [];
+               vm.eventSources = [vm.events];
+
+               vm.openDatePicker = function(){
+                vm.datePickerOpened = true;
+                };
+
+                vm.selectedEnigmes = [{ titre: 'Glissez vos enigmes ici', avoid:true }];
+
+                var updateSessionBasedOnSelectedEnigmes = function(){
+                    if (!enigmesUpdated || !sessionUpdated){
+                        return;
+                    }
+                    vm.events.length = 0;
+                    $scope.session.enigmes = [];
+                    var sd = new Date($scope.session.start);
+                    var ed = new Date(sd.getTime());
+                    ed.setDate(ed.getDate() + 7);
+                    vm.selectedEnigmes.forEach(function(enigme){
+                        if (!enigme.avoid){
+                            vm.events.push({
+                                title: enigme.titre,
+                                start: new Date(sd.getTime()).toISOString(),
+                                end: new Date(ed.getTime()).toISOString(),
+                                stick: true,
+                                allDay : true
+                            });
+
+                            $scope.session.enigmes.push({
+                                enigme: enigme._id,
+                                start: new Date(sd.getTime()),
+                                end: new Date(ed.getTime()),
+                            });
+                            sd.setDate(sd.getDate() + 7);
+                            ed.setDate(ed.getDate() + 7);
+                        }
+
+                    });
+                };
+
+                function syncViewBasedOnSession(){
+                    if (!$scope.session.enigmes){
+                        return;
+                    }
+
+                    var enigmesList = $scope.session.enigmes;
+                    vm.events.length = 0;
+                    vm.selectedEnigmes.length = 0;
+
+                    enigmesList.forEach(function(enigme){
+
+                        var idxToRemove;
+                        if (vm.enigmes){
+                            vm.enigmes.forEach(function(enigmeA, idx){
+                                if (enigmeA[0]._id === enigme.enigme){
+                                    enigme.titre = enigmeA[0].titre;
+                                    vm.selectedEnigmes.push(enigmeA[0]);
+                                    idxToRemove = idx;
+                                }
+                            });
+                            vm.enigmes.splice(idxToRemove, 1);
+                        }
+
+                        vm.events.push({
+                            title: enigme.titre,
+                            start: new Date(enigme.start).toISOString(),
+                            end: new Date(enigme.end).toISOString(),
+                            stick: true,
+                            allDay : true
+                        });
+
+                    });  
+
+                };
+
+                vm.draggableOptions = {
+                    connectWith: ".connected-drop-target-sortable",
+                };
+
+                vm.sortableOptions = {
+                    connectWith: ".draggable-element-container",
+                };
+
+                $scope.$watch("vm.selectedEnigmes", function(){
+                    updateSessionBasedOnSelectedEnigmes();
+                }, true);
+
+                $scope.$watch("session.start", function(){
+                    updateSessionBasedOnSelectedEnigmes();
+                });
+
+
+                $scope.$watch("session", function(newVal, oldVal, scope){
+                    syncViewBasedOnSession(newVal.enigmes);    
+                    sessionUpdated = true;
+                });
+
+                zenigmeData.allEnigmes()
+                .then(function(response){
+                    vm.enigmes = response.data.map(function(x){
+                        return [x];
+                    });
+                    syncViewBasedOnSession();
+                    enigmesUpdated = true;
+                },function(e){
+                    console.log(e.data);
+                }
+                );
+
+
+        },
+        controllerAs: "vm"
+    };
+});
 })();

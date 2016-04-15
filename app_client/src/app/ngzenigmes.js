@@ -42,9 +42,14 @@
                 controllerAs: "vm",
             })
             .when("/sessions/new", {
-                templateUrl: "app/sessions/sessionCreate/sessionCreate.template.html",
+                templateUrl: "app/sessions/sessionCreate/sessionCreateUpdate.template.html",
                 controller: "sessionCreateCtrl",
                 controllerAs: "vm",
+            })
+            .when("/sessions/:sessionId/update", {
+                templateUrl: "app/sessions/sessionCreate/sessionCreateUpdate.template.html",
+                controller: "sessionUpdateCtrl",
+                controllerAs: "vm"
             })
             .when("/users", {
                 templateUrl: "app/users/users.template.html",

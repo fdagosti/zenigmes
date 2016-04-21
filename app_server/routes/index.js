@@ -9,7 +9,7 @@ var path = path = require('path');
 
 var indexLoc = process.env.NODE_ENV === "production" ? "bin":"build";
 
-router.get("*", function(req, res) {
+router.get(/^((?!api).)*$/, function(req, res) {
     res.sendFile('index.html', { root: path.join(__dirname, '../../app_client/' + indexLoc) });
 });
 

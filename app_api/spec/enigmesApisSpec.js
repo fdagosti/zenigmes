@@ -13,6 +13,17 @@ var francoisCredentials = {
   password: "toto"
 }
 
+describe("The API in general", function(){
+  it("should fail with 404 when calling an API path that does not exist", function(done){
+    rest.get(base+"/api/toto").on("success", function(){
+      done.fail("api call on non existent path should not succeed");
+    }).on("fail", function(data, response){
+      expect(response.statusCode).toBe(404);
+      done();
+    })
+  });
+});
+
 describe("The Enigmes APIs", function(){
 
 

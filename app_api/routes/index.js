@@ -15,6 +15,7 @@ var ctrlEnigmes = require("../controllers/zenigmes");
 var ctrlAuth = require("../controllers/authentication");
 var ctrlUsers = require("../controllers/users");
 var ctrlSessions = require("../controllers/sessions");
+var ctrlParticipations = require("../controllers/participation");
 
 // enigmes
 router.get("/enigmes", ctrlEnigmes.enigmesList);
@@ -39,5 +40,7 @@ router.get("/sessions/:sessionid", auth, adminCheck, ctrlSessions.sessionsListOn
 router.put("/sessions/:sessionid", auth, adminCheck, ctrlSessions.sessionUpdateOne);
 router.delete("/sessions/:sessionid", auth, adminCheck, ctrlSessions.sessionDeleteOne);
 
+// participations
+router.get("/participations", auth, ctrlParticipations.participationsList);
  
 module.exports = router;

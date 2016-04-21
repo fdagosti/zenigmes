@@ -46,3 +46,6 @@ node_modules
 # build directory used by Gulp
 app_client/build
 app_client/bin
+
+# my own folder where I can mess around
+stuff

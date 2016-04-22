@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "postinstall": "gulp compile",
-    "test": "NODE_ENV=test jasmine JASMINE_CONFIG_PATH=app_api/spec/support/jasmine.json"
+    "test": "gulp test"
   },
   "engines": {
     "node": "~5.6.0",
@@ -46,7 +46,13 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "gulp-exit": "0.0.2",
+    "gulp-jasmine": "^2.3.0",
+    "gulp-jasmine-node": "^1.0.6",
     "gulp-serve": "^1.2.0",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-jasmine": "^0.3.8",
     "restler": "^3.4.0"
   }
 }

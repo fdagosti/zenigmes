@@ -57,6 +57,11 @@
                 controllerAs: "vm",
                 css: "app/users/users.css"
             })
+            .when("/participations", {
+                templateUrl: "app/participations/participations.template.html",
+                controller: "participationsCtrl",
+                controllerAs: "vm",
+            })
             .otherwise({redirectTo: "/"});
 
         $locationProvider.html5Mode(true);

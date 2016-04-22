@@ -6,7 +6,6 @@ services: mongodb
 
 env: 
   - JWT_SECRET=foo
-  - TRAVIS=true
 
 before_install:
   - export CHROME_BIN=chromium-browser

@@ -3,3 +3,6 @@ node_js:
   - "5"
 
 services: mongodb
+
+env: 
+  - JWT_SECRET=foo

@@ -10,6 +10,8 @@ var gulp = require('gulp'),
     _ = require('lodash'),
     uglify = require('gulp-uglify'),
     pkg = require('./package.json'),
+    useref = require("gulp-useref"),
+    gulpif = require("gulp-if"),
     jshint = require('gulp-jshint');
 
 
@@ -119,13 +121,17 @@ gulp.task('index', function () {
  from the "bin" folder during compile task.
  */
 gulp.task('index-compile', function () {
-    return gulp.src('./app_client/src/index.html')
+    return gulp.src('./app_client/build/index.html')
         .pipe(inject(
             gulp.src(['./app_client/bin/**/*.js', './app_client/bin/css/**/*.css'], {read: false}), {
             ignorePath: files.compile_dir + '/'
         }))
+        .pipe(useref())
+        .pipe(gulpif('*.js', uglify()))
         .pipe(gulp.dest("./" + files.compile_dir));
 });
+
+
 
 gulp.task('ngmin', function () {
     return gulp.src(files.app_files.ngmin_js)

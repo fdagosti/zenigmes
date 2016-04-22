@@ -24,6 +24,10 @@
     "tinymce": "^4.3.8",
     "angular-ui-tinymce": "^0.0.14",
     "angular-ui-calendar": "^1.0.1",
-    "angular-ui-sortable": "^0.14.0"
+    "angular-ui-sortable": "^0.14.0",
+    "jquery-ui": "^1.11.4"
+  },
+  "resolutions": {
+    "angular": ">=1.2.x"
   }
 }

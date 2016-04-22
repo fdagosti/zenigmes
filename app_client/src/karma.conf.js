@@ -110,7 +110,6 @@ var configuration = {
   };
 
   if (process.env.TRAVIS){
-    console.log("SOUS TRAVIS, ON MET CHROMIUM");
     configuration.browsers = ["Chrome_travis_ci"];
   }
 

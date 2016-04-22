@@ -12,9 +12,6 @@ var gulp = require('gulp'),
     pkg = require('./package.json'),
     useref = require("gulp-useref"),
     gulpif = require("gulp-if"),
-    Server = require('karma').Server,
-    jasmine = require('gulp-jasmine'),
-    exit = require('gulp-exit'),
     jshint = require('gulp-jshint');
 
 
@@ -187,6 +184,7 @@ gulp.task('compile', function (callback) {
  * Run test once and exit
  */
 gulp.task('angular-test', function (done) {
+    var Server = require('karma').Server;
   new Server({
     configFile: __dirname + '/app_client/src/karma.conf.js',
     singleRun: true
@@ -194,27 +192,18 @@ gulp.task('angular-test', function (done) {
 });
 
 gulp.task('angular-tdd', function (done) {
+    var Server = require('karma').Server;
   new Server({
     configFile: __dirname + '/app_client/src/karma.conf.js'
   }, done).start();
 });
 
 gulp.task('api-test', ["set-test-node-env"],function () {
+    var jasmine = require('gulp-jasmine');
+    var exit = require('gulp-exit');
   return gulp.src('app_api/spec/**/*[sS]pec.js')
         .pipe(jasmine())
         .pipe(exit());
-        
-});
-
-gulp.task('api-test2', ["set-test-node-env"],function (done) {
-  var Jasmine = require("jasmine");
-  var j = new Jasmine();
-  j.loadConfigFile("app_api/spec/support/jasmine.json");
-  j.onComplete(function(passed){
-    console.log("passed "+passed);
-    done();
-  });
-  j.execute();
         
 });
 

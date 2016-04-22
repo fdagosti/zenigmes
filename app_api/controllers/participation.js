@@ -11,14 +11,6 @@ module.exports.participationsList = function(req, res){
     sessionDB.find({
         participants: {$all: [req.user._id]}
     },function(err, session){
-        console.log("inside participations request "+err);
-        console.log("request id = "+req.user._id);
-        console.log(session);
-      
-            sessionDB.find({}, function(err, session){
-                console.log("all sessions "+session.length);
-                console.log(session);
-            })
         if (err){
             sendJsonResponse(res, 404, err);
         }else{

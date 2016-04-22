@@ -40,5 +40,7 @@ var dbURI = "mongodb://localhost/zenigmes";
 console.log("Node env = "+process.env.NODE_ENV+" mong uri = "+process.env.MONGOLAB_URI);
 if (process.env.NODE_ENV === "production"){
     dbURI = process.env.MONGOLAB_URI;
+} else if (process.env.NODE_ENV === "test"){
+    dbURI = "mongodb://localhost/unitTests";
 }
 mongoose.connect(dbURI); 

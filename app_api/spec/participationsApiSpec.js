@@ -1,6 +1,7 @@
 var rest = require("restler");
-
-var base = "http://localhost:3000";
+var app = require("../../app");
+var base = "http://localhost:8888";
+var dbUtils = require("./dbUtils");
 
 var francoisCredentials = {
   email: "francois.dagostini@gmail.com",
@@ -10,6 +11,23 @@ var francoisCredentials = {
 var francoisId = "57091325117230600f0d1fae";
 
 describe("The Participations API", function(){
+  var server;
+
+  beforeEach(function(done){
+   server = app.listen(8888, function(){
+      dbUtils.clearDatabase(function(){
+        dbUtils.addFixture(done);
+      
+      });
+      
+    });
+  });
+  // tests here
+  afterEach(function(done){
+    server.close(function(){
+      dbUtils.clearDatabase(done);
+    });
+  });
 
   it("should not work without any credentials", function(done){
     rest.get(base+"/api/participations").on("success", function(data, response){
@@ -31,7 +49,6 @@ describe("The Participations API", function(){
         });
         done();
       }).on("fail", function(data, response){
-        console.log("status "+response.statusCode);
         done.fail("getting a list of participations for francois should work");
       });
     });

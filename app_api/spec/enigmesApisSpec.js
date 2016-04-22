@@ -1,6 +1,10 @@
 var rest = require("restler");
+var app = require("../../app");
+var base = "http://localhost:8888";
+var dbUtils = require("./dbUtils");
 
-var base = "http://localhost:3000";
+
+
 
 var enigme = {
   titre:" Enigme de test pour tester l'API",
@@ -14,6 +18,26 @@ var francoisCredentials = {
 }
 
 describe("The API in general", function(){
+
+var server;
+
+beforeEach(function(done){
+    server = app.listen(8888, function(){
+      dbUtils.clearDatabase(function(){
+        dbUtils.addFixture(done);
+      
+      });
+      
+    });
+  });
+  
+  afterEach(function(done){
+    server.close(function(){
+      dbUtils.clearDatabase(done);
+    });
+  });
+
+
   it("should fail with 404 when calling an API path that does not exist", function(done){
     rest.get(base+"/api/toto").on("success", function(){
       done.fail("api call on non existent path should not succeed");
@@ -26,6 +50,21 @@ describe("The API in general", function(){
 
 describe("The Enigmes APIs", function(){
 
+beforeEach(function(done){
+    server = app.listen(8888, function(){
+      dbUtils.clearDatabase(function(){
+        dbUtils.addFixture(done);
+      
+      });
+      
+    });
+  });
+  // tests here
+  afterEach(function(done){
+    server.close(function(){
+      dbUtils.clearDatabase(done);
+    });
+  });
 
   it("should not allow posting an enigmes without authorization", function(done){
     rest.post(base+"/api/enigmes", {data: enigme}).on("success", function(data){

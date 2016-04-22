@@ -13,6 +13,7 @@ exports.clearDatabase = function(done){
   zngm.remove({}, function(err){
     users.remove({}, function(err){
       sessions.remove({}, function(err){
+        console.log("done clearing database");
         done();
       })
     })
@@ -36,6 +37,7 @@ exports.addFixture = function(done){
           cb(err);
         });
       },function(){
+        console.log("done adding fixtures");
         done();
       })
 

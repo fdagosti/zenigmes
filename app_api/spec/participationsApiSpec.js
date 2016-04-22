@@ -44,6 +44,7 @@ describe("The Participations API", function(){
       rest.get(base+"/api/participations", {accessToken: data.token}).on("success", function(data, response){
         expect(response.statusCode).toBe(200);
         expect(data.length).toBeGreaterThan(0);
+        console.log("particpations length "+data.length);
         data.forEach(function(session){
           expect(session.participants).toEqual(jasmine.arrayContaining([francoisId]));
         });

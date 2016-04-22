@@ -9,7 +9,7 @@ var sendJsonResponse = function(res, status, content) {
 
 module.exports.participationsList = function(req, res){
     sessionDB.find({
-        participants: {$elemMatch: {$eq: req.user._id}}
+        participants: {$all: [req.user._id]}
     },function(err, session){
         console.log("inside participations request "+err);
         console.log("request id = "+req.user._id);

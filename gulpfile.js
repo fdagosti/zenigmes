@@ -12,7 +12,6 @@ var gulp = require('gulp'),
     pkg = require('./package.json'),
     useref = require("gulp-useref"),
     gulpif = require("gulp-if"),
-    babel = require("gulp-babel"),
     jshint = require('gulp-jshint');
 
 
@@ -75,9 +74,6 @@ gulp.task('copy-assets', function () {
 
 gulp.task('copy-app-js', function () {
     return gulp.src(files.app_files.js)
-        .pipe(babel({
-            "presets": ["es2015"]
-        }))
         .pipe(gulp.dest('./app_client/build'));
 });
 

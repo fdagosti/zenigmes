@@ -51,72 +51,78 @@
 
     var allSessions = function () {
      return $http.get('/api/sessions', {
-        headers: {
-          Authorization: "Bearer "+ authentication.getToken()
-        }
-      });
+      headers: {
+        Authorization: "Bearer "+ authentication.getToken()
+      }
+    });
 
    };
 
    var deleteSession = function(session) {
-      return $http.delete("/api/sessions/"+session._id, {
-        headers: {
-          Authorization: "Bearer "+ authentication.getToken()
-        }
+    return $http.delete("/api/sessions/"+session._id, {
+      headers: {
+        Authorization: "Bearer "+ authentication.getToken()
+      }
+    });
+  };
+
+  var updateSession = function(session) {
+    return $http.put("/api/sessions/"+session._id, session, {
+      headers: {
+        Authorization: "Bearer "+ authentication.getToken()
+      }
+    });
+  };
+
+
+
+  var participations = function() {
+
+    return $http.get("/api/participations", {
+      headers: {
+        Authorization: "Bearer "+ authentication.getToken() 
+      }
+    }).then(function(res){
+      var parts = res.data;
+      var promises = [];
+      parts.forEach(function(participation){
+        promises.push(getEnigmesDuMomentId(participation));
       });
-   };
+      return $q.all(promises).then(function(res){
 
-   var updateSession = function(session) {
-      return $http.put("/api/sessions/"+session._id, session, {
-        headers: {
-          Authorization: "Bearer "+ authentication.getToken()
-        }
+        return parts;
       });
-   };
+    });
+  };
 
+  var _getEnigmeDuMoment = function(session, enigme){
+    return zenigmeData.enigmeById(enigme.enigme).then(function(res){
+      session.enigmeDuMoment = res.data;
+    });
+  };
 
-
-   var participations = function() {
-      
-      return $http.get("/api/participations", {
-        headers: {
-          Authorization: "Bearer "+ authentication.getToken() 
-        }
-      }).then(function(res){
-        var parts = res.data;
-        var promises = [];
-        parts.forEach(function(participation){
-          promises.push(getEnigmesDuMomentId(participation));
-        });
-        return $q.all(promises).then(function(res){
-
-          return parts;
-        });
-      });
-   };
-
-var getEnigmesDuMomentId = function(session) {
+  var getEnigmesDuMomentId = function(session) {
     var d = new Date().getTime();
     var enigmes = session.enigmes;
-    for (let enigme of enigmes){
+    var i, enigme;
+    for (i = 0; i < enigmes.length; i++){
+      enigme = enigmes[i];
       if ((d >= new Date(enigme.start).getTime()) && (d <= new Date(enigme.end).getTime())){
-        return zenigmeData.enigmeById(enigme.enigme).then(function(res){
-          session.enigmeDuMoment = res.data;
-        });
+        return _getEnigmeDuMoment(session, enigme);
       }
     }
     
   };
 
-   
-   return {
-     allSessions : allSessions,
-     sessionById: sessionById,
-     addSession: addSession,
-     deleteSession: deleteSession,
-     updateSession: updateSession,
-     allSessionsWithEnigmes:allSessionsWithEnigmes,
-     participations : participations
-   };
- }
+
+  return {
+   allSessions : allSessions,
+   sessionById: sessionById,
+   addSession: addSession,
+   deleteSession: deleteSession,
+   updateSession: updateSession,
+   allSessionsWithEnigmes:allSessionsWithEnigmes,
+   participations : participations
+ };
+}
 })();

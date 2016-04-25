@@ -6,7 +6,8 @@ module.exports = {
 
     app_files: {
         // source, but NO specs
-        js: ['app_client/src/**/*.js', '!app_client/src/**/*.spec.js', './app_client/src/**/*.css'],
+        js: ['app_client/src/**/*.js', '!app_client/src/**/*.spec.js'],
+        css: ['./app_client/src/**/*.css'],
         js_compile: ['app_client/build/app/**/*.js'],
         vendor: ['app_client/libs/**/*'],
         jsunit: ['src/**/*.spec.js'],

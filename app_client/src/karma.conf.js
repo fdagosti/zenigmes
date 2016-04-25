@@ -47,10 +47,10 @@ var configuration = {
         "https://cdnjs.cloudflare.com/ajax/libs/angular-css/1.0.8/angular-css.js",
 
         "libs/angular-mocks/angular-mocks.js",        
-        'src/app/ngzenigmes.js',
+        'build/app/ngzenigmes.js',
         "build/app/templates-app.js",
-        'src/app/**/*.js',
-        'src/spec/**/*.js'
+        'build/app/**/*.js',
+        'build/spec/**/*.js'
     ],
 
 

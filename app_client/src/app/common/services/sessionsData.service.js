@@ -84,7 +84,7 @@
         }
       }).then(function(res){
         var parts = res.data;
-        promises = [];
+        var promises = [];
         parts.forEach(function(participation){
           promises.push(getEnigmesDuMomentId(participation));
         });
@@ -98,7 +98,7 @@
 var getEnigmesDuMomentId = function(session) {
     var d = new Date().getTime();
     var enigmes = session.enigmes;
-    for (enigme of enigmes){
+    for (let enigme of enigmes){
       if ((d >= new Date(enigme.start).getTime()) && (d <= new Date(enigme.end).getTime())){
         return zenigmeData.enigmeById(enigme.enigme).then(function(res){
           session.enigmeDuMoment = res.data;

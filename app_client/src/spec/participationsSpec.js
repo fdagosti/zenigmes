@@ -38,7 +38,7 @@ var dummySession = {
     "5708fa47837734160d50ad8a",
     "570abd0b03a498f412991d31"
   ]
-}
+};
 
 describe("sessionData Service", function(){
   beforeEach(module('zenigmesApp'));

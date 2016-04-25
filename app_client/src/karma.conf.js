@@ -113,5 +113,5 @@ var configuration = {
     configuration.browsers = ["Chrome_travis_ci"];
   }
 
-  config.set(configuration)
-}
+  config.set(configuration);
+};

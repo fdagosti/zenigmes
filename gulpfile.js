@@ -63,7 +63,9 @@ gulp.task('clean-bin', function (callback) {
     return del(['./app_client/bin'], {force: true});
 });
 
-gulp.task('copy-build', ['copy-assets', 'copy-app-js', 'copy-app-css', 'copy-libs-js']);
+gulp.task('copy-app', ['copy-app-js', 'copy-app-css']);
+
+gulp.task('copy-build', ['copy-assets', 'copy-app', 'copy-libs-js']);
 
 gulp.task('copy-assets', function () {
     return gulp.src('./app_client/src/rsc/**/*')
@@ -74,7 +76,7 @@ gulp.task('copy-assets', function () {
 gulp.task('copy-app-js', function () {
     return gulp.src(files.app_files.js)
         .pipe(babel({
-            "plugins": ["transform-es2015-for-of"]
+            "presets": ["es2015"]
         }))
         .pipe(gulp.dest('./app_client/build'));
 });

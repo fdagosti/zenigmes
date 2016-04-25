@@ -40,6 +40,7 @@
                 templateUrl: "app/sessions/sessionsList/sessionsList.template.html",
                 controller: "sessionsCtrl",
                 controllerAs: "vm",
+                css: "app/common/css/table.css"
             })
             .when("/sessions/new", {
                 templateUrl: "app/sessions/sessionCreate/sessionCreateUpdate.template.html",
@@ -55,12 +56,13 @@
                 templateUrl: "app/users/users.template.html",
                 controller: "usersCtrl",
                 controllerAs: "vm",
-                css: "app/users/users.css"
+                css: "app/common/css/table.css"
             })
             .when("/participations", {
                 templateUrl: "app/participations/participations.template.html",
                 controller: "participationsCtrl",
                 controllerAs: "vm",
+                css: "app/common/css/table.css"
             })
             .otherwise({redirectTo: "/"});
 

@@ -75,6 +75,39 @@
    };
 
 
+
+   var participations = function() {
+      
+      return $http.get("/api/participations", {
+        headers: {
+          Authorization: "Bearer "+ authentication.getToken() 
+        }
+      }).then(function(res){
+        var parts = res.data;
+        promises = [];
+        parts.forEach(function(participation){
+          promises.push(getEnigmesDuMomentId(participation));
+        });
+        return $q.all(promises).then(function(res){
+
+          return parts;
+        });
+      });
+   };
+
+var getEnigmesDuMomentId = function(session) {
+    var d = new Date().getTime();
+    var enigmes = session.enigmes;
+    for (enigme of enigmes){
+      if ((d >= new Date(enigme.start).getTime()) && (d <= new Date(enigme.end).getTime())){
+        return zenigmeData.enigmeById(enigme.enigme).then(function(res){
+          session.enigmeDuMoment = res.data;
+        });
+      }
+    }
+    
+  };
+
    
    return {
      allSessions : allSessions,
@@ -82,7 +115,8 @@
      addSession: addSession,
      deleteSession: deleteSession,
      updateSession: updateSession,
-     allSessionsWithEnigmes:allSessionsWithEnigmes
+     allSessionsWithEnigmes:allSessionsWithEnigmes,
+     participations : participations
    };
  }
 })();

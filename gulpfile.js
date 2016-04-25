@@ -12,6 +12,7 @@ var gulp = require('gulp'),
     pkg = require('./package.json'),
     useref = require("gulp-useref"),
     gulpif = require("gulp-if"),
+    babel = require("gulp-babel"),
     jshint = require('gulp-jshint');
 
 
@@ -127,7 +128,9 @@ gulp.task('index-compile', function () {
             ignorePath: files.compile_dir + '/'
         }))
         .pipe(useref())
-        .pipe(gulpif('*.js', uglify()))
+        .pipe(gulpif('*.js', uglify().on("error", function(e){
+            console.log(e);
+        })))
         .pipe(gulp.dest("./" + files.compile_dir));
 });
 
@@ -141,7 +144,12 @@ gulp.task('ngmin', function () {
 
 gulp.task('uglify', function () {
     return gulp.src(files.app_files.ngmin_js)
-        .pipe(uglify())
+        .pipe(babel({
+            "plugins": ["transform-es2015-for-of"]
+        }))
+        .pipe(uglify().on("error", function(e){
+            console.log(e);
+        }))
         .pipe(gulp.dest(files.compile_dir));
 });
 

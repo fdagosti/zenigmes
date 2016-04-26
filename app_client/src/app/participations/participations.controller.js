@@ -14,7 +14,8 @@ angular.module('zenigmesApp').controller('participationsCtrl', function($scope, 
   };
 
   // this page only displays if user is logged in, no need to check
-  vm.isAdmin = authentication.currentUser().admin;
+  var user = authentication.currentUser();
+  vm.isAdmin = user != null? user.admin:false;
 
 });
 

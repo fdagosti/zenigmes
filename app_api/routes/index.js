@@ -42,5 +42,8 @@ router.delete("/sessions/:sessionid", auth, adminCheck, ctrlSessions.sessionDele
 
 // participations
 router.get("/participations", auth, ctrlParticipations.participationsList);
+
+// answer
+router.post("/session/:sessionid/enigme/:enigmeid/answer", auth, ctrlParticipations.postAnswer);
  
 module.exports = router;

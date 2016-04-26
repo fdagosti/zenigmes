@@ -20,3 +20,24 @@ module.exports.participationsList = function(req, res){
     );
 };
 
+module.exports.postAnswer = function(req, res){
+    var sessionId = req.params.sessionid;
+    var enigmeId = req.params.enigmeid;
+    var answer = {
+        user: req.user.email,
+        value: req.body.answer
+    }
+
+    sessionDB.update(
+        {_id: sessionId, "enigmes.enigme":enigmeId},
+        {"$addToSet": {"enigmes.$.answers":answer}}, function(err){
+            if (err){
+                sendJsonResponse(res, 400, err);
+            } else {
+                sendJsonResponse(res, 201, answer);
+            }
+    });
+
+    
+
+};

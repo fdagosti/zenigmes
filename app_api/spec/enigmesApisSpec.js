@@ -1,6 +1,6 @@
 var rest = require("restler");
 var app = require("../../app");
-var base = "http://localhost:8888";
+var base = "http://localhost:9876";
 var dbUtils = require("./dbUtils");
 
 
@@ -22,7 +22,7 @@ describe("The API in general", function(){
 var server;
 
 beforeEach(function(done){
-    server = app.listen(8888, function(){
+    server = app.listen(9876, function(){
       dbUtils.clearDatabase(function(){
         dbUtils.addFixture(done);
       
@@ -51,7 +51,7 @@ beforeEach(function(done){
 describe("The Enigmes APIs", function(){
 
 beforeEach(function(done){
-    server = app.listen(8888, function(){
+    server = app.listen(9876, function(){
       dbUtils.clearDatabase(function(){
         dbUtils.addFixture(done);
       

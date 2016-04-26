@@ -30,7 +30,7 @@
 
 		
 
-		vm.checkReponse = function(){
+		vm.sendAnswer = function(){
 			
 
 			if (vm.reponse === vm.enigme.reponse){

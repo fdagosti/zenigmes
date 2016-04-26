@@ -10,10 +10,18 @@ var francoisCredentials = {
 
 describe("The Answer API", function(){
   
+  var loginToken;
+
   beforeEach(function(done){
    server = app.listen(9876, function(){
       dbUtils.clearDatabase(function(){
-        dbUtils.addFixture(done);
+        dbUtils.addFixture(function(){
+          rest.post(base+"/api/login", {data: francoisCredentials})
+          .on("success", function(data, response){
+            loginToken = data.token;
+            done();
+          });
+        });
       
       });
       
@@ -26,25 +34,36 @@ describe("The Answer API", function(){
     });
   });
 
-  it("should store the answer inside the enigmes section of a session", function(){
+ 
+  it("should store the answer inside the enigmes section of a session", function(done){
 
-    var answer = {answer: "5"};
+    var answerValue = "5";
     var sessionId = "570e7986a3c7b8b5330b287a";
     var enigmeId = "5706695137a07d5707c2eb42";
 
-    rest.post(base+"/api/login", {data: francoisCredentials}).on("success", function(data, response){
-      var token = data.token;
-      rest.post("/api/sessionId/enigmeId/answer", {accessToken: token, data: answer}).on("success", function(data, response){
-        rest.get("/api/session/sessionId", {accessToken: token}).on("success", function(data, response){
-          var session = data.session;
-          session.enigmes.forEach(function(enigme){
-            if (enigme.enigme === enigmeId){
-              expect(enigme.answer).toBe(answer.answer);
-            }
-          });
+
+    rest.post(base+"/api/session/"+sessionId+"/enigme/"+enigmeId+"/answer", 
+              {accessToken: loginToken, data: {answer:answerValue}})
+    .on("success", function(data, response){
+      rest.get(base+"/api/sessions/"+sessionId, {accessToken: loginToken})
+      .on("success", function(session, response){
+        
+        session.enigmes.forEach(function(enigme){
+          if (enigme.enigme === enigmeId){
+            enigme.answers.forEach(function(answer){
+              expect(answer.value).toBe(answerValue);
+              expect(answer.user).toBe(francoisCredentials.email);
+            });
+            done();                              
+          }
         });
       });
+    })
+    .on("fail", function(data, response){
+      done.fail("You should be able to post a new answer");
     });
   });
+    
+  
 
 });

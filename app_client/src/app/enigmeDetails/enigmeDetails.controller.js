@@ -28,17 +28,7 @@
 				console.log(e);
 		});
 
-		var areBothNumbers = function(a, b){
-			return !isNaN(parseInt(a)) && !isNaN(parseInt(b));
-		};
-
-		var areEqual = function(a, b){
-			if (areBothNumbers(a, b)){
-				return parseInt(a) === parseInt(b);
-			}else {
-				return a === b;
-			}
-		};
+		
 
 		vm.checkReponse = function(){
 			

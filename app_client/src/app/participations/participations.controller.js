@@ -1,6 +1,6 @@
 ((function(){
 
-angular.module('zenigmesApp').controller('participationsCtrl', function($scope, sessionsData, zenigmeData) {
+angular.module('zenigmesApp').controller('participationsCtrl', function($scope, sessionsData, zenigmeData, authentication) {
   var vm = this;
   sessionsData.participations().then(function(res){
     vm.sessionsForUser = res;
@@ -12,6 +12,9 @@ angular.module('zenigmesApp').controller('participationsCtrl', function($scope, 
     var enigmes = session.enigmes;
     return new Date(enigmes[enigmes.length -1].end);
   };
+
+  // this page only displays if user is logged in, no need to check
+  vm.isAdmin = authentication.currentUser().admin;
 
 });
 

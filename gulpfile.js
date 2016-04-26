@@ -213,7 +213,9 @@ gulp.task('api-test', ["set-test-node-env"],function () {
     var jasmine = require('gulp-jasmine');
     var exit = require('gulp-exit');
   return gulp.src('app_api/spec/**/*[sS]pec.js')
-        .pipe(jasmine())
+        .pipe(jasmine().on("error", function(e){
+            console.log(e);
+        }))
         .pipe(exit());
         
 });

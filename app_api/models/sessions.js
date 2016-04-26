@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 var answerSchema = new mongoose.Schema({
-  user: {type: Number, require: true},
+  user: {type: String, require: true},
   answerDate: {type: Date, "default": Date.now},
   value: String,
   correctValue: Boolean

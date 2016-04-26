@@ -6,8 +6,12 @@
 
   function answers($http) {
 
-      var postAnswer = function(enigme, answer){
-        console.log("post the answer");
+      var postAnswer = function(session, enigme, answer){
+        $http.post("/api/session/"+session._id+"/enigme/"+enigme._id+"/answer", enigme, {
+          headers: {
+            Authorization: "Bearer "+ authentication.getToken()
+          }
+        });
       };
 
       return {

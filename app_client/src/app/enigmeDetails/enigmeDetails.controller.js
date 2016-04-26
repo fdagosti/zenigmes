@@ -1,5 +1,5 @@
 (function(){
-	angular.module('zenigmesApp').controller('enigmeDetailsCtrl', function($scope, $routeParams, zenigmeData, authentication, $location, $sce ) {
+	angular.module('zenigmesApp').controller('enigmeDetailsCtrl', function($scope, $routeParams, zenigmeData, $uibModal, authentication, $location, $sce ) {
 
 		var vm = this;
 
@@ -32,15 +32,27 @@
 
 		vm.sendAnswer = function(){
 			
+			var modalInstance = $uibModal.open({
+        templateUrl: "app/answerModal/answerModal.template.html",
+        controller: "answerModalCtrl as vm",
+        resolve: {
+          
+        }
+      });
+      modalInstance.result.then(function(data) {
+        console.log("modal closed data = "+data);
+        vm.data.location.reviews.push(data);
+      });
+    };			
 
-			if (vm.reponse === vm.enigme.reponse){
-				vm.reponseResult = "Bravo";
-				vm.reponseClass = "alert alert-success";
-			}else {
-				vm.reponseResult = "Désolé, ce n'est pas la bonne réponse";
-				vm.reponseClass = "alert alert-danger";
-			}
-		};
+			// if (vm.reponse === vm.enigme.reponse){
+			// 	vm.reponseResult = "Bravo";
+			// 	vm.reponseClass = "alert alert-success";
+			// }else {
+			// 	vm.reponseResult = "Désolé, ce n'est pas la bonne réponse";
+			// 	vm.reponseClass = "alert alert-danger";
+			// }
+		// };
 
 
 		vm.reponseResult=null;

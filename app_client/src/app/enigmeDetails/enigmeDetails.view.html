@@ -31,7 +31,7 @@
             <div class="col-xs-12">
                 <a href="/#/login?page={{vm.currentPath}}" ng-hide="vm.isLoggedIn" class="btn btn-default">Identifiez-vous pour répondre</a>
                 
-                <form ng-show="vm.isLoggedIn"  ng-submit="vm.checkReponse()">
+                <form ng-show="vm.isLoggedIn"  ng-submit="vm.sendAnswer()">
                     <div role="alert" ng-show="vm.reponseResult" ng-class="vm.reponseClass" >{{vm.reponseResult}}</div>
                     <div class="form-group">
                         <input class="form-control" id="reponse" ng-model="vm.reponse" placeholder="Proposer une réponse numérique" type="number">

@@ -1,11 +1,13 @@
 (function(){
-	angular.module('zenigmesApp').controller('enigmeDetailsCtrl', function($scope, $routeParams, zenigmeData, $uibModal, authentication, $location, $sce ) {
+	angular.module('zenigmesApp').controller('enigmeDetailsCtrl', function($scope, $routeParams, zenigmeData, $uibModal, authentication, $location, $sce, Flash ) {
 
 		var vm = this;
-
+		Flash.clear();
 		vm.isLoggedIn = authentication.isLoggedIn();
 		vm.isAdmin = vm.isLoggedIn && authentication.currentUser().admin;
 		vm.currentPath = $location.path();
+
+		vm.sessionId = $location.search().sessionid;
 
 		vm.enigme = {};
 
@@ -25,34 +27,30 @@
 				response.data.description = $sce.trustAsHtml(response.data.description);
 				vm.enigme = response.data;
 			},function(e){
-				console.log(e);
+				Flash.create("danger", e.data.message);
 		});
 
 		
 
-		vm.sendAnswer = function(){
+		vm.sendAnswer = function(reponse){
+			zenigmeData.postAnswer(vm.sessionId, vm.enigme, reponse)
+				.then(function(reponse){
+					var modalInstance = $uibModal.open({
+		        templateUrl: "app/answerModal/answerModal.template.html",
+		        controller: "answerModalCtrl as vm"
+		      });
+		      modalInstance.result.then(function(data) {
+		      	$location.search("sessionid", null);
+		        $location.path("/");
+		      });
+				}, function(e){
+					Flash.create("danger", e.data.message);
+				});
 			
-			var modalInstance = $uibModal.open({
-        templateUrl: "app/answerModal/answerModal.template.html",
-        controller: "answerModalCtrl as vm",
-        resolve: {
-          
-        }
-      });
-      modalInstance.result.then(function(data) {
-        console.log("modal closed data = "+data);
-        vm.data.location.reviews.push(data);
-      });
+
     };			
 
-			// if (vm.reponse === vm.enigme.reponse){
-			// 	vm.reponseResult = "Bravo";
-			// 	vm.reponseClass = "alert alert-success";
-			// }else {
-			// 	vm.reponseResult = "Désolé, ce n'est pas la bonne réponse";
-			// 	vm.reponseClass = "alert alert-danger";
-			// }
-		// };
+			
 
 
 		vm.reponseResult=null;

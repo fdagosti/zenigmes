@@ -34,13 +34,12 @@ describe("The Answer API", function(){
     });
   });
 
- 
-  it("should store the answer inside the enigmes section of a session", function(done){
 
-    var answerValue = "5";
+  var answerValue = 5;
     var sessionId = "570e7986a3c7b8b5330b287a";
     var enigmeId = "5706695137a07d5707c2eb42";
-
+ 
+  it("should store the answer inside the enigmes section of a session", function(done){
 
     rest.post(base+"/api/session/"+sessionId+"/enigme/"+enigmeId+"/answer", 
               {accessToken: loginToken, data: {answer:answerValue}})
@@ -51,7 +50,7 @@ describe("The Answer API", function(){
         session.enigmes.forEach(function(enigme){
           if (enigme.enigme === enigmeId){
             enigme.answers.forEach(function(answer){
-              expect(answer.value).toBe(answerValue);
+              expect(parseInt(answer.value)).toBe(answerValue);
               expect(answer.user).toBe(francoisCredentials.email);
             });
             done();                              
@@ -62,6 +61,40 @@ describe("The Answer API", function(){
     .on("fail", function(data, response){
       done.fail("You should be able to post a new answer");
     });
+  });
+
+  it("should not allow empty values for answers", function(done){
+
+    rest.post(base+"/api/session/"+sessionId+"/enigme/"+enigmeId+"/answer", 
+              {accessToken: loginToken, data: {}})
+    .on("success", function(session, response){
+      done.fail("an ampty answer should not be answered successfully");
+    })
+    .on("fail", function(data, response){
+      expect(response.statusCode).toBe(400);
+      done();
+    });
+  });
+
+  it("should not allow the same user to answer twice on the same enigme in the same session", function(done){
+    rest.post(base+"/api/session/"+sessionId+"/enigme/"+enigmeId+"/answer", 
+              {accessToken: loginToken, data: {answer:answerValue}})
+    .on("success", function(session, response){
+      rest.post(base+"/api/session/"+sessionId+"/enigme/"+enigmeId+"/answer", 
+              {accessToken: loginToken, data: {answer:34}})
+      .on("success", function(data, response){
+        done.fail("you should not be able to answer to the same session and enigme twice");
+      })
+      .on("fail", function(data, response){
+        expect(response.statusCode).toBe(403);
+        done();
+      });
+    })
+    .on("fail", function(data, response){
+      done.fail("You should be able to post a new answer");
+    });
+
+
   });
     
   

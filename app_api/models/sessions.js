@@ -1,9 +1,9 @@
 var mongoose = require("mongoose");
 
 var answerSchema = new mongoose.Schema({
-  user: {type: String, require: true},
+  user: {type: String, required: true},
   answerDate: {type: Date, "default": Date.now},
-  value: String,
+  value: {type: String, required: true},
   correctValue: Boolean
 });
 

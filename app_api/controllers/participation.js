@@ -28,15 +28,39 @@ module.exports.postAnswer = function(req, res){
         value: req.body.answer
     }
 
-    sessionDB.update(
-        {_id: sessionId, "enigmes.enigme":enigmeId},
-        {"$addToSet": {"enigmes.$.answers":answer}}, function(err){
-            if (err){
-                sendJsonResponse(res, 400, err);
-            } else {
-                sendJsonResponse(res, 201, answer);
-            }
+    if (answer.value == undefined) {
+        sendJsonResponse(res, 400, {"message":"Vous devez donner une réponse valide"});
+        return;
+    }
+
+    sessionDB.findOne({_id: sessionId}, function(err, session){
+        if (err){
+            sendJsonResponse(res, 400, err);
+        }else {
+            enigme = session.enigmes.find(function(enigme){
+                return enigme.enigme === enigmeId;
+            });
+
+            if (enigme.answers.find(function(answer){
+                return answer.user === req.user.email;
+            }) !== undefined){
+                sendJsonResponse(res, 403, {message: "Vous ne pouvez pas répondre deux fois à la même énigme, dans le même défi"});
+                return;
+            } 
+
+             sessionDB.update(
+            {_id: sessionId, "enigmes.enigme":enigmeId},
+            {"$addToSet": {"enigmes.$.answers":answer}}, function(err){
+                if (err){
+                    sendJsonResponse(res, 400, err);
+                } else {
+                    sendJsonResponse(res, 201, answer);
+                }
+            });
+        }
     });
+
+   
 
     
 

@@ -43,6 +43,14 @@
       });
    };
 
+    var postAnswer = function(sessionId, enigme, answer){
+      return $http.post("/api/session/"+sessionId+"/enigme/"+enigme._id+"/answer", {answer: answer}, {
+        headers: {
+          Authorization: "Bearer "+ authentication.getToken()
+        }
+      });
+    };
+
 
    
    return {
@@ -51,6 +59,7 @@
      addEnigme: addEnigme,
      deleteEnigme: deleteEnigme,
      updateEnigme: updateEnigme,
+     postAnswer: postAnswer,
    };
  }
 })();

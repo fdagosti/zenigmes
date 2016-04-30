@@ -3,10 +3,8 @@ angular.module('zenigmesApp').controller('answerModalCtrl', function ($scope, $u
  
 
   $scope.ok = function () {
-    $uibModalInstance.close($scope.selected.item);
+    $uibModalInstance.close();
   };
 
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss('cancel');
-  };
+  
 });

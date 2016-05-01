@@ -35,7 +35,7 @@ exports.addFixture = function(done){
         sessions.create(session, function(err, res){
           cb(err);
         });
-      },function(){
+      },function(err){
         done();
       })
 

@@ -32,6 +32,7 @@ router.post("/login", ctrlAuth.login);
 router.get("/users", auth, adminCheck, ctrlUsers.usersList);
 router.delete("/users/:userid", auth, adminCheck, ctrlUsers.userDelete);
 router.put("/users/:userid", auth, adminCheck, ctrlUsers.userUpdate);
+router.get("/users/:userid", ctrlUsers.userDetails);
 
 // sessions
 router.get("/sessions", auth, adminCheck, ctrlSessions.sessionsList);

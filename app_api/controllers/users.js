@@ -1,5 +1,9 @@
 var mongoose = require("mongoose");
 var users = mongoose.model("User");
+var sessions = mongoose.model("sessions");
+var zenigmes = mongoose.model("enigmes");
+var async = require("async");
+
 
 var sendJsonResponse = function(res, status, content) {
     res.status(status);
@@ -73,4 +77,75 @@ module.exports.userUpdate = function(req, res){
                 }
             });
         })
+};
+
+module.exports.userDetails = function(req, res){
+    if (!req.params.userid) {
+        sendJsonResponse(res, 404, {
+            message: "Not found, userid is required"
+        });
+        return;
+    }
+
+    async.parallel([
+        function(cb){
+            // retrieve user detail
+            users
+            .findById(req.params.userid)
+            .select("-hash -salt")
+            .exec(
+                function(err, user) {
+                    cb(err, user.toObject());
+                }
+            ); 
+        },
+        function(cb){
+            // retrieve participating sessions
+            sessions.find(
+            {participants: {$all: [req.params.userid]}},function(err, sessions){
+                // transform mongoose object into plain JSON
+                cb(err, sessions.map(function(session){
+                    return session.toObject();
+                }));
+            });
+        },
+        function(cb){
+            // retrieve all enigmes, but only title
+            zenigmes.find()
+            .select("-description")
+            .exec(
+                function(err, enigmes){
+                    cb(err, enigmes);
+                }
+            );
+
+            
+        }
+    ],
+    function(err, results){
+        // aggregates all results into a single user objects, 
+        // and strips down all answers given from other users
+        if (err){
+            sendJsonResponse(res, 404, err);
+        } else {
+            user = results[0];
+            sessions = results[1];
+            allEnigmes = results[2];
+            sessions.forEach(function(session){
+                session.enigmes.forEach(function(enigme){
+                    //filter out the answers from other users
+                    userAnswers = enigme.answers.filter(function(answer){
+                        return answer.user === user.email;
+                    });
+                    enigme.answers = userAnswers;
+
+                    enigme.enigme = allEnigmes.find(function(enigmeInDb){
+                        return (enigmeInDb._id.toString() === enigme.enigme);
+                    });
+                });
+            });
+            user.sessions = sessions;
+            sendJsonResponse(res, 200, user);
+        }
+    });
 };

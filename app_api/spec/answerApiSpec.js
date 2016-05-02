@@ -5,29 +5,31 @@ var dbUtils = require("./dbUtils");
 
 var francoisCredentials = {
   email: "francois.dagostini@gmail.com",
-  password: "toto"
+  password: "toto",
+  id: "57091325117230600f0d1fae"
 }
 
 describe("The Answer API", function(){
   
   var loginToken;
+  function _login(cb){
+    rest.post(base+"/api/login", {data: francoisCredentials})
+    .on("success", function(data, response){
+      loginToken = data.token;
+      cb();
+    });
+  };
 
   beforeEach(function(done){
    server = app.listen(9876, function(){
       dbUtils.clearDatabase(function(){
         dbUtils.addFixture(function(){
-          rest.post(base+"/api/login", {data: francoisCredentials})
-          .on("success", function(data, response){
-            loginToken = data.token;
-            done();
-          });
+          _login(done);
         });
-      
       });
-      
     });
   });
-  // tests here
+
   afterEach(function(done){
     server.close(function(){
       dbUtils.clearDatabase(done);
@@ -35,9 +37,9 @@ describe("The Answer API", function(){
   });
 
 
-  var answerValue = 5;
-    var sessionId = "570e7986a3c7b8b5330b287a";
-    var enigmeId = "5706689e44be3f420562c667";
+  var answerValue = 32;
+  var sessionId = "570e7986a3c7b8b5330b287a";
+  var enigmeId = "5706689e44be3f420562c667";
  
   it("should store the answer inside the enigmes section of a session", function(done){
 
@@ -96,7 +98,50 @@ describe("The Answer API", function(){
 
 
   });
-    
-  
+
+  function _extractAnswer(user, sid, eid, email){
+    var session = user.sessions.find(function(session){
+      return session._id === sid;
+    });
+    var enigme = session.enigmes.find(function(enigme){
+      return enigme.enigme._id === eid;
+    });
+
+    return enigme.answers.find(function(answer){
+      return answer.user === email;
+    });
+  }
+
+  function _sendAnswerAndRetrieveIt(answer, cb, done){
+    rest.post(base+"/api/session/"+sessionId+"/enigme/"+enigmeId+"/answer", 
+              {accessToken: loginToken, data: {answer:answer}})
+    .on("success", function(session, response){
+      rest.get(base+"/api/users/"+francoisCredentials.id)
+      .on("success", function(user, response){
+        cb(_extractAnswer(user, sessionId, enigmeId, francoisCredentials.email));
+      })
+      .on("fail", function(data, response){
+        done.fail("error in retrieving users");
+      });
+    })
+    .on("fail", function(data, response){
+      done.fail("You should be able to post a new answer");
+    });
+  }
+
+  it("should put the value in the answer as correct if it is indeed correct", function(done){
+    _sendAnswerAndRetrieveIt(answerValue, function(answerFromDb){
+      expect(answerFromDb.correctValue).toBe(true);
+        done();
+    }, done);
+  });
+
+  it("should set the correctValue field to false if provided with an incorrect answer", function(done){
+    _sendAnswerAndRetrieveIt(++answerValue, function(answerFromDb){
+      expect(answerFromDb.correctValue).toBe(false);
+        done();
+    }, done);
+  });
+
 
 });

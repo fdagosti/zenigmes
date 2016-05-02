@@ -58,6 +58,10 @@
     });
   };
 
+  var userDetails = function(userId){
+    return $http.get("/api/users/"+userId);
+  };
+
 
   
   return {
@@ -65,6 +69,7 @@
    deleteUser: deleteUser,
    updateUser: updateUser,
    allUsersWithSessions:allUsersWithSessions,
+   userDetails:userDetails,
  };
 }
 })();

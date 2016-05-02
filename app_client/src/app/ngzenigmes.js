@@ -64,6 +64,12 @@
                 controllerAs: "vm",
                 css: "app/common/css/table.css"
             })
+            .when("/users/:userId", {
+                templateUrl: "app/users/userDetails/userDetails.template.html",
+                controller: "userDetailsCtrl",
+                controllerAs: "vm",
+                css: "app/common/css/table.css"
+            })
             .otherwise({redirectTo: "/"});
 
         $locationProvider.html5Mode(true);

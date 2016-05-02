@@ -1,6 +1,8 @@
 var mongoose = require("mongoose");
 var sessionDB = mongoose.model("sessions");
+var enigmesDB = mongoose.model("enigmes");
 var userDB = mongoose.model("User");
+var async = require("async");
 
 var sendJsonResponse = function(res, status, content) {
     res.status(status);
@@ -20,6 +22,11 @@ module.exports.participationsList = function(req, res){
     );
 };
 
+function _validateAnswer(answer, enigme){
+    // doing soft validation as some answers are strings, other are numbers
+    return enigme.reponse == answer.value;
+};
+
 module.exports.postAnswer = function(req, res){
     var sessionId = req.params.sessionid;
     var enigmeId = req.params.enigmeid;
@@ -33,20 +40,39 @@ module.exports.postAnswer = function(req, res){
         return;
     }
 
-    sessionDB.findOne({_id: sessionId}, function(err, session){
+    async.parallel([
+        function(cb){
+            enigmesDB
+            .findById(enigmeId)
+            .select("reponse")
+            .exec(function(err, enigme){
+                cb(err,enigme);
+            });
+        },
+        function(cb){
+            sessionDB.findById(sessionId, function(err, session){
+               cb(err, session);
+            });
+        }
+   ], function(err, results){
         if (err){
             sendJsonResponse(res, 400, err);
         }else {
-            enigme = session.enigmes.find(function(enigme){
-                return enigme.enigme === enigmeId;
-            });
+            var enigme = results[0];
+            var session = results[1];
 
-            if (enigme.answers.find(function(answer){
+            var existingAnswers = session.enigmes.find(function(enigme){
+                return enigme.enigme === enigmeId;
+            }).answers;
+
+            if (existingAnswers.find(function(answer){
                 return answer.user === req.user.email;
             }) !== undefined){
                 sendJsonResponse(res, 403, {message: "Vous ne pouvez pas répondre deux fois à la même énigme, dans le même défi"});
                 return;
             } 
+
+            answer.correctValue = _validateAnswer(answer, enigme);
 
              sessionDB.update(
             {_id: sessionId, "enigmes.enigme":enigmeId},
@@ -58,10 +84,5 @@ module.exports.postAnswer = function(req, res){
                 }
             });
         }
-    });
-
-   
-
-    
-
+   });
 };

@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
-var users = mongoose.model("User");
-var sessions = mongoose.model("sessions");
-var zenigmes = mongoose.model("enigmes");
+var usersDB = mongoose.model("User");
+var sessionDB = mongoose.model("sessions");
+var zenigmesDB = mongoose.model("enigmes");
 var async = require("async");
 
 
@@ -12,7 +12,7 @@ var sendJsonResponse = function(res, status, content) {
 
 module.exports.usersList = function(req, res){
 
-    users.find()
+    usersDB.find()
     .select("-hash -salt")
     .exec(
         function(err, users){
@@ -29,7 +29,7 @@ module.exports.userDelete = function(req, res){
 
     var userid = req.params.userid;
     if (userid){
-        users
+        usersDB
         .findByIdAndRemove(userid)
         .exec(
             function(err, user) {
@@ -53,7 +53,7 @@ module.exports.userUpdate = function(req, res){
         });
         return;
     }
-    users
+    usersDB
     .findById(req.params.userid)
     .exec(
         function(err, user) {
@@ -90,18 +90,18 @@ module.exports.userDetails = function(req, res){
     async.parallel([
         function(cb){
             // retrieve user detail
-            users
+            usersDB
             .findById(req.params.userid)
             .select("-hash -salt")
             .exec(
                 function(err, user) {
-                    cb(err, user.toObject());
+                    cb(err, user !== undefined? user.toObject():null);
                 }
             ); 
         },
         function(cb){
             // retrieve participating sessions
-            sessions.find(
+            sessionDB.find(
             {participants: {$all: [req.params.userid]}},function(err, sessions){
                 // transform mongoose object into plain JSON
                 cb(err, sessions.map(function(session){
@@ -111,7 +111,7 @@ module.exports.userDetails = function(req, res){
         },
         function(cb){
             // retrieve all enigmes, but only title
-            zenigmes.find()
+            zenigmesDB.find()
             .select("-description")
             .exec(
                 function(err, enigmes){

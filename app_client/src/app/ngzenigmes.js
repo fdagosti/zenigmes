@@ -7,6 +7,11 @@
 
         $routeProvider
             .when("/", {
+                templateUrl: "app/landing/landing.template.html",
+                controller: "landingCtrl",
+                controllerAs: "vm"
+            })
+            .when("/enigmes", {
                 templateUrl: "app/enigmesListe/enigmesListe.view.html",
                 controller: "enigmesListCtrl",
                 controllerAs: "vm"

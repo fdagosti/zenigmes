@@ -17,7 +17,7 @@ describe('UsersList controller', function() {
     var gravatar = {
       email: "  MyEmailAddress@example.com",
       hash: "0bc83cb571cd1c50ba6f3e8a78ef1346"
-    }
+    };
 
     var controller = $controller("usersCtrl", {$scope: $scope});
     expect(controller.getGravatarURL(gravatar.email)).toBe(gravatar.hash);    

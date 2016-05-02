@@ -35,7 +35,7 @@
         };
 
 
-        authentication.subscribe($scope, function somethingChanged() {
+        authentication.subscribe($scope, "nav", function somethingChanged() {
             _updateUser();
         });
     }

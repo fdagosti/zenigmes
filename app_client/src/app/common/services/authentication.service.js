@@ -64,9 +64,23 @@
             $rootScope.$emit('auth-service-event');
         };
 
+        var cbs = [], ids = [];
+        var cbf = function(){
+            cbs.forEach(function(cb){
+                cb();
+            });
+        };
+
         return {
-            subscribe: function(scope, callback) {
-                var handler = $rootScope.$on('auth-service-event', callback);
+            subscribe: function(scope, id, callback) {
+                if (ids.indexOf(id) >= 0){
+                    cbs[ids.indexOf(id)] = callback;
+                    return;
+                } else {
+                    ids.push(id);
+                    cbs.push(callback);    
+                }
+                var handler = $rootScope.$on('auth-service-event', cbf);
                 scope.$on('$destroy', handler);
             },
 

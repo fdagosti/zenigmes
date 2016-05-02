@@ -3,7 +3,7 @@
   <form ng-submit="saveSession()">
     <div role="alert" ng-show="vm.formError" class="alert alert-danger">{{vm.formError}}</div>
     <div class="form-group">
-      <label for="title">Nom de la session</label>
+      <label for="title">Nom du défi</label>
       <input class="form-control" id="title" ng-model="session.nom" placeholder="Titre">
     </div>
     
@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-xs-12 col-md-6">
         <div class="form-group">
-          <label for="">Niveau de l'énigme</label>
+          <label for="">Niveau du défi</label>
           <div class="panel panel-default">
             <div class="panel-body">
               <div class="radio">
@@ -39,7 +39,7 @@
       <div class="col-xs-12 col-md-6">
         <div class="row">
           <div class="col-xs-12">
-            <label for="">Début de la session</label>
+            <label for="">Début du défi</label>
             <p class="input-group">
               <input type="text" class="form-control" uib-datepicker-popup ng-model="session.start" is-open="vm.datePickerOpened" datepicker-options ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
               <span class="input-group-btn">
@@ -70,7 +70,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3">
         <div class="panel panel-default">
-          <div class="panel-heading">Enigmes de la session en cours </div>
+          <div class="panel-heading">Enigmes du défi en cours </div>
           <div class="panel-body">
             <div ui-sortable="vm.sortableOptions" class=" list-group screen connected-drop-target-sortable" ng-model="vm.selectedEnigmes">
               <div class="list-group-item" ng-repeat="component in vm.selectedEnigmes track by $index">{{component.titre}}</div>

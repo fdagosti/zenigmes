@@ -16,6 +16,10 @@
         zenigmeUsers.allUsersWithSessions().then(function(data){
             vm.users = data;
         });
+
+        vm.getGravatarURL = function(email){
+            return md5(email.trim().toLowerCase());
+        }
     }
 
     listUsers();

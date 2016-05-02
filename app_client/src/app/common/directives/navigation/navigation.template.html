@@ -16,11 +16,13 @@
         <li ng-show="navvm.isLoggedIn" class="dropdown">
           <a href="" class="dropdown-toggle" data-toggle="dropdown">{{navvm.currentUser.name}}<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li ng-show="navvm.isAdmin"><a href="/#enigmes/new">Créer une nouvelle énigme</a></li>
-            <li ng-show="navvm.isAdmin"><a href="/#sessions/new">Créer une nouvelle session</a></li>
-            <li ng-show="navvm.isAdmin" ><a href="/#sessions">Gestion des sessions</a></li>
-            <li ng-show="navvm.isAdmin" ><a href="/#users">Gestion des utilisateurs</a></li>
             <li><a href="/#participations" >Mes Défis</a></li>
+            <li ng-show="navvm.isAdmin" role="separator" class="divider"></li>
+            <li ng-show="navvm.isAdmin"><a href="/#enigmes/new">Créer une nouvelle énigme</a></li>
+            <li ng-show="navvm.isAdmin"><a href="/#sessions/new">Créer un nouveau défi</a></li>
+            <li ng-show="navvm.isAdmin" ><a href="/#sessions">Gestion des défis</a></li>
+            <li ng-show="navvm.isAdmin" ><a href="/#users">Gestion des utilisateurs</a></li>
+            <li ng-show="navvm.isAdmin" role="separator" class="divider"></li>
             <li><a href="" ng-click="navvm.logout()">Deconnexion</a></li>
           </ul>
         </li>

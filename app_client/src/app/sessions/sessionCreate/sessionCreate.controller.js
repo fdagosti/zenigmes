@@ -8,10 +8,10 @@
 
         var vm = this;
         vm.pageHeader = {   
-            title: "Nouvelle session",
+            title: "Nouveau Défi",
             strapline: "Une série d'énigmes étalées dans le temps"
         };
-        vm.buttonTitle = "Créer une session";
+        vm.buttonTitle = "Créer un défi";
 
         vm.session = {};
         vm.session.niveau = 1;

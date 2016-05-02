@@ -92,11 +92,16 @@ gulp.task('copy-libs-js-compile', function () {
     .pipe(gulp.dest('./app_client/bin/libs'));
 });
 
-gulp.task('copy-compile', ['copy-compile-assets']);
+gulp.task('copy-compile', ['copy-compile-assets', 'copy-compile-css']);
 
-gulp.task('copy-compile-assets', function () {
+gulp.task('copy-compile-css', function () {
     return gulp.src(files.app_files.assets_compile)
         .pipe(gulp.dest('./app_client/bin'));
+});
+
+gulp.task('copy-compile-assets', function () {
+    return gulp.src("./app_client/src/rsc/**/*")
+        .pipe(gulp.dest('./app_client/bin/rsc'));
 });
 
 gulp.task('html2js', function () {

@@ -14,27 +14,27 @@
                         <table class="table user-list">
                             <thead>
                                 <tr>
-                                <th><span>sessions</span></th>
-                                <th><span>Nombre d'énigmes</span></th>
+                                <th class="text-center"><span>Défi</span></th>
+                                <th class="text-center"><span>Nombre d'énigmes</span></th>
                                 <th class="text-center"><span>Nombre de réponses données</span></th>
-                                <th><span>ratio bonne réponses</span></th>
-                                <th><span>points</span></th>
+                                <th class="text-center"><span>ratio bonne réponses</span></th>
+                                <th class="text-center"><span>points</span></th>
                                 <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat='session in vm.user.sessions'>
-                                    <td>
+                                    <td class="text-center">
                                         {{session.nom}}
                                     </td>
-                                    <td>{{session.enigmes.length}}</td>
-                                    <td >
+                                    <td class="text-center">{{session.enigmes.length}}</td>
+                                    <td class="text-center" >
                                         {{vm.answerNumber(session)}}
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         {{vm.bonneReponseRatio(session)}}
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         {{vm.points(session)}}
                                     </td>
                                     <td style="width: 20%;">

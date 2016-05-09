@@ -8,7 +8,10 @@ var dummySession = {
       "start" : "2016-04-19T16:52:49.280Z",
       "end" : "2016-04-26T16:52:49.280Z",
       "_id" : "5710f9d903317a1349ecf15f",
-      "answers" : [ ]
+      "answers" : [
+
+       ]
+        
     },
     {
       "enigme" : "5706695137a07d5707c2eb42",
@@ -22,7 +25,15 @@ var dummySession = {
       "start" : "2016-05-03T16:52:49.280Z",
       "end" : "2016-05-10T16:52:49.280Z",
       "_id" : "5710f9d903317a1349ecf15d",
-      "answers" : [ ]
+      "answers" : [ 
+         {
+          user: "francois.dagostini@gmail.com",
+          value: "32",
+          correctValue: true,
+          _id: "543543gdgfdgdf445",
+          answerDate:"2016-05-02T09:46:59.297Z"
+        },
+      ]
     },
     {
       "enigme" : "5706763aa28caf6e09f7bc75",

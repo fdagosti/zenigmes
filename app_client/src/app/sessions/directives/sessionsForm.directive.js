@@ -37,7 +37,7 @@
                         }else {
                             date.setDate(date.getDate() + 7);
                         }
-                    }
+                    };
 
                     $scope.session.enigmes = [];
                     var sd = new Date($scope.session.start);

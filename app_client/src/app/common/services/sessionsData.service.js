@@ -98,10 +98,10 @@
   var _getEnigmeDuMoment = function(session, enigme){
     return zenigmeData.enigmeById(enigme.enigme).then(function(res){
       session.enigmeDuMoment = res.data;
-      var user = authentication.currentUser()
-      session.enigmeDuMoment.alreadyAnswered = enigme.answers.find(function(an){
+      var user = authentication.currentUser();
+      session.enigmeDuMoment.alreadyAnswered = enigme.answers.filter(function(an){
         return an.user === user.email;
-      }) !== undefined;
+      }).length > 0;
     });
   };
 

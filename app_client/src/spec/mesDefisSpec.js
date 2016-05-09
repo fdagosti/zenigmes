@@ -23,7 +23,7 @@ describe('Mes Defis controller', function() {
     jasmine.clock().mockDate(baseTime);
     expect(controller.isSessionEnded(dummySession)).toBe(true);
 
-    var baseTime = new Date(2016, 4, 15);
+    baseTime = new Date(2016, 4, 15);
     jasmine.clock().mockDate(baseTime);
     expect(controller.isSessionEnded(dummySession)).toBe(false);
 

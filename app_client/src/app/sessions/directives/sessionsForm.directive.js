@@ -23,15 +23,29 @@
 
                 vm.selectedEnigmes = [{ titre: 'Glissez vos enigmes ici', avoid:true }];
 
+
+
                 var updateSessionBasedOnSelectedEnigmes = function(){
                     if (!enigmesUpdated || !sessionUpdated){
                         return;
                     }
                     vm.events.length = 0;
+
+                    var _setDuration = function(date){
+                        if (vm.testMode){
+                            date.setSeconds(date.getSeconds() + 60);
+                        }else {
+                            date.setDate(date.getDate() + 7);
+                        }
+                    }
+
                     $scope.session.enigmes = [];
                     var sd = new Date($scope.session.start);
                     var ed = new Date(sd.getTime());
-                    ed.setDate(ed.getDate() + 7);
+                    console.log("Start Date = "+sd);
+                    console.log(sd.getMinutes());
+                    _setDuration(ed);
+                    console.log(ed);
                     vm.selectedEnigmes.forEach(function(enigme){
                         if (!enigme.avoid){
                             vm.events.push({
@@ -47,11 +61,13 @@
                                 start: new Date(sd.getTime()),
                                 end: new Date(ed.getTime()),
                             });
-                            sd.setDate(sd.getDate() + 7);
-                            ed.setDate(ed.getDate() + 7);
+                            _setDuration(sd);
+                            _setDuration(ed);
                         }
 
                     });
+                    console.log("TEST Mode "+vm.testMode);
+                    console.log($scope.session);
                 };
 
                 function syncViewBasedOnSession(){
@@ -105,6 +121,17 @@
                     updateSessionBasedOnSelectedEnigmes();
                 });
 
+                
+                $scope.$watch("vm.testMode", function(){
+                    if (vm.testMode){
+                        var now = new Date();
+
+                        var datePlusOneMin = new Date(now.getTime() + 60000);
+                        console.log(datePlusOneMin);
+                        $scope.session.start = datePlusOneMin;
+                    }
+                    updateSessionBasedOnSelectedEnigmes();
+                });
 
                 $scope.$watch("session", function(newVal, oldVal, scope){
                     syncViewBasedOnSession(newVal.enigmes);    

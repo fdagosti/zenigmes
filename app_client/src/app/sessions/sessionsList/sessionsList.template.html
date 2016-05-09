@@ -23,7 +23,7 @@
                             <tbody>
                                 <tr ng-repeat='session in vm.sessions'>
                                     <td>
-                                        <a href="#" class="user-link">{{session.nom}}</a>
+                                        {{session.nom}}
                                     </td>
                                     <td>{{session.start | date: 'd MMMM yyyy'}}</td>
                                     <td class="text-center">
@@ -32,7 +32,7 @@
                                     <td>
                                         <ul>
                                             <li ng-repeat="enigme in session.enigmes">
-                                                {{enigme.enigme.titre}}
+                                                <a ng-href="/#/enigmes/{{enigme.enigme._id}}?sessionid={{session._id}}">{{enigme.enigme.titre}}</a>
                                             </li>
                                         </ul>
                                     </td>

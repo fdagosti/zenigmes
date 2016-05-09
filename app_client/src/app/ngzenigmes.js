@@ -63,9 +63,9 @@
                 controllerAs: "vm",
                 css: "app/common/css/table.css"
             })
-            .when("/participations", {
-                templateUrl: "app/participations/participations.template.html",
-                controller: "participationsCtrl",
+            .when("/mesdefis", {
+                templateUrl: "app/mesDefis/mesDefis.template.html",
+                controller: "mesDefisCtrl",
                 controllerAs: "vm",
                 css: "app/common/css/table.css"
             })

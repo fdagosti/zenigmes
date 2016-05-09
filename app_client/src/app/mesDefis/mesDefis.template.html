@@ -12,24 +12,24 @@
               <table class="table user-list">
                 <thead>
                   <tr>
-                  <th><span>Défi</span></th>
-                    <th><span>Debut du défi</span></th>
-                    <th><span>Fin du défi</span></th>
-                    <th <span>Enigme du moment</span></th>
+                  <th class="text-center"><span>Défi</span></th>
+                    <th class="text-center"><span>Debut du défi</span></th>
+                    <th class="text-center"><span>Fin du défi</span></th>
+                    <th class="text-center"><span>Enigme du moment</span></th>
                     <th>&nbsp;</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr ng-repeat='session in vm.sessionsForUser'>
-                    <td>
-                      <a ng-show="vm.isAdmin" href="#" class="user-link">{{session.nom}}</a>
-                      <span ng-hide="vm.isAdmin" class="user-link" class="user-link">{{session.nom}}</span>
+                    <td class="text-center">
+                      <span class="user-link">{{session.nom}}</span>
                     </td>
-                    <td>{{session.start | date: 'd MMMM yyyy'}}</td>
-                    <td>{{vm.getSessionEndDate(session) | date: 'd MMMM yyyy'}}</td>
-                    <td>
-                      <a href="#" class="user-link" ng-show="session.enigmeDuMoment != null">{{session.enigmeDuMoment.titre}}</a>
-                      <span ng-hide="session.enigmeDuMoment != null">Pas d'énigme en cours</span>
+                    <td class="text-center">{{session.start | date: 'd MMMM yyyy'}}</td>
+                    <td class="text-center">{{vm.getSessionEndDate(session) | date: 'd MMMM yyyy'}}</td>
+                    <td class="text-center">
+                      <span ng-show="session.enigmeDuMoment != null"><strong>{{session.enigmeDuMoment.titre}}</strong><br><div ng-show="session.enigmeDuMoment.alreadyAnswered">(Déja Répondu)</div></span>
+                      <span ng-show="vm.isSessionNotStartedYet(session)">Défi pas encore démarrée</span>
+                      <span ng-show="vm.isSessionEnded(session)">Défi fini</span>
                     </td>
                     <td>
                       <ul >
@@ -39,7 +39,7 @@
                       </ul>
                     </td>
                     <td style="width: 20%;">
-                      <a href="#" ng-show="session.enigmeDuMoment != null" ng-href="/#/enigmes/{{session.enigmeDuMoment._id}}?sessionid={{session._id}}" class="table-link success" ng-click="">
+                      <a href="#" ng-show="session.enigmeDuMoment != null && !session.enigmeDuMoment.alreadyAnswered" ng-href="/#/enigmes/{{session.enigmeDuMoment._id}}?sessionid={{session._id}}" class="table-link success" ng-click="">
                         <span class="fa-stack">
                           <i class="fa fa-square fa-stack-2x"></i>
                           <i class="fa fa-play-circle fa-stack-1x fa-inverse"></i>

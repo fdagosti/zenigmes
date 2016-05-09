@@ -35,12 +35,22 @@
             </div>
           </div>
         </div>
+        <div class="form-group">
+          <div class="panel panel-warning">
+            <div class="panel-heading">Zone de test</div>
+            <div class="panel-body"> 
+              <div class="checkbox"><label><input type="checkbox" ng-model="vm.testMode"> Durée des énigmes de 1 minutes (au lieu de 7 jours)</label></div>
+            </div>
+          </div>
+          
+        </div>
       </div>
       <div class="col-xs-12 col-md-6">
         <div class="row">
           <div class="col-xs-12">
             <label for="">Début du défi</label>
-            <p class="input-group">
+            <div ng-show="vm.testMode" class="alert alert-warning">{{session.start | date: 'mediumTime'}}  &nbsp;&nbsp;&nbsp;  (Une Minute après avoir selectionné le mode Test)</div>
+            <p ng-hide="vm.testMode" class="input-group">
               <input type="text" class="form-control" uib-datepicker-popup ng-model="session.start" is-open="vm.datePickerOpened" datepicker-options ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="vm.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>

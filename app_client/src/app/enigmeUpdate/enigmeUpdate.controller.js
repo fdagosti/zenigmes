@@ -30,6 +30,9 @@
 
         vm.enigme = {};
         zenigmeData.enigmeById($routeParams.enigmeId).then(function(response){
+            // as answers are string based and the form only accepts number, a conversion is needed
+            // to be changed in the future
+            response.data.reponse = parseInt(response.data.reponse);
             vm.enigme = response.data;
         },function(e){
             console.log(e);

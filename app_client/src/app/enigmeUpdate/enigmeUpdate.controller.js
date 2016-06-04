@@ -14,6 +14,7 @@
         $scope.tinymceOptions = {
             languages: "fr_FR",
             style_formats_merge: true,
+            height : 400,
             style_formats:[
             { title: 'Encadré', inline: 'span', styles: { display: 'inline-block', border: '1px solid black', padding: '2px 5px', margin: '0 2px', color: 'black' } },
             ],
@@ -32,7 +33,9 @@
         zenigmeData.enigmeById($routeParams.enigmeId).then(function(response){
             // as answers are string based and the form only accepts number, a conversion is needed
             // to be changed in the future
-            response.data.reponse = parseInt(response.data.reponse);
+            if (response.data.reponse){
+                response.data.numericAnswer = parseInt(response.data.reponse);
+            }
             vm.enigme = response.data;
         },function(e){
             console.log(e);

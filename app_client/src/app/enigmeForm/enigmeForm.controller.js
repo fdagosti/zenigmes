@@ -14,6 +14,7 @@
         $scope.tinymceOptions = {
             languages: "fr_FR",
             style_formats_merge: true,
+            height : 400,
             style_formats:[
             { title: 'Encadré', inline: 'span', styles: { display: 'inline-block', border: '1px solid black', padding: '2px 5px', margin: '0 2px', color: 'black' } },
             ],

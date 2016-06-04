@@ -75,10 +75,25 @@
                     </div>
                 </div>
             </div>
-          <div class="form-group">
+
+
             <label >Réponse</label>
-            <input class="form-control" id="title" ng-model="vm.enigme.reponse" type="number" placeholder="Réponse">
-          </div>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="form-group" ng-init="typeAnswer='numeric'">
+                  <label class="radio-inline">
+                    <input type="radio" name="typeAnswer" ng-model="typeAnswer" value="numeric"> Réponse Numérique
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="typeAnswer" ng-model="typeAnswer" value="textual"> Réponse Textuelle
+                  </label>
+                </div>
+                <div class="form-group">
+                  <input ng-show="typeAnswer == 'numeric'" class="form-control" id="title" ng-model="vm.enigme.numericAnswer" type="number" placeholder="Réponse Numérique">
+                  <input ng-show="typeAnswer == 'textual'" class="form-control" id="title" ng-model="vm.enigme.textualAnswer" placeholder="Réponse Textuelle">
+                </div>
+              </div>
+            </div>
           <button type="submit" class="btn btn-default">{{vm.buttonTitle}}</button>
         </form>
     </div>

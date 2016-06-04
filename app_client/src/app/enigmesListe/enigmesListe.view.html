@@ -21,11 +21,11 @@
             <div class="panel-heading text-center"><h4><niveau enigme="{niveau:level}"/></h4>{{filtered.length}} Enigmes</div>
             <div class="panel-body">
               <div class="list-group-item" ng-repeat="enigme in vm.enigmes | filter: textFilter | filter: vm.filterByLevel(level) as filtered" >
-                <h4>
-                  <p><a href="/#/enigmes/{{enigme._id}}">{{enigme.titre}}</a></p>
+                
+                  <a href="/#/enigmes/{{enigme._id}}">{{enigme.titre}}</a>
                   
                   <points enigme="enigme"/>
-                </h4>
+                
               </div>
             </div>
           </div>

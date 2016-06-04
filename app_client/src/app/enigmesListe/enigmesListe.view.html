@@ -14,26 +14,29 @@
           </div>
         </div>
       </form>
-      <div class="row list-group">
-        <div class="col-xs-12 list-group-item" ng-repeat="enigme in vm.enigmes | filter: textFilter" >
-          <h4>
-            <a href="/#/enigmes/{{enigme._id}}">{{enigme.titre}}</a>
-            
-            <niveau enigme="enigme"/>
-            <points enigme="enigme"/>
-            
-          </h4>
-          
+      <div class="row">
+
+        <div class="list-group col-xs-12 col-md-4" ng-repeat="level in vm.niveaux">
+          <div class="panel panel-default">
+            <div class="panel-heading text-center"><h4><niveau enigme="{niveau:level}"/></h4>{{filtered.length}} Enigmes</div>
+            <div class="panel-body">
+              <div class="list-group-item" ng-repeat="enigme in vm.enigmes | filter: textFilter | filter: vm.filterByLevel(level) as filtered" >
+                <h4>
+                  <p><a href="/#/enigmes/{{enigme._id}}">{{enigme.titre}}</a></p>
+                  
+                  <points enigme="enigme"/>
+                </h4>
+              </div>
+            </div>
+          </div>
         </div>
+
 
       </div>
     </div>
-    <div class="col-xs-12 col-md-4">
-      <p class="lead">Les zenigmes sont faites pour stimuler la reflexion et la créativité des élèves<br/>
-        Chaque Enigme appartient à un niveau particulier. Verifier votre niveau avant de selectionner des enigmes
-      </p>
-    </div>
+  
   </div>
+  
 
  
 </div>

@@ -9,9 +9,24 @@ var sendJsonResponse = function(res, status, content) {
     res.json(content);
 };
 
+var _sessionFromClasse = function(user){
+    var classe = user.classe;
+    if (classe == "6eme" || classe == "5eme"){
+        return 1;
+    } else if (classe == "4eme" || classe == "3eme"){
+        return 2;
+    } else if (classe == "2nde" || classe == "1ere" || classe == "terminale"){
+        return 3;
+    } 
+    return 0;
+};
+
 module.exports.participationsList = function(req, res){
-    sessionDB.find({
-        participants: {$all: [req.user._id]}
+
+    sessionDB.find({ $or: [
+        {participants: {$all: [req.user._id]}},
+        {niveau: _sessionFromClasse(req.user)}
+        ]
     },function(err, session){
         if (err){
             sendJsonResponse(res, 404, err);

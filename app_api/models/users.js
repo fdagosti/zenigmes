@@ -15,6 +15,7 @@ var userSchema = new mongoose.Schema({
     createdOn: {type: Date, "default": Date.now},
     role: {type: String, enum: ["admin", "member"], default: "member"},
     classe: {type: String, enum: ["6eme", "5eme", "4eme", "3eme", "2nde", "1ere", "terminale", "externe"], default:"externe", required: true},
+    status: {type: String, enum: ["actif", "enValidation"]},
     hash: String,
     salt: String
 });
@@ -38,6 +39,7 @@ userSchema.methods.generateJwt = function() {
         email: this.email,
         name: this.name,
         admin: this.role === "admin",
+        classe: this.classe,
         exp: parseInt(expiry.getTime() / 1000)
     }, process.env.JWT_SECRET);
 }

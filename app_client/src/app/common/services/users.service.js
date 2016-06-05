@@ -18,6 +18,18 @@
 
    };
 
+   var _classeNiveauMatch = function(user, session){
+    var classe = user.classe;
+    var niveau = session.niveau;
+    if (niveau === 1){
+      return (classe === "6eme" || classe === "5eme");
+    }else if (niveau === 2){
+      return (classe === "4eme" || classe === "3eme");
+    }else if (niveau ===3){
+      return (classe === "2nde" || classe === "1ere" || classe === "terminale");
+    }
+   };
+
    var allUsersWithSessions = function() {
     usersPromise = allUsers();
     sessionPromise = sessionsData.allSessions();
@@ -29,7 +41,7 @@
       users.forEach(function(user){
         sessions.forEach(function(session){
           var participant = session.participants.indexOf(user._id);
-          if (participant >= 0){
+          if (participant >= 0 || _classeNiveauMatch(user, session)){
             if (!user.sessions){
               user.sessions=[];
             }

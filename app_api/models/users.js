@@ -14,6 +14,7 @@ var userSchema = new mongoose.Schema({
     },
     createdOn: {type: Date, "default": Date.now},
     role: {type: String, enum: ["admin", "member"], default: "member"},
+    classe: {type: String, enum: ["6eme", "5eme", "4eme", "3eme", "2nde", "1ere", "terminale", "externe"], default:"externe", required: true},
     hash: String,
     salt: String
 });

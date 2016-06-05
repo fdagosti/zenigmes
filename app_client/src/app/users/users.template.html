@@ -17,6 +17,7 @@
                                 <th><span>Utilisateur</span></th>
                                 <th><span>Date de création</span></th>
                                 <th class="text-center"><span>Statut</span></th>
+                                <th class="text-center"><span>classe</span></th>
                                 <th><span>Email</span></th>
                                 <th><span>Defis</span></th>
                                 <th>&nbsp;</th>
@@ -32,6 +33,9 @@
                                     <td>{{user.createdOn | date: 'd MMMM yyyy'}}</td>
                                     <td class="text-center">
                                         <span class="label label-default">pending</span>
+                                    </td>
+                                    <td class="text-center">
+                                        {{user.classe}}
                                     </td>
                                     <td>
                                         <a href="#">{{user.email}}</a>

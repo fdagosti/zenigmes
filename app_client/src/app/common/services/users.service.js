@@ -50,8 +50,8 @@
     });
   };
 
-  var updateUser = function(enigme) {
-    return $http.put("/api/enigmes/"+enigme._id, enigme, {
+  var updateUser = function(user) {
+    return $http.put("/api/users/"+user._id, user, {
       headers: {
         Authorization: "Bearer "+ authentication.getToken()
       }

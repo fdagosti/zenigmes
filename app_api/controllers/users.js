@@ -68,6 +68,7 @@ module.exports.userUpdate = function(req, res){
             }
             user.name = req.body.name;
             user.email = req.body.email;
+            user.role = req.body.role;
             
             user.save(function(err, user){
                 if (err){

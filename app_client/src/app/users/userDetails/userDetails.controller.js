@@ -1,6 +1,6 @@
 
 (function(){
-    angular.module('zenigmesApp').controller('userDetailsCtrl', function($scope, $routeParams, zenigmeUsers) {
+    angular.module('zenigmesApp').controller('userDetailsCtrl', function($scope, $location, $routeParams, zenigmeUsers) {
         var vm = this;
         vm.userId = $routeParams.userId;
 
@@ -43,9 +43,20 @@
 
         zenigmeUsers.userDetails(vm.userId).then(function(response){
             vm.user = response.data;
+            if (!vm.user.role){
+                vm.user.role = "member";
+            }
         }, function(err){
             vm.error = err.data;
         });
+
+        vm.updateUser = function(){
+            zenigmeUsers.updateUser(vm.user).then(function(response){
+                $location.path("/users/");
+            }, function(err){
+                vm.error = err.data;
+            });
+        };
 
     });
 

@@ -88,7 +88,19 @@ module.exports.userDetails = function(req, res){
         return;
     }
 
-    async.parallel([
+    var _niveauFromClasse = function(user){
+        var classe = user.classe;
+        if (classe == "6eme" || classe == "5eme"){
+            return 1;
+        } else if (classe == "4eme" || classe == "3eme"){
+            return 2;
+        } else if (classe == "2nde" || classe == "1ere" || classe == "terminale"){
+            return 3;
+        } 
+        return 0;
+    };
+
+    async.waterfall([
         function(cb){
             // retrieve user detail
             usersDB
@@ -100,38 +112,37 @@ module.exports.userDetails = function(req, res){
                 }
             ); 
         },
-        function(cb){
+        function(user, cb){
             // retrieve participating sessions
             sessionDB.find(
-            {participants: {$all: [req.params.userid]}},function(err, sessions){
+            { $or: [
+                {participants: {$all: [user._id]}},
+                {niveau: _niveauFromClasse(user)}
+            ]} ,function(err, sessions){
                 // transform mongoose object into plain JSON
-                cb(err, sessions.map(function(session){
+                cb(err, user, sessions.map(function(session){
                     return session.toObject();
                 }));
             });
         },
-        function(cb){
+        function(user, sessions, cb){
             // retrieve all enigmes, but only title
             zenigmesDB.find()
             .select("-description")
             .exec(
                 function(err, enigmes){
-                    cb(err, enigmes);
+                    cb(err, user, sessions, enigmes);
                 }
             );
-
-            
         }
     ],
-    function(err, results){
+    function(err, user, sessions, allEnigmes){
         // aggregates all results into a single user objects, 
         // and strips down all answers given from other users
         if (err){
             sendJsonResponse(res, 404, err);
         } else {
-            user = results[0];
-            sessions = results[1];
-            allEnigmes = results[2];
+
             sessions.forEach(function(session){
                 session.enigmes.forEach(function(enigme){
                     //filter out the answers from other users

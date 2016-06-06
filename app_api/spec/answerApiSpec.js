@@ -12,11 +12,13 @@ var francoisCredentials = {
 describe("The Answer API", function(){
   
   var loginToken;
-  function _login(cb){
+  function _login(done){
     rest.post(base+"/api/login", {data: francoisCredentials})
     .on("success", function(data, response){
       loginToken = data.token;
-      cb();
+      done();
+    }).on("fail", function(data, response){
+      done.fail("unable to login: "+data.message);
     });
   };
 

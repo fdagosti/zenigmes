@@ -51,6 +51,8 @@ describe("The Participations API", function(){
       }).on("fail", function(data, response){
         done.fail("getting a list of participations for francois should work");
       });
+    }).on("fail", function(data, response){
+      done.fail("unable to login: "+data.message);
     });
   });
 

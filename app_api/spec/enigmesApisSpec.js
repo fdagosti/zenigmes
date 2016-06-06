@@ -93,6 +93,8 @@ beforeEach(function(done){
       }).on("fail", function(data, response){
         done.fail("enigme post faile while a good auth token was given");
       });
+    }).on("fail", function(data, response){
+      done.fail("unable to login: "+data.message);
     });
   });
 });

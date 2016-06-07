@@ -5,6 +5,16 @@
     function config ($routeProvider, $locationProvider,$httpProvider) {
         $httpProvider.useLegacyPromiseExtensions(false);
 
+        var statusOk = function($q, authentication){
+            var user = authentication.currentUser();
+            
+            if (user && user.status =="actif"){
+                return $q.when("bien");
+            }else{
+                return $q.reject("Votre compte n'a pas encore été validé");
+            }
+        };
+
         $routeProvider
             .when("/", {
                 templateUrl: "app/landing/landing.template.html",
@@ -14,7 +24,10 @@
             .when("/enigmes", {
                 templateUrl: "app/enigmesListe/enigmesListe.view.html",
                 controller: "enigmesListCtrl",
-                controllerAs: "vm"
+                controllerAs: "vm",
+                resolve: {
+                    statusCheck: statusOk,
+                }
             })
             .when("/enigmes/new", {
                 templateUrl: "app/common/templates/enigmeForm.template.html",
@@ -67,13 +80,21 @@
                 templateUrl: "app/mesDefis/mesDefis.template.html",
                 controller: "mesDefisCtrl",
                 controllerAs: "vm",
-                css: "app/common/css/table.css"
+                css: "app/common/css/table.css",
+                resolve: {
+                    statusCheck: statusOk,
+                }
             })
             .when("/users/:userId", {
                 templateUrl: "app/users/userDetails/userDetails.template.html",
                 controller: "userDetailsCtrl",
                 controllerAs: "vm",
                 css: "app/common/css/table.css"
+            })
+            .when("/inactive", {
+                templateUrl: "app/common/templates/genericText.template.html",
+                controller: "inactiveCtrl",
+                controllerAs: "vm",
             })
             .otherwise({redirectTo: "/"});
 
@@ -82,5 +103,12 @@
 
     angular
         .module("zenigmesApp")
-        .config(["$routeProvider", "$locationProvider","$httpProvider", config]);
-})();
+        .config(["$routeProvider", "$locationProvider","$httpProvider", config])
+        .run(["$rootScope", "$location", function($rootScope, $location) {
+         
+            $rootScope.$on("$routeChangeError", function(evt, to, from, error) {
+                $location.path("/inactive");
+            });
+        }]);
+
+})()

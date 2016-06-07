@@ -40,6 +40,7 @@ userSchema.methods.generateJwt = function() {
         name: this.name,
         admin: this.role === "admin",
         classe: this.classe,
+        status: this.status,
         exp: parseInt(expiry.getTime() / 1000)
     }, process.env.JWT_SECRET);
 }

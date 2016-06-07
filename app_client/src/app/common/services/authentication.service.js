@@ -55,6 +55,7 @@
                     email: payload.email,
                     name: payload.name,
                     admin: payload.admin,
+                    status: payload.status,
                 };
             }
         };

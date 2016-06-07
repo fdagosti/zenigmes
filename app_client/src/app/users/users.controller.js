@@ -8,7 +8,7 @@
             zenigmeUsers.deleteUser(user).then(function(response){
                 listUsers();
             },function(e){
-                console.log(e.data);
+                vm.error = e;
             });
         };
 
@@ -20,6 +20,20 @@
         vm.getGravatarURL = function(email){
             return md5(email.trim().toLowerCase());
         };
+
+        vm.updateUser = function(user){
+            zenigmeUsers.updateUser(user).then(function(response){
+                listUsers();
+            }, function(e){
+                vm.error = e;
+            });
+        }
+
+        vm.filterByStatus = function(status){
+            return function(user){
+                return user.status == status;
+            }
+        }
     }
 
     listUsers();

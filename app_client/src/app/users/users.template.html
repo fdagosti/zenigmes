@@ -2,7 +2,7 @@
 
 <div class="container">
 
-  <page-header content="{title:'Utilisateurs enregistrés'}"></page-header>
+  <page-header content="{title:'Utilisateurs enregistrés',strapline:filtered.length+' Utilisateurs'}"></page-header>
 
 <div class="container bootstrap snippet">
     <div class="row">
@@ -16,7 +16,7 @@
                                 <tr>
                                 <th><span>Utilisateur</span></th>
                                 <th><span>Date de création</span></th>
-                                <th class="text-center"><span>Statut</span></th>
+                                <th class="text-center"><span>Status</span></th>
                                 <th class="text-center"><span>classe</span></th>
                                 <th><span>Email</span></th>
                                 <th><span>Defis</span></th>
@@ -24,21 +24,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat='user in vm.users'>
+                                <tr ng-repeat="user in vm.users | orderBy:'status' as filtered">
                                     <td>
                                         <img ng-src="http://www.gravatar.com/avatar/{{vm.getGravatarURL(user.email)}}?d=http://bootdey.com/img/Content/user_1.jpg" alt="">
                                         <a href="#" class="user-link">{{user.name}}</a>
-                                        <span class="user-subhead">{{user.role | formatMembership}}</span>
+                                        <span class="user-subhead">
+                                            <select ng-change="vm.updateUser(user)" ng-model="user.role">
+                                                <option value="admin">{{"admin" | formatMembership}}</option>
+                                                <option value="member">{{"member" | formatMembership}}</option>
+                                            </select>
+                                        </span>
                                     </td>
                                     <td>{{user.createdOn | date: 'd MMMM yyyy'}}</td>
                                     <td class="text-center">
-                                        <span class="label label-default">pending</span>
+                                        <user-status save-status="vm.updateUser(user)"  user="user"/>
                                     </td>
                                     <td class="text-center">
-                                        {{user.classe}}
+                                        <select class="form-control" ng-change="vm.updateUser(user)" ng-model="user.classe">
+                                            <option value="6eme">6ème</option>
+                                            <option value="5eme">5ème</option>
+                                            <option value="4eme">4ème</option>
+                                            <option value="3eme">3ème</option>
+                                            <option value="2nde">2nde</option>
+                                            <option value="1ere">1ère</option>
+                                            <option value="terminale">Terminale</option>
+                                            <option value="externe">Externe</option>
+                                        </select>
                                     </td>
                                     <td>
-                                        <a href="#">{{user.email}}</a>
+                                        {{user.email}}
                                     </td>
                                     <td>
                                         <ul >

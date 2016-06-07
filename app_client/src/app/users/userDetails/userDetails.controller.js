@@ -50,13 +50,7 @@
             vm.error = err.data;
         });
 
-        vm.updateUser = function(){
-            zenigmeUsers.updateUser(vm.user).then(function(response){
-                $location.path("/users/");
-            }, function(err){
-                vm.error = err.data;
-            });
-        };
+        
 
     });
 

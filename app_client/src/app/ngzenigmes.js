@@ -79,7 +79,7 @@
                 controllerAs: "vm",
                 css: "app/common/css/table.css",
                 resolve: {
-                    statusCheck: statusOk,
+                    statusCheck: ["$q","authentication", statusOk],
                 }
             })
             .when("/users/:userId", {

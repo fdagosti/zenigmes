@@ -16,7 +16,7 @@
 		vm.filterByLevel = function(level){
 			return function(enigme){
 				return enigme.niveau == level;
-			}
+			};
 		};
 
 		vm.niveaux = [1,2,3];

@@ -13,9 +13,10 @@
         };
 
         function listUsers(){
-        zenigmeUsers.allUsersWithSessions().then(function(data){
-            vm.users = data;
-        });
+            zenigmeUsers.allUsersWithSessions().then(function(data){
+                vm.users = data;
+            });
+        }
 
         vm.getGravatarURL = function(email){
             return md5(email.trim().toLowerCase());
@@ -27,16 +28,15 @@
             }, function(e){
                 vm.error = e;
             });
-        }
+        };
 
         vm.filterByStatus = function(status){
             return function(user){
                 return user.status == status;
-            }
-        }
-    }
+            };
+        };
 
-    listUsers();
+        listUsers();
 
     });
 })();

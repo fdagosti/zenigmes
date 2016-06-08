@@ -25,9 +25,6 @@
                 templateUrl: "app/enigmesListe/enigmesListe.view.html",
                 controller: "enigmesListCtrl",
                 controllerAs: "vm",
-                resolve: {
-                    statusCheck: statusOk,
-                }
             })
             .when("/enigmes/new", {
                 templateUrl: "app/common/templates/enigmeForm.template.html",

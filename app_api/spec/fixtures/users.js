@@ -11,6 +11,7 @@ module.exports = [{
   "hash" : "bf6471971d45bc73bb1ad197884a7db91edf864521885d253a93c29ce67a6c56c4d94ebb9fb34e93f3d9cbd13c3f98bd5923b9bd272d9b9630f26f25443c4ecd",
   "salt" : "ddc3610d1f0513bfd1b3bf89f8c35333",
   "email" : "francois.dagostini@gmail.com",
+  "status" : "actif",
   "name" : "tsdflsdkqjm",
   "role" : "admin",
   "__v" : 0
@@ -39,6 +40,16 @@ module.exports = [{
   "email" : "maskman@maskman.com",
   "name" : "maskman",
   "role" : "member",
+  "__v" : 0
+},
+{
+  "_id" : "570d13dd6d04b9ec29d53578",
+  "hash" : "bf6471971d45bc73bb1ad197884a7db91edf864521885d253a93c29ce67a6c56c4d94ebb9fb34e93f3d9cbd13c3f98bd5923b9bd272d9b9630f26f25443c4ecd",
+  "salt" : "ddc3610d1f0513bfd1b3bf89f8c35333",
+  "email" : "inactive@inactive.com",
+  "name" : "maskman inactive",
+  "role" : "member",
+  "status" : "enValidation",
   "__v" : 0
 }
 ]

@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var zngm = mongoose.model("enigmes");
 var users = mongoose.model("User");
 var sessions = mongoose.model("sessions");
+var rest = require("restler");
 
 var async = require("async");
 
@@ -30,17 +31,47 @@ exports.addFixture = function(done){
       users.create(user, function(err, res){
         cb(err);
       });
-    },function(){
+    },function(err){
+      if (err){ 
+        console.log("error filling db "+err.message);
+        console.log(done);
+        done();
+        return;
+      }
       async.each(sessionsFixture, function(session, cb){
         sessions.create(session, function(err, res){
           cb(err);
         });
       },function(err){
+        if (err){
+          done.fail("error filling database "+err)
+        }else{
         done();
+          
+        }
       })
 
     });
 
   });
 
+};
+
+var base = "http://localhost:9876";
+var francoisCredentials = {
+  email: "francois.dagostini@gmail.com",
+  password: "toto"
+};
+
+exports.setupAndLoginAsAdmin = function(done){
+  exports.clearDatabase(function(){
+    exports.addFixture(function(){
+      rest.post(base+"/api/login", {data: francoisCredentials})
+      .on("success", function(data, response){
+        done(data.token);
+      }).on("fail", function(data, response){
+        done(null, "unable to login: "+data.message);
+      });
+    }); 
+  });
 };

@@ -11,6 +11,11 @@ var adminCheck = function(req, res, next){
     next();
 };
 
+var statusCheck = function(req, res, next){
+  if (req.user.status != "actif") return res.sendStatus(401);
+  next();
+}
+
 var ctrlEnigmes = require("../controllers/zenigmes");
 var ctrlAuth = require("../controllers/authentication");
 var ctrlUsers = require("../controllers/users");
@@ -19,30 +24,30 @@ var ctrlParticipations = require("../controllers/participation");
 
 // enigmes
 router.get("/enigmes", ctrlEnigmes.enigmesList);
-router.post("/enigmes", auth, adminCheck, ctrlEnigmes.enigmeCreate);
+router.post("/enigmes", auth, statusCheck, adminCheck, ctrlEnigmes.enigmeCreate);
 router.get("/enigmes/:enigmeid", ctrlEnigmes.enigmeReadOne);
-router.put("/enigmes/:enigmeid", auth, adminCheck, ctrlEnigmes.enigmeUpdateOne);
-router.delete("/enigmes/:enigmeid", auth, adminCheck, ctrlEnigmes.enigmeDeleteOne);
+router.put("/enigmes/:enigmeid", auth, statusCheck, adminCheck, ctrlEnigmes.enigmeUpdateOne);
+router.delete("/enigmes/:enigmeid", auth, statusCheck, adminCheck, ctrlEnigmes.enigmeDeleteOne);
 
 // authentication
 router.post("/register", ctrlAuth.register);
 router.post("/login", ctrlAuth.login);
 
 // users
-router.get("/users", auth, adminCheck, ctrlUsers.usersList);
-router.delete("/users/:userid", auth, adminCheck, ctrlUsers.userDelete);
-router.put("/users/:userid", auth, adminCheck, ctrlUsers.userUpdate);
-router.get("/users/:userid", ctrlUsers.userDetails);
+router.get("/users", auth, statusCheck, adminCheck, ctrlUsers.usersList);
+router.delete("/users/:userid", auth, statusCheck, adminCheck, ctrlUsers.userDelete);
+router.put("/users/:userid", auth, statusCheck, adminCheck, ctrlUsers.userUpdate);
+router.get("/users/:userid", auth, statusCheck, ctrlUsers.userDetails);
 
 // sessions
-router.get("/sessions", auth, adminCheck, ctrlSessions.sessionsList);
-router.post("/sessions", auth, adminCheck, ctrlSessions.sessionCreate);
-router.get("/sessions/:sessionid", auth, adminCheck, ctrlSessions.sessionsListOne);
-router.put("/sessions/:sessionid", auth, adminCheck, ctrlSessions.sessionUpdateOne);
-router.delete("/sessions/:sessionid", auth, adminCheck, ctrlSessions.sessionDeleteOne);
+router.get("/sessions", auth, statusCheck, adminCheck, ctrlSessions.sessionsList);
+router.post("/sessions", auth, statusCheck, adminCheck, ctrlSessions.sessionCreate);
+router.get("/sessions/:sessionid", auth, statusCheck, adminCheck, ctrlSessions.sessionsListOne);
+router.put("/sessions/:sessionid", auth, statusCheck, adminCheck, ctrlSessions.sessionUpdateOne);
+router.delete("/sessions/:sessionid", auth, statusCheck, adminCheck, ctrlSessions.sessionDeleteOne);
 
 // participations
-router.get("/participations", auth, ctrlParticipations.participationsList);
+router.get("/participations", auth, statusCheck, ctrlParticipations.participationsList);
 
 // answer
 router.post("/session/:sessionid/enigme/:enigmeid/answer", auth, ctrlParticipations.postAnswer);

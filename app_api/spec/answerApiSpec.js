@@ -13,6 +13,7 @@ describe("The Answer API", function(){
   
   var loginToken;
   function _login(done){
+    console.log("start login")
     rest.post(base+"/api/login", {data: francoisCredentials})
     .on("success", function(data, response){
       loginToken = data.token;
@@ -44,7 +45,7 @@ describe("The Answer API", function(){
   var enigmeId = "5706689e44be3f420562c667";
  
   it("should store the answer inside the enigmes section of a session", function(done){
-
+console.log("start answer test");
     rest.post(base+"/api/session/"+sessionId+"/enigme/"+enigmeId+"/answer", 
               {accessToken: loginToken, data: {answer:answerValue}})
     .on("success", function(data, response){
@@ -60,6 +61,8 @@ describe("The Answer API", function(){
             done();                              
           }
         });
+      }).on("fail", function(data, response){
+        done.fail("could not retrieve sessions after posting an answer");
       });
     })
     .on("fail", function(data, response){
@@ -118,12 +121,12 @@ describe("The Answer API", function(){
     rest.post(base+"/api/session/"+sessionId+"/enigme/"+enigmeId+"/answer", 
               {accessToken: loginToken, data: {answer:answer}})
     .on("success", function(session, response){
-      rest.get(base+"/api/users/"+francoisCredentials.id)
+      rest.get(base+"/api/users/"+francoisCredentials.id,{accessToken: loginToken})
       .on("success", function(user, response){
         cb(_extractAnswer(user, sessionId, enigmeId, francoisCredentials.email));
       })
       .on("fail", function(data, response){
-        done.fail("error in retrieving users");
+        done.fail("error in retrieving users "+data);
       });
     })
     .on("fail", function(data, response){

@@ -14,17 +14,14 @@ describe("The User API", function(){
 
   beforeEach(function(done){
    server = app.listen(9876, function(){
-      dbUtils.clearDatabase(function(){
-        dbUtils.addFixture(function(){
-          rest.post(base+"/api/login", {data: francoisCredentials})
-          .on("success", function(data, response){
-            loginToken = data.token;
-            done();
-          });
-        });
-      
+      dbUtils.setupAndLoginAsAdmin(function(token, err){
+        if (err){
+          done.fail(err);
+        }else{
+          loginToken = token;
+          done();
+        }
       });
-      
     });
   });
   // tests here
@@ -41,7 +38,7 @@ it("should provide all participating sessions with each answered enigmes", funct
     francois = users.find(function(user){
       return user.email === francoisCredentials.email;
     });
-    rest.get(base+"/api/users/"+francois._id)
+    rest.get(base+"/api/users/"+francois._id,{accessToken: loginToken})
     .on("success", function(francoisDetails, response){
       expect(francoisDetails.sessions.length).toBeGreaterThan(0);
       francoisDetails.sessions.forEach(function(session){

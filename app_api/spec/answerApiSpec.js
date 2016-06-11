@@ -45,7 +45,6 @@ describe("The Answer API", function(){
   var enigmeId = "5706689e44be3f420562c667";
  
   it("should store the answer inside the enigmes section of a session", function(done){
-console.log("start answer test");
     rest.post(base+"/api/session/"+sessionId+"/enigme/"+enigmeId+"/answer", 
               {accessToken: loginToken, data: {answer:answerValue}})
     .on("success", function(data, response){
@@ -117,36 +116,42 @@ console.log("start answer test");
     });
   }
 
-  function _sendAnswerAndRetrieveIt(answer, cb, done){
-    rest.post(base+"/api/session/"+sessionId+"/enigme/"+enigmeId+"/answer", 
+  function _sendAnswerAndRetrieveIt(sesid, answer, enId, cb, done){
+    rest.post(base+"/api/session/"+sesid+"/enigme/"+enId+"/answer", 
               {accessToken: loginToken, data: {answer:answer}})
     .on("success", function(session, response){
       rest.get(base+"/api/users/"+francoisCredentials.id,{accessToken: loginToken})
       .on("success", function(user, response){
-        cb(_extractAnswer(user, sessionId, enigmeId, francoisCredentials.email));
+        cb(_extractAnswer(user, sesid, enId, francoisCredentials.email));
       })
       .on("fail", function(data, response){
         done.fail("error in retrieving users "+data);
       });
     })
     .on("fail", function(data, response){
-      done.fail("You should be able to post a new answer");
+      done.fail("You should be able to post a new answer "+data.message);
     });
   }
 
   it("should put the value in the answer as correct if it is indeed correct", function(done){
-    _sendAnswerAndRetrieveIt(answerValue, function(answerFromDb){
+    _sendAnswerAndRetrieveIt("570e7986a3c7b8b5330b287a", 32, "5706689e44be3f420562c667", function(answerFromDb){
       expect(answerFromDb.correctValue).toBe(true);
         done();
     }, done);
   });
 
   it("should set the correctValue field to false if provided with an incorrect answer", function(done){
-    _sendAnswerAndRetrieveIt(++answerValue, function(answerFromDb){
+    _sendAnswerAndRetrieveIt("570e7986a3c7b8b5330b287a", 33, "5706689e44be3f420562c667", function(answerFromDb){
       expect(answerFromDb.correctValue).toBe(false);
         done();
     }, done);
   });
 
+  it("should put the value in the answer as correct if it is indeed correct", function(done){
+    _sendAnswerAndRetrieveIt("570feedbdc29f6193729d48f", 95617181920, "570536454e07f8817caa067e", function(answerFromDb){
+      expect(answerFromDb.correctValue).toBe(true);
+        done();
+    }, done);
+  });
 
 });

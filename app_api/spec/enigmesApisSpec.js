@@ -97,5 +97,25 @@ beforeEach(function(done){
       done.fail("unable to login: "+data.message);
     });
   });
+
+  it("should always return a numericAnswer field, even with only a reponse field", function(done){
+    rest.get(base+"/api/enigmes/570536454e07f8817caa067e").on("success", function(data, response){
+      var en = data;
+      expect(en.numericAnswer).toBeDefined();
+      done();
+    }).on("fail", function(data, response){
+      done.fail("this enigme should exist "+data);
+    });
+  });
+
+  it("should always return the numericAnswer field, even if there is a reponse field", function(done){
+    rest.get(base+"/api/enigmes/57067248a28caf6e09f7bc74").on("success", function(data, response){
+      var en = data;
+      expect(en.numericAnswer).toBe(22222);
+      done();
+    }).on("fail", function(data, response){
+      done.fail("this enigme should exist "+data);
+    });
+  });
 });
 

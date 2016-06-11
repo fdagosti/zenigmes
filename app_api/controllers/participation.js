@@ -39,7 +39,7 @@ module.exports.participationsList = function(req, res){
 
 function _validateAnswer(answer, enigme){
     // doing soft validation as some answers are strings, other are numbers
-    return enigme.reponse == answer.value;
+    return enigme.numericAnswer == answer.value;
 };
 
 module.exports.postAnswer = function(req, res){
@@ -59,7 +59,7 @@ module.exports.postAnswer = function(req, res){
         function(cb){
             enigmesDB
             .findById(enigmeId)
-            .select("reponse")
+            .select("numericAnswer reponse")
             .exec(function(err, enigme){
                 cb(err,enigme);
             });
@@ -74,6 +74,10 @@ module.exports.postAnswer = function(req, res){
             sendJsonResponse(res, 400, err);
         }else {
             var enigme = results[0];
+            if (enigme.reponse && !enigme.numericAnswer){
+                enigme.numericAnswer = enigme.reponse;
+            }
+
             var session = results[1];
 
             var existingAnswers = session.enigmes.find(function(enigme){
@@ -88,7 +92,6 @@ module.exports.postAnswer = function(req, res){
             } 
 
             answer.correctValue = _validateAnswer(answer, enigme);
-
              sessionDB.update(
             {_id: sessionId, "enigmes.enigme":enigmeId},
             {"$addToSet": {"enigmes.$.answers":answer}}, function(err){

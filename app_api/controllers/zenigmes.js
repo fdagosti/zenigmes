@@ -49,6 +49,9 @@ module.exports.enigmeReadOne = function(req, res){
                 sendJsonResponse(res, 404, err);
                 return;
             }
+            if (enigme.reponse && !enigme.numericAnswer){
+                enigme.numericAnswer = enigme.reponse;
+            }
             sendJsonResponse(res, 200, enigme);
         });
     } else {

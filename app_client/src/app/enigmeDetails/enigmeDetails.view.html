@@ -4,7 +4,7 @@
   <page-header content="{title:vm.enigme.titre}"></page-header>
 
   <div class="row">
-    <div class="col-xs-12 col-md-9">
+    <div class="col-xs-12">
         <flash-message></flash-message>
         <div class="row">
             <div class="col-xs-12 ">
@@ -27,7 +27,7 @@
             </div>
 
         </div>
-        <div ng-show="vm.enigme.reponse && vm.sessionId" class="row">
+        <div ng-show="vm.enigme.numericAnswer && vm.sessionId" class="row">
             <div class="col-xs-12">
                 <a href="/#/login?page={{vm.currentPath}}" ng-hide="vm.isLoggedIn" class="btn btn-default">Identifiez-vous pour répondre</a>
                 

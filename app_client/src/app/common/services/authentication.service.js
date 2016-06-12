@@ -61,7 +61,6 @@
         };
 
         var notify = function(){
-            console.log("notifying");
             $rootScope.$emit('auth-service-event');
         };
 

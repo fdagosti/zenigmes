@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 var sessionDB = mongoose.model("sessions");
-var enigmesDB = mongoose.model("enigmes");
+var enigmesCollection = mongoose.model("enigmes");
 var userDB = mongoose.model("User");
 var async = require("async");
 
@@ -37,6 +37,70 @@ module.exports.participationsList = function(req, res){
     );
 };
 
+var enigmeInThePast = function(sessionEnigme){
+    var now = new Date();
+    console.log("now "+now);
+    var enigmeEnd = new Date(sessionEnigme.end);
+    return (enigmeEnd < now);
+}
+
+module.exports.participationsListOne = function(req, res){
+    if (req.params && req.params.sessionid){
+
+        async.waterfall([
+            function(cb){
+                // retrieve the session
+                sessionDB
+                .findById(req.params.sessionid)
+                .exec(function(err, session){
+                    cb(err, session !== undefined?session.toObject():null);
+                });
+            },
+            function(session, cb){
+                //set the number of enigmes in total in the session
+                session.numberOfEnigmes = session.enigmes.length;
+
+                // filter out the future enigmes
+                session.enigmes = session.enigmes.filter(enigmeInThePast);
+
+                // retrieve the enigmes from the session
+                async.each(session.enigmes, function(sessionEnigme, asyncCb){
+                    enigmesCollection
+                    .findById(sessionEnigme.enigme)
+                    .select("-description")
+                    .exec(function(err, enigme){
+                        sessionEnigme.enigme = enigme;
+
+                        //filter out the answers from other users
+                        userAnswers = sessionEnigme.answers.filter(function(answer){
+                            return answer.user === req.user.email;
+                        });
+                        sessionEnigme.answers = userAnswers;
+                        asyncCb(err);
+                    })
+                }, function(err, enigmes){
+                    cb(err, session);
+                });
+            }
+        ],
+        function(err, session){   
+            if (err){
+                sendJsonResponse(res, 404, err);
+            }
+            if (!session){
+                sendJsonResponse(res, 404, {"message":"sessionid not found"});
+                return;
+            }
+            sendJsonResponse(res, 200, session);
+        });
+
+    } else {
+        sendJsonResponse(res, 404, {
+            "message":"No sessionid in request"
+        });
+    }
+};
+
 function _validateAnswer(answer, enigme){
     // doing soft validation as some answers are strings, other are numbers
     return enigme.numericAnswer == answer.value;
@@ -57,7 +121,7 @@ module.exports.postAnswer = function(req, res){
 
     async.parallel([
         function(cb){
-            enigmesDB
+            enigmesCollection
             .findById(enigmeId)
             .select("numericAnswer reponse")
             .exec(function(err, enigme){

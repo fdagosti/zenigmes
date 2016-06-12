@@ -42,10 +42,7 @@
                     $scope.session.enigmes = [];
                     var sd = new Date($scope.session.start);
                     var ed = new Date(sd.getTime());
-                    console.log("Start Date = "+sd);
-                    console.log(sd.getMinutes());
                     _setDuration(ed);
-                    console.log(ed);
                     vm.selectedEnigmes.forEach(function(enigme){
                         if (!enigme.avoid){
                             vm.events.push({
@@ -66,8 +63,6 @@
                         }
 
                     });
-                    console.log("TEST Mode "+vm.testMode);
-                    console.log($scope.session);
                 };
 
                 function syncViewBasedOnSession(){
@@ -84,7 +79,7 @@
                         var idxToRemove;
                         if (vm.enigmes){
                             vm.enigmes.forEach(function(enigmeA, idx){
-                                if (enigmeA[0]._id === enigme._id){
+                                if (enigmeA[0]._id === enigme.enigme._id){
                                     // enigme.titre = enigmeA[0].titre;
                                     vm.selectedEnigmes.push(enigmeA[0]);
                                     idxToRemove = idx;
@@ -127,7 +122,6 @@
                         var now = new Date();
 
                         var datePlusOneMin = new Date(now.getTime() + 60000);
-                        console.log(datePlusOneMin);
                         $scope.session.start = datePlusOneMin;
                     }
                     updateSessionBasedOnSelectedEnigmes();

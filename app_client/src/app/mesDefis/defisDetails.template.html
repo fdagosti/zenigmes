@@ -1,6 +1,6 @@
 <div class="container">
 
-  <page-header content="{title:vm.defi.nom, strapline:vm.defi.finishedEnigmes+' enigmes finies sur '+vm.defi.enigmes.length} "}"></page-header>
+  <page-header content="{title:vm.defi.nom, strapline:vm.defi.finishedEnigmes+' enigmes finies sur '+vm.defi.numberOfEnigmes} "}"></page-header>
 
   <div class="container bootstrap snippet">
     <div class="row">
@@ -8,8 +8,10 @@
         
         <div role="alert" ng-show="vm.error" class="alert alert-danger" ng-bind-html="vm.error"></div>
         
-        <div class="panel panel-default">
-          <div class="panel-heading">Résultats du défi</div>
+        <div class="panel" ng-class="vm.panelClassBasedOnDefiState()">
+          <div ng-show="vm.defiNotStarted" class="panel-heading">Defi pas encore commencé</div>
+          <div ng-show="vm.defiEnded" class="panel-heading">Défi Fini</div>
+          <div ng-hide="vm.defiNotStarted || vm.defiEnded" class="panel-heading">Défi en cours</div>
           <div class="panel-body">{{vm.defi.points}} points</div>
         </div>
         <div class="main-box no-header clearfix">
@@ -18,7 +20,7 @@
               <table class="table user-list">
                 <thead>
                   <tr>
-                  <th class="text-center"><span>Enigme</span></th>
+                  <th class="text-center"><span>Enigmes passées</span></th>
                     <th class="text-center"><span>Date</span></th>
                     <th class="text-center"><span>Réponse donnée</span></th>
                     <th class="text-center"><span>Bonne réponse</span></th>
@@ -33,7 +35,7 @@
                     </td>
                     <td class="text-center">{{enigme.start | date: 'd MMMM yyyy'}} - {{enigme.end | date: 'd MMMM yyyy'}}</td>
                     <td class="text-center">
-                       <span ng-show="enigme.userAnswer">{{enigme.userAnswer.value}} <br/> {{enigme.userAnswer.answerDate | date: 'd MMMM yyyy'}}</span>
+                       <span ng-show="enigme.userAnswer">{{enigme.userAnswer.value}} <br/> {{enigme.userAnswer.answerDate | date: 'short'}}</span>
                        <span ng-hide="enigme.userAnswer"> Pas de réponse Donnée</span>
                     </td>
                     <td class="text-center">

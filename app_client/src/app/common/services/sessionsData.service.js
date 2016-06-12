@@ -15,6 +15,14 @@
       });
     };
 
+    var participationsBySessionId = function(id){
+      return $http.get('/api/participations/'+id, {
+        headers: {
+          Authorization: "Bearer "+ authentication.getToken()
+        }
+      });
+    };
+
     var allSessionsWithEnigmes = function(){
       var sessionP = allSessions();
       var enigmesP = zenigmeData.allEnigmes();
@@ -126,7 +134,8 @@
    deleteSession: deleteSession,
    updateSession: updateSession,
    allSessionsWithEnigmes:allSessionsWithEnigmes,
-   participations : participations
+   participations : participations,
+   participationsBySessionId : participationsBySessionId
  };
 }
 })();

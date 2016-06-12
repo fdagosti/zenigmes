@@ -42,12 +42,13 @@ router.get("/users/:userid", auth, statusCheck, ctrlUsers.userDetails);
 // sessions
 router.get("/sessions", auth, statusCheck, adminCheck, ctrlSessions.sessionsList);
 router.post("/sessions", auth, statusCheck, adminCheck, ctrlSessions.sessionCreate);
-router.get("/sessions/:sessionid", auth, statusCheck, ctrlSessions.sessionsListOne);
+router.get("/sessions/:sessionid", auth, statusCheck, adminCheck, ctrlSessions.sessionsListOne);
 router.put("/sessions/:sessionid", auth, statusCheck, adminCheck, ctrlSessions.sessionUpdateOne);
 router.delete("/sessions/:sessionid", auth, statusCheck, adminCheck, ctrlSessions.sessionDeleteOne);
 
 // participations
 router.get("/participations", auth, statusCheck, ctrlParticipations.participationsList);
+router.get("/participations/:sessionid", auth, statusCheck, ctrlParticipations.participationsListOne);
 
 // answer
 router.post("/session/:sessionid/enigme/:enigmeid/answer", auth, ctrlParticipations.postAnswer);

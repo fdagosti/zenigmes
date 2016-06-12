@@ -4,7 +4,7 @@ angular.module('zenigmesApp').controller('defisDetailsCtrl', function($scope, $r
   var vm = this;
 
   vm.defiId = $routeParams.defiId;
-  sessionsData.sessionById(vm.defiId).then(function(response){
+  sessionsData.participationsBySessionId(vm.defiId).then(function(response){
 
       vm.defi = response.data;
       vm.defi.enigmes.forEach(function(sessionEnigme){
@@ -12,22 +12,24 @@ angular.module('zenigmesApp').controller('defisDetailsCtrl', function($scope, $r
           if (l == 0) return null;
           sessionEnigme.userAnswer = sessionEnigme.answers[0];
       });
-      vm.defi.finishedEnigmes = countNumberOfEnigmesAlreadyShown();
+      vm.defi.finishedEnigmes = vm.defi.enigmes.length;
       vm.defi.points = vm.points(vm.defi);
+      vm.defiNotStarted = (new Date(vm.defi.start) > new Date()); 
+      vm.defiEnded =  (vm.defi.finishedEnigmes === vm.defi.numberOfEnigmes);
   }, function(err){
       vm.error = err.data;
   });
 
-  var countNumberOfEnigmesAlreadyShown = function(){
-    var now = new Date();
-    var count = 0;
-    vm.defi.enigmes.forEach(function(sessionEnigme){
-      if (new Date(sessionEnigme.start) < now){
-        count++
-      }
-    });
-    return count;
-  };
+vm.panelClassBasedOnDefiState = function(){
+  if (vm.defiNotStarted){
+    return "panel-danger";
+  }else if (vm.defiEnded){
+    return "panel-success";
+  }else{
+    return "panel-warning"
+  }
+}
+  
 
   vm.points = function(session){
     var points = 0;

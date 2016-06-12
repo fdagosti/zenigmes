@@ -63,6 +63,7 @@ describe("The Participations API", function(){
 describe('The get One Session API' , function() {
 var loginToken;
 beforeEach(function(done){
+  jasmine.clock().install();
    server = app.listen(9876, function(){
       dbUtils.setupAndLoginAsAdmin(function(token, err){
         if (err){
@@ -76,6 +77,7 @@ beforeEach(function(done){
   });
   // tests here
   afterEach(function(done){
+    jasmine.clock().uninstall();
     server.close(function(){
       dbUtils.clearDatabase(done);
     });
@@ -83,10 +85,20 @@ beforeEach(function(done){
 
 
   it('should return a detailed answer, with the real enigmes linked to it, not just its Id', function(done) {
-        rest.get(base+"/api/sessions/570e7986a3c7b8b5330b287a",{accessToken: loginToken}).on("success", function(session, response){
+          var baseTime = new Date(2016,4,1);
+          jasmine.clock().mockDate(baseTime);
+
+        rest.get(base+"/api/participations/570e7986a3c7b8b5330b287a",{accessToken: loginToken}).on("success", function(session, response){
+
+          var now = new Date();
           session.enigmes.forEach(function(enigme){
-            expect(enigme.enigme._id).toBeDefined();
+            if (new Date(enigme.end) < now){
+              expect(enigme.enigme._id).toBeDefined();
+            }else{
+              expect(enigme.enigme._id).toBeUndefined();
+            }
           });
+          expect(session.numberOfEnigmes).toBe(2);
           done();
         }).on("fail", function(data, response){
           done.fail("unable to get the session "+data);

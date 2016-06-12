@@ -67,6 +67,11 @@
                 controller: "sessionUpdateCtrl",
                 controllerAs: "vm"
             })
+            .when("/defis/:defiId", {
+                templateUrl: "app/mesDefis/defisDetails.template.html",
+                controller: "defisDetailsCtrl",
+                controllerAs: "vm"
+            })
             .when("/users", {
                 templateUrl: "app/users/users.template.html",
                 controller: "usersCtrl",

@@ -33,9 +33,7 @@ exports.addFixture = function(done){
       });
     },function(err){
       if (err){ 
-        console.log("error filling db "+err.message);
-        console.log(done);
-        done();
+        done.fail("error filling db "+err.message);
         return;
       }
       async.each(sessionsFixture, function(session, cb){

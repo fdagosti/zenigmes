@@ -56,4 +56,40 @@ describe("The Participations API", function(){
     });
   });
 
+
+});
+
+
+describe('The get One Session API' , function() {
+var loginToken;
+beforeEach(function(done){
+   server = app.listen(9876, function(){
+      dbUtils.setupAndLoginAsAdmin(function(token, err){
+        if (err){
+          done.fail(err);
+        }else{
+          loginToken = token;
+          done();
+        }
+      });
+    });
+  });
+  // tests here
+  afterEach(function(done){
+    server.close(function(){
+      dbUtils.clearDatabase(done);
+    });
+  });
+
+
+  it('should return a detailed answer, with the real enigmes linked to it, not just its Id', function(done) {
+        rest.get(base+"/api/sessions/570e7986a3c7b8b5330b287a",{accessToken: loginToken}).on("success", function(session, response){
+          session.enigmes.forEach(function(enigme){
+            expect(enigme.enigme._id).toBeDefined();
+          });
+          done();
+        }).on("fail", function(data, response){
+          done.fail("unable to get the session "+data);
+        })
+  });
 });

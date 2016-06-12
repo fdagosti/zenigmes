@@ -71,7 +71,11 @@
   };
 
   var userDetails = function(userId){
-    return $http.get("/api/users/"+userId);
+    return $http.get("/api/users/"+userId,  {
+      headers: {
+        Authorization: "Bearer "+ authentication.getToken()
+      }
+    });
   };
 
 

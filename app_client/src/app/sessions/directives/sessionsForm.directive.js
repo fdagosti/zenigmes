@@ -84,8 +84,8 @@
                         var idxToRemove;
                         if (vm.enigmes){
                             vm.enigmes.forEach(function(enigmeA, idx){
-                                if (enigmeA[0]._id === enigme.enigme){
-                                    enigme.titre = enigmeA[0].titre;
+                                if (enigmeA[0]._id === enigme._id){
+                                    // enigme.titre = enigmeA[0].titre;
                                     vm.selectedEnigmes.push(enigmeA[0]);
                                     idxToRemove = idx;
                                 }

@@ -22,7 +22,7 @@
                 <tbody>
                   <tr ng-repeat='session in vm.sessionsForUser'>
                     <td class="text-center">
-                      <span class="user-link">{{session.nom}}</span>
+                      <a ng-href="/#/defis/{{session._id}}" class="user-link">{{session.nom}}</a>
                     </td>
                     <td class="text-center">{{session.start | date: 'd MMMM yyyy'}}</td>
                     <td class="text-center">{{vm.getSessionEndDate(session) | date: 'd MMMM yyyy'}}</td>

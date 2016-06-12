@@ -13,7 +13,6 @@ describe("The Answer API", function(){
   
   var loginToken;
   function _login(done){
-    console.log("start login")
     rest.post(base+"/api/login", {data: francoisCredentials})
     .on("success", function(data, response){
       loginToken = data.token;
@@ -50,9 +49,8 @@ describe("The Answer API", function(){
     .on("success", function(data, response){
       rest.get(base+"/api/sessions/"+sessionId, {accessToken: loginToken})
       .on("success", function(session, response){
-        
         session.enigmes.forEach(function(enigme){
-          if (enigme.enigme === enigmeId){
+          if (enigme.enigme._id === enigmeId){
             enigme.answers.forEach(function(answer){
               expect(parseInt(answer.value)).toBe(answerValue);
               expect(answer.user).toBe(francoisCredentials.email);

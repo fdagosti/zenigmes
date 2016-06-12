@@ -1,0 +1,60 @@
+<div class="container">
+
+  <page-header content="{title:vm.defi.nom, strapline:vm.defi.finishedEnigmes+' enigmes finies sur '+vm.defi.enigmes.length} "}"></page-header>
+
+  <div class="container bootstrap snippet">
+    <div class="row">
+      <div class="col-lg-12">
+        
+        <div role="alert" ng-show="vm.error" class="alert alert-danger" ng-bind-html="vm.error"></div>
+        
+        <div class="panel panel-default">
+          <div class="panel-heading">Résultats du défi</div>
+          <div class="panel-body">{{vm.defi.points}} points</div>
+        </div>
+        <div class="main-box no-header clearfix">
+          <div class="main-box-body clearfix">
+            <div class="table-responsive">
+              <table class="table user-list">
+                <thead>
+                  <tr>
+                  <th class="text-center"><span>Enigme</span></th>
+                    <th class="text-center"><span>Date</span></th>
+                    <th class="text-center"><span>Réponse donnée</span></th>
+                    <th class="text-center"><span>Bonne réponse</span></th>
+                    <th class="text-center"><span>Points Gagnés</span></th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat='enigme in vm.defi.enigmes'>
+                    <td class="text-center">
+                      <span class="user-link">{{enigme.enigme.titre}}</span>
+                    </td>
+                    <td class="text-center">{{enigme.start | date: 'd MMMM yyyy'}} - {{enigme.end | date: 'd MMMM yyyy'}}</td>
+                    <td class="text-center">
+                       <span ng-show="enigme.userAnswer">{{enigme.userAnswer.value}} <br/> {{enigme.userAnswer.answerDate | date: 'd MMMM yyyy'}}</span>
+                       <span ng-hide="enigme.userAnswer"> Pas de réponse Donnée</span>
+                    </td>
+                    <td class="text-center">
+                      {{enigme.enigme.numericAnswer || enigme.enigme.reponse || enigme.enigme.textualAnswer}}
+                    </td>
+                    <td>
+                      <div ng-show="enigme.userAnswer && enigme.userAnswer.correctValue" class="alert alert-success">{{enigme.enigme.points}} Points</div>
+                      <div ng-hide="enigme.userAnswer && enigme.userAnswer.correctValue" class="alert alert-danger">0 Points</div>
+                    </td>
+                    <td style="width: 20%;">
+                      
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

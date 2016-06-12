@@ -1,5 +1,7 @@
 var mongoose = require("mongoose");
 var sessionDB = mongoose.model("sessions");
+var enigmesCollection = mongoose.model("enigmes");
+var async = require("async");
 
 var sendJsonResponse = function(res, status, content) {
     res.status(status);
@@ -40,16 +42,51 @@ module.exports.sessionCreate = function(req, res){
 };
 module.exports.sessionsListOne = function(req, res){
     if (req.params && req.params.sessionid){
-        sessionDB.findById(req.params.sessionid).exec(function(err, session){
+
+        async.waterfall([
+            function(cb){
+                // retrieve the session
+                sessionDB
+                .findById(req.params.sessionid)
+                .exec(function(err, session){
+                    cb(err, session !== undefined?session.toObject():null);
+                });
+            },
+            function(session, cb){
+                // retrieve the enigmes from the session
+                var enigmes = session.enigmes;
+                async.each(enigmes, function(sessionEnigme, asyncCb){
+                    enigmesCollection
+                    .findById(sessionEnigme.enigme)
+                    .select("-description")
+                    .exec(function(err, enigme){
+                        sessionEnigme.enigme = enigme;
+
+                        //filter out the answers from other users
+                        userAnswers = sessionEnigme.answers.filter(function(answer){
+                            return answer.user === req.user.email;
+                        });
+                        sessionEnigme.answers = userAnswers;
+
+                    
+                        asyncCb(err);
+                    })
+                }, function(err, enigmes){
+                    cb(err, session);
+                });
+            }
+        ],
+        function(err, session){   
+            if (err){
+                sendJsonResponse(res, 404, err);
+            }
             if (!session){
                 sendJsonResponse(res, 404, {"message":"sessionid not found"});
-                return;
-            } else if (err){
-                sendJsonResponse(res, 404, err);
                 return;
             }
             sendJsonResponse(res, 200, session);
         });
+
     } else {
         sendJsonResponse(res, 404, {
             "message":"No sessionid in request"

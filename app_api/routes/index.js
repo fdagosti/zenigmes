@@ -42,7 +42,7 @@ router.get("/users/:userid", auth, statusCheck, ctrlUsers.userDetails);
 // sessions
 router.get("/sessions", auth, statusCheck, adminCheck, ctrlSessions.sessionsList);
 router.post("/sessions", auth, statusCheck, adminCheck, ctrlSessions.sessionCreate);
-router.get("/sessions/:sessionid", auth, statusCheck, adminCheck, ctrlSessions.sessionsListOne);
+router.get("/sessions/:sessionid", auth, statusCheck, ctrlSessions.sessionsListOne);
 router.put("/sessions/:sessionid", auth, statusCheck, adminCheck, ctrlSessions.sessionUpdateOne);
 router.delete("/sessions/:sessionid", auth, statusCheck, adminCheck, ctrlSessions.sessionDeleteOne);
 

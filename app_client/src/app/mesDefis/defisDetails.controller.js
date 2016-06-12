@@ -4,8 +4,8 @@ angular.module('zenigmesApp').controller('defisDetailsCtrl', function($scope, $r
   var vm = this;
 
   vm.defiId = $routeParams.defiId;
-
   sessionsData.sessionById(vm.defiId).then(function(response){
+
       vm.defi = response.data;
       vm.defi.enigmes.forEach(function(sessionEnigme){
           var l = sessionEnigme.answers.length;
@@ -15,7 +15,7 @@ angular.module('zenigmesApp').controller('defisDetailsCtrl', function($scope, $r
       vm.defi.finishedEnigmes = countNumberOfEnigmesAlreadyShown();
       vm.defi.points = vm.points(vm.defi);
   }, function(err){
-      vm.error = err.data.message;
+      vm.error = err.data;
   });
 
   var countNumberOfEnigmesAlreadyShown = function(){

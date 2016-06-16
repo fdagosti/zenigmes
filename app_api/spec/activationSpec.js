@@ -50,7 +50,6 @@ describe("A non activated user", function(){
     .on("success", function(data, response){
       done.fail("An inactive user should not be able to get its participations");
     }).on("fail", function(err, response){
-        console.log("Failed inactive user");
         expect(response.statusCode).toBe(401);
         done();
     });

@@ -27,7 +27,12 @@
 				response.data.description = $sce.trustAsHtml(response.data.description);
 				vm.enigme = response.data;
 			},function(e){
-				Flash.create("danger", e.data.message);
+				if (e.status === 401){
+					Flash.create("danger", "Vous devez être authentifié pour voir une énigme");	
+				}else{
+					Flash.create("danger", e.data);
+				}
+				
 		});
 
 		

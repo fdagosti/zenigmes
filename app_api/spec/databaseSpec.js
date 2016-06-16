@@ -9,7 +9,7 @@ describe("the user database", function() {
   afterEach(function(done){
     db.close(function(){
       done();
-    })
+    });
   });
 
 it("should allow the creation and the retrieval of a user in the database", function(done) {

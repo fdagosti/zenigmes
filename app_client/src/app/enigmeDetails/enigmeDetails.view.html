@@ -27,14 +27,15 @@
             </div>
 
         </div>
-        <div ng-show="vm.enigme.numericAnswer && vm.sessionId" class="row">
+        <div ng-show="(vm.enigme.numericAnswer || vm.enigme.textualAnswer) && vm.sessionId" class="row">
             <div class="col-xs-12">
                 <a href="/#/login?page={{vm.currentPath}}" ng-hide="vm.isLoggedIn" class="btn btn-default">Identifiez-vous pour répondre</a>
                 
                 <form ng-show="vm.isLoggedIn"  ng-submit="vm.sendAnswer(vm.reponse)">
                     <div role="alert" ng-show="vm.reponseResult" ng-class="vm.reponseClass" >{{vm.reponseResult}}</div>
                     <div class="form-group">
-                        <input class="form-control" id="reponse" ng-model="vm.reponse" placeholder="Proposer une réponse numérique" type="number">
+                        <input ng-show="vm.enigme.numericAnswer" class="form-control" id="reponse" ng-model="vm.reponse" placeholder="Proposer une réponse numérique" type="number">
+                        <input ng-show="vm.enigme.textualAnswer" class="form-control" id="reponse" ng-model="vm.reponse" placeholder="Proposer une réponse textuelle" type="text">
                     </div>
                     <button type="submit" class="btn btn-default">Répondre</button>
                 </form>    

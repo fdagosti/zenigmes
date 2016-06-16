@@ -8,7 +8,11 @@
   function zenigmeData ($http, authentication) {
 
     var enigmeById = function(id){
-      return $http.get('/api/enigmes/'+id);
+      return $http.get('/api/enigmes/'+id, {
+        headers: {
+          Authorization: "Bearer "+ authentication.getToken()
+        }
+      });
     };
 
     var addEnigme = function(enigme){

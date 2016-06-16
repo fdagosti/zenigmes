@@ -15,9 +15,9 @@ exports.clearDatabase = function(done){
     users.remove({}, function(err){
       sessions.remove({}, function(err){
         done();
-      })
-    })
-  })
+      });
+    });
+  });
 };
 
 exports.addFixture = function(done){
@@ -42,12 +42,12 @@ exports.addFixture = function(done){
         });
       },function(err){
         if (err){
-          done.fail("error filling database "+err)
+          done.fail("error filling database "+err);
         }else{
         done();
           
         }
-      })
+      });
 
     });
 

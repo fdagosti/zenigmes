@@ -25,7 +25,7 @@ var ctrlParticipations = require("../controllers/participation");
 // enigmes
 router.get("/enigmes", ctrlEnigmes.enigmesList);
 router.post("/enigmes", auth, statusCheck, adminCheck, ctrlEnigmes.enigmeCreate);
-router.get("/enigmes/:enigmeid", ctrlEnigmes.enigmeReadOne);
+router.get("/enigmes/:enigmeid", auth, ctrlEnigmes.enigmeReadOne);
 router.put("/enigmes/:enigmeid", auth, statusCheck, adminCheck, ctrlEnigmes.enigmeUpdateOne);
 router.delete("/enigmes/:enigmeid", auth, statusCheck, adminCheck, ctrlEnigmes.enigmeDeleteOne);
 

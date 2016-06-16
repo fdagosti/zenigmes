@@ -39,7 +39,6 @@ module.exports.participationsList = function(req, res){
 
 var enigmeInThePast = function(sessionEnigme){
     var now = new Date();
-    console.log("now "+now);
     var enigmeEnd = new Date(sessionEnigme.end);
     return (enigmeEnd < now);
 }
@@ -103,7 +102,7 @@ module.exports.participationsListOne = function(req, res){
 
 function _validateAnswer(answer, enigme){
     // doing soft validation as some answers are strings, other are numbers
-    return enigme.numericAnswer == answer.value;
+    return (enigme.numericAnswer == answer.value) || (enigme.textualAnswer == answer.value);
 };
 
 module.exports.postAnswer = function(req, res){
@@ -123,7 +122,7 @@ module.exports.postAnswer = function(req, res){
         function(cb){
             enigmesCollection
             .findById(enigmeId)
-            .select("numericAnswer reponse")
+            .select("numericAnswer textualAnswer")
             .exec(function(err, enigme){
                 cb(err,enigme);
             });
@@ -138,9 +137,6 @@ module.exports.postAnswer = function(req, res){
             sendJsonResponse(res, 400, err);
         }else {
             var enigme = results[0];
-            if (enigme.reponse && !enigme.numericAnswer){
-                enigme.numericAnswer = enigme.reponse;
-            }
 
             var session = results[1];
 

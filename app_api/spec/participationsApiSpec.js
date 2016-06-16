@@ -6,7 +6,7 @@ var dbUtils = require("./dbUtils");
 var francoisCredentials = {
   email: "francois.dagostini@gmail.com",
   password: "toto"
-}
+};
 
 var francoisId = "57091325117230600f0d1fae";
 
@@ -102,6 +102,6 @@ beforeEach(function(done){
           done();
         }).on("fail", function(data, response){
           done.fail("unable to get the session "+data);
-        })
+        });
   });
 });

@@ -25,6 +25,17 @@ module.exports = [{
   "__v" : 0,
 },
 {
+  "_id" : "575d64cee3ee380a20a94ef8",
+  "hash" : "29faead904071b2d986a041b30432eadff4f68ac62a855135e44e27161991326c35cbe19c2c49444e27a84151292c0725dc2fb504a15fe81b8c2354c52bcc0a1",
+  "salt" : "a057bf328aa9739be1f3c130cb4567bc",
+  "email" : "toto@toto.com",
+  "name" : "toto",
+  "status" : "actif",
+  "classe" : "6eme",
+  "role" : "member",
+  "__v" : 0
+},
+{
   "_id" : "570abd0b03a498f412991d31",
   "hash" : "03074315261449e81473d98c476fc58f616897b22095f3979ef1ac9fcd30efa0f87aa7414c9a7528fd9967ebfb7f858f66d7a5dd047a7c0e1830a257db515821",
   "salt" : "3d842db5eed6a9b9240087edc2ddc0fc",
@@ -52,4 +63,4 @@ module.exports = [{
   "status" : "enValidation",
   "__v" : 0
 }
-]
+];

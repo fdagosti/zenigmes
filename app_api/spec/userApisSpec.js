@@ -6,7 +6,7 @@ var dbUtils = require("./dbUtils");
 var francoisCredentials = {
   email: "francois.dagostini@gmail.com",
   password: "toto"
-}
+};
 
 describe("The User API", function(){
   
@@ -62,7 +62,7 @@ it("should provide all participating sessions with each answered enigmes", funct
   })
   .on("fail", function(data, response){
     done.fail("failed to get users");
-  })
+  });
 });
 
 

@@ -9,7 +9,7 @@ angular.module('zenigmesApp').controller('defisDetailsCtrl', function($scope, $r
       vm.defi = response.data;
       vm.defi.enigmes.forEach(function(sessionEnigme){
           var l = sessionEnigme.answers.length;
-          if (l == 0) return null;
+          if (l === 0) return null;
           sessionEnigme.userAnswer = sessionEnigme.answers[0];
       });
       vm.defi.finishedEnigmes = vm.defi.enigmes.length;
@@ -26,9 +26,9 @@ vm.panelClassBasedOnDefiState = function(){
   }else if (vm.defiEnded){
     return "panel-success";
   }else{
-    return "panel-warning"
+    return "panel-warning";
   }
-}
+};
   
 
   vm.points = function(session){

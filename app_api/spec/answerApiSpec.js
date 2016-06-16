@@ -7,7 +7,7 @@ var francoisCredentials = {
   email: "francois.dagostini@gmail.com",
   password: "toto",
   id: "57091325117230600f0d1fae"
-}
+};
 
 describe("The Answer API", function(){
   
@@ -20,7 +20,7 @@ describe("The Answer API", function(){
     }).on("fail", function(data, response){
       done.fail("unable to login: "+data.message);
     });
-  };
+  }
 
   beforeEach(function(done){
    server = app.listen(9876, function(){
@@ -145,10 +145,25 @@ describe("The Answer API", function(){
     }, done);
   });
 
-  it("should put the value in the answer as correct if it is indeed correct", function(done){
-    _sendAnswerAndRetrieveIt("570feedbdc29f6193729d48f", 95617181920, "570536454e07f8817caa067e", function(answerFromDb){
+
+  it("should allow to handle textual answers", function(done){
+    _sendAnswerAndRetrieveIt("570feedbdc29f6193729d48f", "salut la companie", "57067248a28caf6e09f7bc75", function(answerFromDb){
       expect(answerFromDb.correctValue).toBe(true);
         done();
+    }, done);
+  });
+
+  it("should cleanly handle enigmes with both numeric and textual responses given a textual answer", function(done){
+    _sendAnswerAndRetrieveIt("570feedbdc29f6193729d48f", "salut la companie", "57067248a28caf6e09f7bc76", function(answerFromDb){
+      expect(answerFromDb.correctValue).toBe(true);
+      done();
+    }, done);
+  });
+
+  it("should cleanly handle enigmes with both numeric and textual responses given a numeric answer", function(done){
+    _sendAnswerAndRetrieveIt("570feedbdc29f6193729d48f", 32, "57067248a28caf6e09f7bc76", function(answerFromDb){
+      expect(answerFromDb.correctValue).toBe(true);
+      done();
     }, done);
   });
 

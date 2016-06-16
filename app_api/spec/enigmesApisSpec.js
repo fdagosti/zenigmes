@@ -9,13 +9,18 @@ var dbUtils = require("./dbUtils");
 var enigme = {
   titre:" Enigme de test pour tester l'API",
   description: "une description",
-  reponse: 32
+  numericAnswer: 32
 };
 
 var francoisCredentials = {
   email: "francois.dagostini@gmail.com",
   password: "toto"
-}
+};
+
+var nonAdminCredentials = {
+  email: "toto@toto.com",
+  password: "toto"
+};
 
 describe("The API in general", function(){
 
@@ -44,7 +49,7 @@ beforeEach(function(done){
     }).on("fail", function(data, response){
       expect(response.statusCode).toBe(404);
       done();
-    })
+    });
   });
 });
 
@@ -99,23 +104,43 @@ beforeEach(function(done){
   });
 
   it("should always return a numericAnswer field, even with only a reponse field", function(done){
-    rest.get(base+"/api/enigmes/570536454e07f8817caa067e").on("success", function(data, response){
-      var en = data;
-      expect(en.numericAnswer).toBeDefined();
-      done();
+    rest.post(base+"/api/login", {data: francoisCredentials}).on("success", function(data, response){
+      rest.get(base+"/api/enigmes/570536454e07f8817caa067e",{accessToken: data.token}).on("success", function(data, response){
+        var en = data;
+        expect(en.numericAnswer).toBeDefined();
+        done();
+      }).on("fail", function(data, response){
+        done.fail("this enigme should exist "+data);
+      });
     }).on("fail", function(data, response){
-      done.fail("this enigme should exist "+data);
+      done.fail("unable to login");
     });
   });
 
-  it("should always return the numericAnswer field, even if there is a reponse field", function(done){
-    rest.get(base+"/api/enigmes/57067248a28caf6e09f7bc74").on("success", function(data, response){
-      var en = data;
-      expect(en.numericAnswer).toBe(22222);
-      done();
-    }).on("fail", function(data, response){
-      done.fail("this enigme should exist "+data);
-    });
+  it("should return the numericAnswer field with the right value if we are an admin", function(done){
+      rest.post(base+"/api/login", {data: francoisCredentials}).on("success", function(data, response){
+        rest.get(base+"/api/enigmes/57067248a28caf6e09f7bc74",{accessToken: data.token}).on("success", function(en, response){
+          expect(en.numericAnswer).toBe(22222);
+          done();
+        }).on("fail", function(data, response){
+          done.fail("this enigme should exist "+data);
+        });
+      }).on("fail", function(data, response){
+        done.fail("unable to login");
+      });
+  });
+
+  it("should mask the answer if we log in with a non admin account", function(done){
+      rest.post(base+"/api/login", {data: nonAdminCredentials}).on("success", function(data, response){
+        rest.get(base+"/api/enigmes/57067248a28caf6e09f7bc74",{accessToken: data.token}).on("success", function(en, response){
+          expect(en.numericAnswer).not.toBe(22222);
+          done();
+        }).on("fail", function(data, response){
+          done.fail("this enigme should exist "+data);
+        });
+      }).on("fail", function(data, response){
+        done.fail("unable to login");
+      });
   });
 });
 

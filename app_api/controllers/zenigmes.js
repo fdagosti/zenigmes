@@ -39,6 +39,15 @@ module.exports.enigmeCreate = function(req, res){
         }
     });
 };
+
+function _maskAnswers(admin, enigme){
+    // if not admin, the Answers are masked
+    if (!admin){
+        if (enigme.numericAnswer) enigme.numericAnswer = 00000;
+        if (enigme.textualAnswer) enigme.textualAnswer = "xxxxx";
+    }
+}
+
 module.exports.enigmeReadOne = function(req, res){
     if (req.params && req.params.enigmeid){
         zngm.findById(req.params.enigmeid).exec(function(err, enigme){
@@ -49,9 +58,9 @@ module.exports.enigmeReadOne = function(req, res){
                 sendJsonResponse(res, 404, err);
                 return;
             }
-            if (enigme.reponse && !enigme.numericAnswer){
-                enigme.numericAnswer = enigme.reponse;
-            }
+            
+            _maskAnswers(req.user && req.user.admin, enigme);
+
             sendJsonResponse(res, 200, enigme);
         });
     } else {
@@ -87,7 +96,6 @@ module.exports.enigmeUpdateOne = function(req, res){
             enigme.niveau = parseInt(req.body.niveau);
             enigme.numericAnswer = req.body.numericAnswer;
             enigme.textualAnswer = req.body.textualAnswer;
-            
             enigme.save(function(err, enigme){
                 if (err){
                     sendJsonResponse(res, 404, err);

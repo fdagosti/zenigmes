@@ -15,16 +15,34 @@ module.exports = [{
   "points" : 1,
   "niveau" : 1,
   "__v" : 0,
-  "reponse" : 95617181920
+  "numericAnswer" : 95617181920
 },
 {
   "_id" : "57067248a28caf6e09f7bc74",
   "titre" : "Opération sauvetage",
   "description" : "<h2>Dans la multiplication ci-dessous, une m&ecirc;me lettre repr&eacute;sente toujours le m&ecirc;me nombre</h2>\n<p><span style=\"display: inline-block; border: 1px solid black; padding: 2px 5px; margin: 0px 2px; color: black;\"><img style=\"float: left;\" src=\"http://ww2.ac-poitiers.fr/math/IMG/jpg/sos.jpg\" alt=\"\" width=\"449\" height=\"191\" /></span></p>\n<h2>Indique quel est le r&eacute;sultat obtenu (laisse les espaces necessaires dans l'&eacute;criture du nombre)</h2>\n<p>&nbsp;</p>",
-  "reponse" : 44944,
   "numericAnswer" : 22222,
   "points" : 1,
   "niveau" : 1,
   "__v" : 0
+},
+{
+  "_id" : "57067248a28caf6e09f7bc75",
+  "titre" : "The best day",
+  "description" : "<h2>Dans la multiplication ci-dessous, une m&ecirc;me lettre repr&eacute;sente toujours le m&ecirc;me nombre</h2>\n<p><span style=\"display: inline-block; border: 1px solid black; padding: 2px 5px; margin: 0px 2px; color: black;\"><img style=\"float: left;\" src=\"http://ww2.ac-poitiers.fr/math/IMG/jpg/sos.jpg\" alt=\"\" width=\"449\" height=\"191\" /></span></p>\n<h2>Indique quel est le r&eacute;sultat obtenu (laisse les espaces necessaires dans l'&eacute;criture du nombre)</h2>\n<p>&nbsp;</p>",
+  "textualAnswer" :"salut la companie",
+  "points" : 1,
+  "niveau" : 1,
+  "__v" : 0
+},
+{
+  "_id" : "57067248a28caf6e09f7bc76",
+  "titre" : "The best day",
+  "description" : "<h2>Dans la multiplication ci-dessous, une m&ecirc;me lettre repr&eacute;sente toujours le m&ecirc;me nombre</h2>\n<p><span style=\"display: inline-block; border: 1px solid black; padding: 2px 5px; margin: 0px 2px; color: black;\"><img style=\"float: left;\" src=\"http://ww2.ac-poitiers.fr/math/IMG/jpg/sos.jpg\" alt=\"\" width=\"449\" height=\"191\" /></span></p>\n<h2>Indique quel est le r&eacute;sultat obtenu (laisse les espaces necessaires dans l'&eacute;criture du nombre)</h2>\n<p>&nbsp;</p>",
+  "textualAnswer" :"salut la companie",
+  "numericAnswer" :32,
+  "points" : 1,
+  "niveau" : 1,
+  "__v" : 0
 }
- ]
+ ];

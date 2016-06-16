@@ -43,7 +43,7 @@ module.exports.enigmeCreate = function(req, res){
 function _maskAnswers(admin, enigme){
     // if not admin, the Answers are masked
     if (!admin){
-        if (enigme.numericAnswer) enigme.numericAnswer = 00000;
+        if (enigme.numericAnswer) enigme.numericAnswer = 9999999;
         if (enigme.textualAnswer) enigme.textualAnswer = "xxxxx";
     }
 }

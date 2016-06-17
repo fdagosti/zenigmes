@@ -1,24 +1,10 @@
 var express = require("express");
 var router = express.Router();
 var jwt = require("express-jwt");
-var usersDB = require("mongoose").model("User");
-
 var auth = jwt({
     secret: process.env.JWT_SECRET,
-   isRevoked: isRevokedCb
+   
 });
-
-var isRevokedCb = function(req, payload, done){
-  if (payload.status != "actif"){
-    usersDB.findOne({_id:req.user._id},"status", function(err, doc){
-      if (err) { return done(err); }
-      return done(null, doc.status != "actif");
-    });
-  } else {
-    return done(null, false);
-  }
-
-};
 
 var adminCheck = function(req, res, next){
     if (!req.user.admin) return res.sendStatus(401);
@@ -26,11 +12,8 @@ var adminCheck = function(req, res, next){
 };
 
 var statusCheck = function(req, res, next){
-  if (req.user.status != "actif"){
-    res.sendStatus(401);
-  } else {
-    next();
-  }
+  if (req.user.status != "actif") return res.sendStatus(401);
+  next();
 }
 
 var ctrlEnigmes = require("../controllers/zenigmes");
@@ -55,6 +38,9 @@ router.get("/users", auth, statusCheck, adminCheck, ctrlUsers.usersList);
 router.delete("/users/:userid", auth, statusCheck, adminCheck, ctrlUsers.userDelete);
 router.put("/users/:userid", auth, statusCheck, adminCheck, ctrlUsers.userUpdate);
 router.get("/users/:userid", auth, statusCheck, ctrlUsers.userDetails);
+
+// specific activation api
+router.get("/activation/:userid", auth, ctrlUsers.userActivated);
 
 // sessions
 router.get("/sessions", auth, statusCheck, adminCheck, ctrlSessions.sessionsList);

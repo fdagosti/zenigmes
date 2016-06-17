@@ -73,8 +73,3 @@ exports.setupAndLoginAsAdmin = function(done){
     }); 
   });
 };
-
-
-exports.activateUserOnDb = function(userId, done){
-  users.update({_id:userId}, {$set: {status: "actif"}}, {}, done);
-};

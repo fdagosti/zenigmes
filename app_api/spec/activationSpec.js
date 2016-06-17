@@ -9,15 +9,11 @@ var nonActiveUserCredentials = {
   id: "570d13dd6d04b9ec29d53578"
 };
 
-var adminCredentials = {
-  email: "francois.dagostini@gmail.com",
-  password: "toto",
-  id: "57091325117230600f0d1fae"
-};
-
-var loginToken;
-  function _login(credentials, done){
-    rest.post(base+"/api/login", {data: credentials})
+describe("A non activated user", function(){
+  
+  var loginToken;
+  function _login(done){
+    rest.post(base+"/api/login", {data: nonActiveUserCredentials})
     .on("success", function(data, response){
       loginToken = data.token;
       done();
@@ -26,15 +22,11 @@ var loginToken;
     });
   }
 
-describe("A non activated user", function(){
-  
-  
-
   beforeEach(function(done){
    server = app.listen(9876, function(){
       dbUtils.clearDatabase(function(){
         dbUtils.addFixture(function(){
-          _login(nonActiveUserCredentials,done);
+          _login(done);
         });
       });
     });
@@ -60,20 +52,6 @@ describe("A non activated user", function(){
     }).on("fail", function(err, response){
         expect(response.statusCode).toBe(401);
         done();
-    });
-  });
-
-  it("should be able transition to the validation state without having to logout/login again", function(done){
-    dbUtils.activateUserOnDb("570d13dd6d04b9ec29d53578", function(){
-      rest.get(base+"/api/participations/", 
-              {accessToken: loginToken})
-      .on("success", function(data, response){
-        console.log("yeahhhh");
-        done();
-      }).on("fail", function(err, response){
-        console.log(err);
-        done.fail("An inactive user who has been validated should be able to act as valid");
-      });
     });
   });
 

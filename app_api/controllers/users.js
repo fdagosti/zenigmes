@@ -82,6 +82,33 @@ module.exports.userUpdate = function(req, res){
         })
 };
 
+module.exports.userActivated = function(req, res){
+    if (!req.params.userid) {
+        sendJsonResponse(res, 404, {
+            message: "Not found, userid is required"
+        });
+        return;
+    }
+
+    console.log("user activated");
+
+    usersDB
+    .findById(req.params.userid)
+    .select("status")
+    .exec(
+        function(err, user) {
+            if (err){
+                sendJsonResponse(res, 404, err);
+            }else {
+                console.log("returning ");
+                console.log(user);
+                sendJsonResponse(res, 200, user);
+            }
+        }
+    );
+
+};
+
 module.exports.userDetails = function(req, res){
     if (!req.params.userid) {
         sendJsonResponse(res, 404, {

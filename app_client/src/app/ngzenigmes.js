@@ -100,10 +100,14 @@
     angular
         .module("zenigmesApp")
         .config(["$routeProvider", "$locationProvider","$httpProvider", config])
-        .run(["$rootScope", "$location", function($rootScope, $location) {
+        .run(["$rootScope", "$location","authentication", function($rootScope, $location, authentication) {
          
             $rootScope.$on("$routeChangeError", function(evt, to, from, error) {
-                $location.path("/inactive");
+                if (authentication.isLoggedIn()){
+                    $location.path("/inactive");
+                }else{
+                    $location.path("/login");
+                }
             });
         }]);
 

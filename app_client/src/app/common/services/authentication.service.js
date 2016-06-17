@@ -3,8 +3,8 @@
     .module("zenigmesApp")
     .service("authentication", authentication);
 
-    authentication.$inject = ["$window", "$http", "$rootScope"];
-    function authentication($window, $http, $rootScope) {
+    authentication.$inject = ["$window", "$http", "$rootScope", "$q"];
+    function authentication($window, $http, $rootScope, $q) {
         var saveToken = function(token) {
             $window.localStorage["zenigme-token"] = token;
         };
@@ -13,10 +13,7 @@
             return $window.localStorage["zenigme-token"];
         };
 
-       var isCurrentUserActive() {
-
-       }
-
+       
        var register = function(user) {
             return $http.post("/api/register", user).then(function(response){
                 saveToken(response.data.token);
@@ -54,6 +51,7 @@
                 var token = getToken();
                 var payload = JSON.parse($window.atob(token.split(".")[1]));
                 return {
+                    _id: payload._id,
                     email: payload.email,
                     name: payload.name,
                     admin: payload.admin,
@@ -68,15 +66,13 @@
                 return $q.when("bien");
             }else {
                 return $q(function(resolve, reject){
-                    $http.get("/api/users"+user._id, {
+                    $http.get("/api/activation/"+user._id, {
                         headers: {
-                          Authorization: "Bearer "+ authentication.getToken()
+                          Authorization: "Bearer "+ getToken()
                         }
                     })
                     .then(function(response){
-                        console.log(response);
-                        var updatedStatus = response.data.status;
-                        if (updatedStatus === "actif"){
+                        if (response.data.status === "actif"){
                             logout();
                         }
                         reject("Votre compte n'est pas encore actif");
@@ -118,7 +114,8 @@
             login: login,
             logout: logout,
             isLoggedIn: isLoggedIn,
-            currentUser: currentUser
+            currentUser: currentUser,
+            currentUserActive: currentUserActive
         };
     }
 })();

@@ -40,7 +40,7 @@ router.put("/users/:userid", auth, statusCheck, adminCheck, ctrlUsers.userUpdate
 router.get("/users/:userid", auth, statusCheck, ctrlUsers.userDetails);
 
 // specific activation api
-router.get("/activation/:userid", auth, ctrlUsers.userActivated);
+router.get("/activation/", auth, ctrlUsers.userActivated);
 
 // sessions
 router.get("/sessions", auth, statusCheck, adminCheck, ctrlSessions.sessionsList);

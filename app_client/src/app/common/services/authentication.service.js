@@ -66,7 +66,7 @@
                 return $q.when("bien");
             }else {
                 return $q(function(resolve, reject){
-                    $http.get("/api/activation/"+user._id, {
+                    $http.get("/api/activation/", {
                         headers: {
                           Authorization: "Bearer "+ getToken()
                         }

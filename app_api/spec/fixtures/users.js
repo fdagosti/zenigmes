@@ -4,6 +4,7 @@ module.exports = [{
   "salt" : "ebab7b909ab000dd172446663f397385",
   "email" : "td@tc.com",
   "name" : "el toro maske",
+  "classe": "6eme",
   "__v" : 0
 },
 {
@@ -42,6 +43,7 @@ module.exports = [{
   "email" : "montest@montest.fr",
   "name" : "montest",
   "role" : "member",
+  "classe": "6eme",
   "__v" : 0
 },
 {
@@ -51,6 +53,8 @@ module.exports = [{
   "email" : "maskman@maskman.com",
   "name" : "maskman",
   "role" : "member",
+  "status": "actif",
+  "classe": "6eme",
   "__v" : 0
 },
 {

@@ -22,13 +22,13 @@
                 <tbody>
                   <tr ng-repeat='session in vm.sessionsForUser'>
                     <td class="text-center">
-                      <a ng-href="/#/defis/{{session._id}}" class="user-link">{{session.nom}}</a>
+                      {{session.nom}}
                     </td>
                     <td class="text-center">{{session.start | date: 'd MMMM yyyy'}}</td>
                     <td class="text-center">{{vm.getSessionEndDate(session) | date: 'd MMMM yyyy'}}</td>
                     <td class="text-center">
                       <span ng-show="session.enigmeDuMoment != null"><strong>{{session.enigmeDuMoment.titre}}</strong><br><div ng-show="session.enigmeDuMoment.alreadyAnswered">(Déja Répondu)</div></span>
-                      <span ng-show="vm.isSessionNotStartedYet(session)">Défi pas encore démarrée</span>
+                      <span ng-show="vm.isSessionNotStartedYet(session)">Défi à venir</span>
                       <span ng-show="vm.isSessionEnded(session)">Défi fini</span>
                     </td>
                     <td>
@@ -44,6 +44,18 @@
                           <i class="fa fa-square fa-stack-2x"></i>
                           <i class="fa fa-play-circle fa-stack-1x fa-inverse"></i>
                         </span>
+                      <a href="#" ng-href="/#/defis/{{session._id}}" class="table-link success" ng-click="">
+                        <span class="fa-stack">
+                          <i class="fa fa-square fa-stack-2x"></i>
+                          <i class="fa fa-plus-square fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
+                      <a href="#" ng-href="/#/classements/{{session._id}}" class="table-link success" ng-click="">
+                        <span class="fa-stack">
+                          <i class="fa fa-square fa-stack-2x"></i>
+                          <i class="fa fa-trophy fa-stack-1x fa-inverse"></i>
+                        </span>
+                      </a>
                       </a>
                     </td>
                   </tr>

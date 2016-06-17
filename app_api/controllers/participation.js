@@ -37,7 +37,7 @@ module.exports.participationsList = function(req, res){
     );
 };
 
-var enigmeInThePast = function(sessionEnigme){
+var _enigmeInThePast = function(sessionEnigme){
     var now = new Date();
     var enigmeEnd = new Date(sessionEnigme.end);
     return (enigmeEnd < now);
@@ -60,7 +60,7 @@ module.exports.participationsListOne = function(req, res){
                 session.numberOfEnigmes = session.enigmes.length;
 
                 // filter out the future enigmes
-                session.enigmes = session.enigmes.filter(enigmeInThePast);
+                session.enigmes = session.enigmes.filter(_enigmeInThePast);
 
                 // retrieve the enigmes from the session
                 async.each(session.enigmes, function(sessionEnigme, asyncCb){

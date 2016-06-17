@@ -55,7 +55,7 @@ exports.addFixture = function(done){
 
 };
 
-var base = "http://localhost:9876";
+var base = exports.base = "http://localhost:9876";
 var francoisCredentials = {
   email: "francois.dagostini@gmail.com",
   password: "toto"

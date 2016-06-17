@@ -66,6 +66,11 @@
                 controller: "defisDetailsCtrl",
                 controllerAs: "vm"
             })
+            .when("/classements/:defiId", {
+                templateUrl: "app/classements/classements.template.html",
+                controller: "classementsCtrl",
+                controllerAs: "vm"
+            })
             .when("/users", {
                 templateUrl: "app/users/users.template.html",
                 controller: "usersCtrl",

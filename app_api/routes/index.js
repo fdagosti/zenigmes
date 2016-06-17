@@ -21,6 +21,7 @@ var ctrlAuth = require("../controllers/authentication");
 var ctrlUsers = require("../controllers/users");
 var ctrlSessions = require("../controllers/sessions");
 var ctrlParticipations = require("../controllers/participation");
+var ctrlClassements = require("../controllers/classements");
 
 // enigmes
 router.get("/enigmes", ctrlEnigmes.enigmesList);
@@ -52,6 +53,9 @@ router.delete("/sessions/:sessionid", auth, statusCheck, adminCheck, ctrlSession
 // participations
 router.get("/participations", auth, statusCheck, ctrlParticipations.participationsList);
 router.get("/participations/:sessionid", auth, statusCheck, ctrlParticipations.participationsListOne);
+
+// classements
+router.get("/classements/:defiId", auth, statusCheck, ctrlClassements.classementsByDefis);
 
 // answer
 router.post("/session/:sessionid/enigme/:enigmeid/answer", auth, ctrlParticipations.postAnswer);

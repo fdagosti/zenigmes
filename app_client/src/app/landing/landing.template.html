@@ -2,13 +2,17 @@
 
   <div class="row well well-lg">
     <div class="col-md-6">
-      <h2>Les Zenigmes</h2>
+      <h2 class="text-center">LES « Z’ENIGMES » </h2>
+  <h2 class="text-center">AU LYCEE JEAN BAPTISTE SAY</h2>
 
-      <p class="lead">Des défis et des énigmes pour tous les élèves. Venez affronter vos camarades et peut être gagnerez vous le badge de meilleur matheux de votre classe</p>
+      <p class="lead">Des défis et des énigmes pour tous les collégiens.<br/>
+Pour les résoudre, inutile d’être « bon en maths », il faut surtout un esprit logique.<br/>
+Vous pouvez donc tous tenter votre chance : que le meilleur gagne !
+</p>
 
-      <a href="/enigmes" class="btn btn-lg btn-default">acceder aux énigmes</a>
-      <a href="/register" ng-hide="vm.isLoggedIn" class="btn btn-lg btn-primary">Créer un compte</a>
-      <a href="/mesdefis" ng-show="vm.isLoggedIn" class="btn btn-lg btn-primary">Accéder à vos défis</a>
+      <a href="/enigmes" ng-show="vm.isLoggedIn" class="btn btn-lg btn-warning">Classements</a>
+      <a href="/register" ng-hide="vm.isLoggedIn" class="btn title-button hero-btn btn-lg btn-primary">Créer un compte</a>
+      <a href="/mesdefis" ng-show="vm.isLoggedIn" class="btn title-button hero-btn btn-lg btn-primary">Mes défis</a>
 
     </div>
     <div class="col-md-6 hidden-sm hidden-xs">
@@ -19,21 +23,24 @@
   <div class="container-fluid"> 
     <div class="row text-center features">
       <div class="col-sm-4 col-xs-10 col-xs-offset-1 col-sm-offset-0">
-        <i style="font-size: 48px;" class="glyphicon glyphicon-question-sign"></i>
-        <h3>Des enigmes dans le domaine des mathématiques</h3>
-        <p>bla bla bla, bli bli bli, blou blou blou</p>
+      <i style="font-size: 48px;" class="glyphicon glyphicon-knight"></i>
+        
+        <h3>Faire des mathématiques en s’amusant pour progresser.
+</h3>
+        <p>Chaque semaine, une nouvelle énigme apparait,  la précédente est terminée.</p>
       </div>
 
 
       <div class="col-sm-4 col-xs-6">
-        <i style="font-size: 48px;" class="glyphicon glyphicon-knight"></i>
-        <h3>Une compétition saine entre élèves d'une classe</h3>
-        <p>bla bla bla blie blie blie bloue bloue bloue</p>
+        <i style="font-size: 48px;" class="glyphicon glyphicon-book"></i>
+        <h3>Des énigmes pour développer le gout de la recherche.</h3>
+        <p>Une bonne réponse rapporte 1, 2 ou 3 points selon la difficulté de l'énigme</p>
       </div>    
       <div class="col-sm-4 col-xs-6">
-        <i style="font-size: 48px;" class="glyphicon glyphicon-education"></i>
-        <h3>apprendre en s'amusant</h3>
-        <p>Faire des maths peut se révéler trés amusant</p>
+        <i style="font-size: 48px;" class="fa fa-users" aria-hidden="true"></i>
+        <h3>Le plaisir de la recherche avec ses camarades.
+</h3>
+        <p>En cas d’égalité, un bonus est accordé au plus rapide</p>
       </div>
     </div>
   </div>

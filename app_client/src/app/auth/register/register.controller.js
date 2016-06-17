@@ -8,7 +8,7 @@
         var vm = this;
 
         vm.pageHeader = {
-            title: "Ceation d'un compte pour les zenigmes"
+            title: "Création d'un compte pour les 'zenigmes'"
         };
         vm.credentials = {
             name: "",

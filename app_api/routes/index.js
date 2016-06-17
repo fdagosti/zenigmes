@@ -1,10 +1,24 @@
 var express = require("express");
 var router = express.Router();
 var jwt = require("express-jwt");
+var usersDB = require("mongoose").model("User");
+
 var auth = jwt({
     secret: process.env.JWT_SECRET,
-   
+   isRevoked: isRevokedCb
 });
+
+var isRevokedCb = function(req, payload, done){
+  if (payload.status != "actif"){
+    usersDB.findOne({_id:req.user._id},"status", function(err, doc){
+      if (err) { return done(err); }
+      return done(null, doc.status != "actif");
+    });
+  } else {
+    return done(null, false);
+  }
+
+};
 
 var adminCheck = function(req, res, next){
     if (!req.user.admin) return res.sendStatus(401);
@@ -12,8 +26,11 @@ var adminCheck = function(req, res, next){
 };
 
 var statusCheck = function(req, res, next){
-  if (req.user.status != "actif") return res.sendStatus(401);
-  next();
+  if (req.user.status != "actif"){
+    res.sendStatus(401);
+  } else {
+    next();
+  }
 }
 
 var ctrlEnigmes = require("../controllers/zenigmes");

@@ -6,13 +6,7 @@
         $httpProvider.useLegacyPromiseExtensions(false);
 
         var statusOk = function($q, authentication){
-            var user = authentication.currentUser();
-            
-            if (user && user.status =="actif"){
-                return $q.when("bien");
-            }else{
-                return $q.reject("Votre compte n'a pas encore été validé");
-            }
+            return authentication.currentUserActive();
         };
 
         $routeProvider

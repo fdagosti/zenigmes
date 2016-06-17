@@ -13,7 +13,9 @@
             return $window.localStorage["zenigme-token"];
         };
 
-       
+       var isCurrentUserActive() {
+
+       }
 
        var register = function(user) {
             return $http.post("/api/register", user).then(function(response){
@@ -57,6 +59,31 @@
                     admin: payload.admin,
                     status: payload.status,
                 };
+            }
+        };
+
+        var currentUserActive = function() {
+            var user = currentUser();
+            if (user && user.status == "actif"){
+                return $q.when("bien");
+            }else {
+                return $q(function(resolve, reject){
+                    $http.get("/api/users"+user._id, {
+                        headers: {
+                          Authorization: "Bearer "+ authentication.getToken()
+                        }
+                    })
+                    .then(function(response){
+                        console.log(response);
+                        var updatedStatus = response.data.status;
+                        if (updatedStatus === "actif"){
+                            logout();
+                        }
+                        reject("Votre compte n'est pas encore actif");
+                    },function(e){
+                        reject("problem retrieving users");
+                    });
+                });
             }
         };
 

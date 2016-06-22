@@ -1,6 +1,7 @@
 var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var mails = require("./mails/mailsMessages");
 
 var sendJSONresponse = function(res, status, content) {
   res.status(status);
@@ -29,6 +30,8 @@ module.exports.register = function(req, res) {
             sendJSONresponse(res, 404, err);
         } else {
             token = user.generateJwt();
+            mails.newUserNeedValidations(req, user);
+
             sendJSONresponse(res, 200, {
                 token: token
             });

@@ -15,6 +15,8 @@
         function listUsers(){
             zenigmeUsers.allUsersWithSessions().then(function(data){
                 vm.users = data;
+            },function(error){
+                vm.error = error.statusText;
             });
         }
 

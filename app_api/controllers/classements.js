@@ -23,7 +23,6 @@ var _classeFromDefiNiveau = function(session){
 };
 
 module.exports.classementsByDefis = function(req, res){
-  console.log("asking for classement");
   if (!req.params.defiId) {
         sendJsonResponse(res, 404, {
             message: "Not found, defiId is required"
@@ -78,9 +77,6 @@ module.exports.classementsByDefis = function(req, res){
       }); 
     }],
     function(err, defi){
-      console.log("waterfall end");
-      
-
 
       if (err){
           return sendJsonResponse(res, 404, err);

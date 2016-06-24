@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var sessionDB = mongoose.model("sessions");
 var enigmesCollection = mongoose.model("enigmes");
 var async = require("async");
+var mails = require("./mails/mailsMessages")
 
 var sendJsonResponse = function(res, status, content) {
     res.status(status);
@@ -36,6 +37,7 @@ module.exports.sessionCreate = function(req, res){
         if (err){
             sendJsonResponse(res, 400, err);
         }else{
+            mails.defiHasBeenCreated(req, session);
             sendJsonResponse(res, 201, session);
         }
     });

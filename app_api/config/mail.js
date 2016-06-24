@@ -1,6 +1,11 @@
 var nodemailer = require('nodemailer');
 var mg = require('nodemailer-mailgun-transport');
 
+var transport;
+if (process.env.NODE_ENV != "production"){
+  transport = require("nodemailer-stub-transport")();
+}else {
+
 // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
 var auth = {
   auth: {
@@ -8,9 +13,8 @@ var auth = {
     domain: process.env.MAILGUN_DOMAIN
     }
 }
-var transport = mg(auth);
-if (process.env.NODE_ENV === "test"){
-  transport = require("nodemailer-stub-transport")();
+transport = mg(auth);
+
 }
 var toReturn = nodemailer.createTransport(transport);
 module.exports = toReturn;

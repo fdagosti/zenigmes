@@ -21,6 +21,25 @@ var compileJade = function(jadeFile, locals, cb){
   });
 };
 
+var _classeFromDefiNiveau = function(session){
+  var niveau = session.niveau;
+  if (niveau === 1){
+    return ["6eme", "5eme"];
+  }else if (niveau === 2){
+    return ["4eme", "3eme"];
+  }else if (niveau === 3){
+    return ["2nde", "1ere", "terminale"];
+  }else {
+    return "exterieur";
+  }
+};
+
+function _toNodeMailerString(users){
+  users.forEach(function(user){
+    toString +=user.name+" <"+user.email+">,";
+  });
+}
+
 
 
 module.exports = {
@@ -31,10 +50,8 @@ module.exports = {
         console.error(err);
       }else{
 
-        var toString = "";
-        admins.forEach(function(admin){
-          toString +=admin.name+" <"+admin.email+">,";
-        });
+        var toString = _toNodeMailerString(admins);
+        
 
         var userPageUrl = "http://"+req.headers.host+"/users";
 
@@ -42,7 +59,7 @@ module.exports = {
 
           // setup e-mail data with unicode symbols
           var mailOptions = {
-              from: '"zenigmes" <foo@blurdybloop.com>', // sender address
+              from: '"zenigmes" <zenigmes@bzenigmes.fr>', // sender address
               to: toString,
               subject: "Un nouvel utilisateur s'est inscrit aux zenigmes", // Subject line
               html: html // html body
@@ -54,6 +71,35 @@ module.exports = {
         
       }
     });
+  },
+  defiHasBeenCreated: function(req, newDefi){
+
+     // retrieve the participants of the session
+    usersDB.find({$or: [
+      {"_id":{$in: newDefi.participants}},
+      {"classe":{$in: _classeFromDefiNiveau(newDefi)}},
+    ]},"name email",function(err, users){
+
+      var toString = _toNodeMailerString(users);
+      
+      var mesDefisPageUrl = "http://"+req.headers.host+"/mesdefis";
+
+      var html = compileJade("newDefi.jade", {defi:newDefi, mesDefis: mesDefisPageUrl}, function(html){
+
+          // setup e-mail data with unicode symbols
+          var mailOptions = {
+              from: '"zenigmes" <zenigmes@bzenigmes.fr>', // sender address
+              to: toString,
+              subject: "Un nouvel utilisateur s'est inscrit aux zenigmes", // Subject line
+              html: html // html body
+          };
+
+          // send mail with defined transport object
+          transport.sendMail(mailOptions, module.exports.cb);  
+      });
+
+    })
+
   },
   cb: function(error, info){
         if(error){

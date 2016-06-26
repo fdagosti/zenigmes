@@ -1,6 +1,7 @@
 var nodemailer = require('nodemailer');
 var mg = require('nodemailer-mailgun-transport');
 
+
 var transport;
 if (process.env.NODE_ENV === "test"){
   transport = require("nodemailer-mock-transport")();
@@ -13,6 +14,7 @@ var auth = {
     domain: process.env.MAILGUN_DOMAIN
     }
 }
+
 transport = mg(auth);
 
 }

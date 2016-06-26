@@ -54,8 +54,6 @@ module.exports = {
 
         var toString = _toNodeMailerString(admins);
         
-        console.log("toString = "+toString);
-
         var userPageUrl = "http://"+req.headers.host+"/users";
 
         var html = compileJade("newUser.jade", {newUser:newUser, usersUrl: userPageUrl}, function(html){

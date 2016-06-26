@@ -7,6 +7,7 @@ var dbUtils = require("./dbUtils");
 var base = dbUtils.base;
 var mail = require("../controllers/mails/mailsMessages");
 
+
 var mailTestDefi = {
   "nom" : "Mon defi pour tester les mails",
   "start" : "2016-04-14T19:26:13.471Z",
@@ -68,6 +69,7 @@ describe("The registration process", function(){
         });
     });
   
+
   it("should send a mail after user registration", function(done){
   
 
@@ -93,11 +95,13 @@ describe("The registration process", function(){
 
 describe("The activation process", function(){
 
+
   afterEach(function(done){
     server.close(function(){
       dbUtils.clearDatabase(done);
     });
   });
+
     
   var server, loginToken;
   beforeEach(function(done){
@@ -169,12 +173,14 @@ describe("the Defi creation process", function(){
         }
     };
 
+
     rest.post(base+"/api/sessions", {accessToken: loginToken, data: mailTestDefi})
     .on("success", function(data, response){
         // waiting for nodemailer callback
     }).on("fail", function(err, response){
         done.fail(err);
     });
+
 
   });
 });

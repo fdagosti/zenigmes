@@ -35,7 +35,7 @@
                         if (vm.testMode){
                             date.setSeconds(date.getSeconds() + 60);
                         }else {
-                            date.setDate(date.getDate() + 7);
+                            date.setDate(date.getDate() + $scope.session.dureeEnigme);
                         }
                     };
 
@@ -124,6 +124,10 @@
                         var datePlusOneMin = new Date(now.getTime() + 60000);
                         $scope.session.start = datePlusOneMin;
                     }
+                    updateSessionBasedOnSelectedEnigmes();
+                });
+
+                $scope.$watch("session.dureeEnigme", function(){
                     updateSessionBasedOnSelectedEnigmes();
                 });
 

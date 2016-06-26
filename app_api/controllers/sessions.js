@@ -30,7 +30,8 @@ module.exports.sessionCreate = function(req, res){
         niveau: req.body.niveau,
         start: req.body.start,
         enigmes: req.body.enigmes,
-        participants: req.body.participants
+        participants: req.body.participants,
+        dureeEnigme: req.body.dureeEnigme,
 
     }, function(err, session){
 
@@ -120,6 +121,7 @@ module.exports.sessionUpdateOne = function(req, res){
             session.start = req.body.start;
             session.enigmes = req.body.enigmes;
             session.participants = req.body.participants;
+            session.dureeEnigme = req.body.dureeEnigme;
             
             session.save(function(err, session){
                 if (err){

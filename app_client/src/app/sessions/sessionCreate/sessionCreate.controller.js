@@ -15,6 +15,7 @@
 
         vm.session = {};
         vm.session.niveau = 1;
+        vm.session.dureeEnigme = 7;
         vm.session.start = new Date();
 
 

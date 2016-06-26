@@ -17,6 +17,7 @@ var enigmesCollectionSchema = new mongoose.Schema({
 var sessionSchema = new mongoose.Schema({
   nom: {type: String, required: true},
   niveau: {type: Number, "default": 1, min: 1, max: 3},
+  dureeEnigme: {type: Number, enum: [1, 7], "default": 7},
   start: {type: Date, required: true},
   enigmes: [enigmesCollectionSchema],
   participants: [String] 

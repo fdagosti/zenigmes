@@ -41,7 +41,7 @@ var _enigmeInThePast = function(sessionEnigme){
     var now = new Date();
     var enigmeEnd = new Date(sessionEnigme.end);
     return (enigmeEnd < now);
-}
+};
 
 module.exports.participationsListOne = function(req, res){
     if (req.params && req.params.sessionid){
@@ -76,7 +76,7 @@ module.exports.participationsListOne = function(req, res){
                         });
                         sessionEnigme.answers = userAnswers;
                         asyncCb(err);
-                    })
+                    });
                 }, function(err, enigmes){
                     cb(err, session);
                 });
@@ -103,7 +103,7 @@ module.exports.participationsListOne = function(req, res){
 function _validateAnswer(answer, enigme){
     // doing soft validation as some answers are strings, other are numbers
     return (enigme.numericAnswer == answer.value) || (enigme.textualAnswer == answer.value);
-};
+}
 
 module.exports.postAnswer = function(req, res){
     var sessionId = req.params.sessionid;
@@ -111,7 +111,7 @@ module.exports.postAnswer = function(req, res){
     var answer = {
         user: req.user.email,
         value: req.body.answer
-    }
+    };
 
     if (answer.value == undefined) {
         sendJsonResponse(res, 400, {"message":"Vous devez donner une réponse valide"});

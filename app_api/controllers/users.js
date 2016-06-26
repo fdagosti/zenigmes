@@ -3,6 +3,7 @@ var usersDB = mongoose.model("User");
 var sessionDB = mongoose.model("sessions");
 var zenigmesDB = mongoose.model("enigmes");
 var async = require("async");
+var mails = require("./mails/mailsMessages");
 
 
 var sendJsonResponse = function(res, status, content) {
@@ -66,20 +67,26 @@ module.exports.userUpdate = function(req, res){
                 sendJsonResponse(res, 400, err);
                 return;
             }
+            
+            // check if this action is activating the user
+            var userActivated = user.status === "enValidation" && req.body.status === "actif";
+
             user.name = req.body.name;
             user.email = req.body.email;
             user.role = req.body.role;
             user.classe = req.body.classe;
             user.status = req.body.status;
+
             
             user.save(function(err, user){
                 if (err){
                     sendJsonResponse(res, 404, err);
                 } else {
+                    if (userActivated){mails.accountValidated(req, user);}
                     sendJsonResponse(res, 200, user);
                 }
             });
-        })
+        });
 };
 
 module.exports.userActivated = function(req, res){

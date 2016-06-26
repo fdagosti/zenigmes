@@ -39,11 +39,21 @@ var mailTestDefi = {
   ]
 };
 
+
+var nonActiveUserCredentials = {
+  email: "inactive@inactive.com",
+  password: "toto",
+  id: "570d13dd6d04b9ec29d53578",
+  "name" : "maskman inactive",
+  "role" : "member",
+  "status" : "enValidation",
+  "classe": "externe"
+};
+
 describe("The registration process", function(){
 
 
   afterEach(function(done){
-    console.log("AFTER EACH");
     server.close(function(){
       dbUtils.clearDatabase(done);
     });
@@ -51,7 +61,6 @@ describe("The registration process", function(){
 
     var server;
     beforeEach(function(done){
-        console.log("BEFORE EACH 1");
         server = app.listen(9876, function(){
           dbUtils.clearDatabase(function(){
             dbUtils.addFixture(done);
@@ -64,18 +73,16 @@ describe("The registration process", function(){
 
     mail.cb = function(errors, info){
         if (errors) {
-            done.fail("Errors, sending mail");
+            done.fail(errors);
         } else {
-            console.log(info.response.toString());
+            console.log(mailConfig.transport.sentMail[mailConfig.transport.sentMail.length - 1]);
             done();
         }
     };
 
     rest.post(base+"/api/register",{data:{email:"toutou@toutou.com",classe:"externe", password:"toutou",name:"toutou"}})
     .on("success", function(data, response){
-        
-        console.log("Yeah, regitration is done");
-        console.log(mailConfig.transporter.sentMail);
+        // waiting for Nodemailer callback
     }).on("fail", function(err, response){
         done.fail(err);
     });
@@ -84,17 +91,61 @@ describe("The registration process", function(){
 
 });
 
-describe("the Defi creation process", function(){
+describe("The activation process", function(){
 
-    afterEach(function(done){
-    console.log("AFTER EACH");
+  afterEach(function(done){
     server.close(function(){
       dbUtils.clearDatabase(done);
     });
   });
+    
+  var server, loginToken;
+  beforeEach(function(done){
+    server = app.listen(9876, function(){
+      dbUtils.setupAndLoginAsAdmin(function(token, err){
+        if (err){
+          done.fail(err);
+        }else{
+          loginToken = token;
+          done();
+        }
+      });
+    });
+  });
+
+  it("should send a mail when new user is activated", function(done){
+     mail.cb = function(errors, info){
+        if (errors) {
+            done.fail(errors);
+        } else {
+             var lastMail = mailConfig.transport.sentMail[mailConfig.transport.sentMail.length - 1];
+             console.log(lastMail);
+            done();
+        }
+    };
+
+    nonActiveUserCredentials.status = "actif";
+
+    rest.put(base+"/api/users/"+nonActiveUserCredentials.id,{accessToken: loginToken, data: nonActiveUserCredentials})
+    .on("success", function(data, response){
+      // waiting for Mail calback
+    }).on("fail", function(err, response){
+      done.fail(err);
+    });
+
+  });
+});
+
+describe("the Defi creation process", function(){
+
+    afterEach(function(done){
+      server.close(function(){
+        dbUtils.clearDatabase(done);
+      });
+    });
+
      var server, loginToken;
     beforeEach(function(done){
-        console.log("BEFORE EACH 2");
         server = app.listen(9876, function(){
           dbUtils.setupAndLoginAsAdmin(function(token, err){
             if (err){
@@ -108,23 +159,19 @@ describe("the Defi creation process", function(){
     });
 
   it("should send a mail after Defi creation", function(done){
-
-  
- 
-
-
     mail.cb = function(errors, info){
         if (errors) {
-            done.fail("Errors, sending mail");
+            done.fail(errors);
         } else {
-            console.log(info.response.toString());
+          console.log(mailConfig.transport.sentMail[mailConfig.transport.sentMail.length - 1]);
+            
             done();
         }
     };
 
     rest.post(base+"/api/sessions", {accessToken: loginToken, data: mailTestDefi})
     .on("success", function(data, response){
-        console.log("yeah, session created");
+        // waiting for nodemailer callback
     }).on("fail", function(err, response){
         done.fail(err);
     });

@@ -35,9 +35,11 @@ var _classeFromDefiNiveau = function(session){
 };
 
 function _toNodeMailerString(users){
+  var res="";
   users.forEach(function(user){
-    toString +=user.name+" <"+user.email+">,";
+    res +=user.name+" <"+user.email+">,";
   });
+  return res;
 }
 
 
@@ -52,6 +54,7 @@ module.exports = {
 
         var toString = _toNodeMailerString(admins);
         
+        console.log("toString = "+toString);
 
         var userPageUrl = "http://"+req.headers.host+"/users";
 
@@ -90,7 +93,7 @@ module.exports = {
           var mailOptions = {
               from: '"zenigmes" <zenigmes@bzenigmes.fr>', // sender address
               to: toString,
-              subject: "Un nouvel utilisateur s'est inscrit aux zenigmes", // Subject line
+              subject: "Un nouveau défi vient d'être créé", // Subject line
               html: html // html body
           };
 
@@ -98,13 +101,35 @@ module.exports = {
           transport.sendMail(mailOptions, module.exports.cb);  
       });
 
-    })
+    });
+
+  },
+  accountValidated: function(req, user){
+
+
+    var toString = _toNodeMailerString([user]);
+    
+    var mesDefisPageUrl = "http://"+req.headers.host+"/mesdefis";
+
+    var html = compileJade("accountValidated.jade", {mesDefis: mesDefisPageUrl}, function(html){
+
+        // setup e-mail data with unicode symbols
+        var mailOptions = {
+            from: '"zenigmes" <zenigmes@zenigmes.fr>', // sender address
+            to: toString,
+            subject: "Votre compte a été validé", // Subject line
+            html: html // html body
+        };
+
+        // send mail with defined transport object
+        transport.sendMail(mailOptions, module.exports.cb);  
+      });
+
 
   },
   cb: function(error, info){
         if(error){
-          console.log("ERROR nodemailer");
-          return console.error(error);
+          console.error(error);
         }
       }
-}
+};

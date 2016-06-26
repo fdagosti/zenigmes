@@ -50,8 +50,8 @@ module.exports.classementsByDefis = function(req, res){
             u.totalPoints = 0;
             return u;
           });
-          cb(err, defi)
-        })
+          cb(err, defi);
+        });
         
     },function(defi, cb){
       // retrieve the enigmes points of the session
@@ -71,7 +71,7 @@ module.exports.classementsByDefis = function(req, res){
           });
 
           cb(err);    
-        })
+        });
       }, function(err){
         cb(err, defi);
       }); 

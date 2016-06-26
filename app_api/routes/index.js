@@ -14,7 +14,7 @@ var adminCheck = function(req, res, next){
 var statusCheck = function(req, res, next){
   if (req.user.status != "actif") return res.sendStatus(401);
   next();
-}
+};
 
 var ctrlEnigmes = require("../controllers/zenigmes");
 var ctrlAuth = require("../controllers/authentication");

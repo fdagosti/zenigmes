@@ -103,7 +103,7 @@ module.exports.enigmeUpdateOne = function(req, res){
                     sendJsonResponse(res, 200, enigme);
                 }
             });
-        })
+        });
 };
 module.exports.enigmeDeleteOne = function(req, res){
 

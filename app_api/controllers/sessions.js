@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var sessionDB = mongoose.model("sessions");
 var enigmesCollection = mongoose.model("enigmes");
 var async = require("async");
-var mails = require("./mails/mailsMessages")
+var mails = require("./mails/mailsMessages");
 
 var sendJsonResponse = function(res, status, content) {
     res.status(status);
@@ -72,7 +72,7 @@ module.exports.sessionsListOne = function(req, res){
 
                     
                         asyncCb(err);
-                    })
+                    });
                 }, function(err, enigmes){
                     cb(err, session);
                 });
@@ -128,7 +128,7 @@ module.exports.sessionUpdateOne = function(req, res){
                     sendJsonResponse(res, 200, session);
                 }
             });
-        })
+        });
 };
 module.exports.sessionDeleteOne = function(req, res){
 

@@ -25,7 +25,7 @@ var answeringGuys = [
 var toAnswer = {
   session: "570feedbdc29f6193729d48f",
   enigme: "57067248a28caf6e09f7bc76"
-}
+};
 
 describe("the classement API", function(){
   var loginToken;
@@ -50,9 +50,9 @@ describe("the classement API", function(){
       dbUtils.clearDatabase(function(){
         dbUtils.addFixture(function(){
           async.series([
-            function(cb){_loginAndAnswer(answeringGuys[0], cb)},
-            function(cb){_loginAndAnswer(answeringGuys[1], cb)},
-            function(cb){_loginAndAnswer(answeringGuys[2], cb)},
+            function(cb){_loginAndAnswer(answeringGuys[0], cb);},
+            function(cb){_loginAndAnswer(answeringGuys[1], cb);},
+            function(cb){_loginAndAnswer(answeringGuys[2], cb);},
           ], function(err, results){
 
             console.log("yes, everyone has answered");

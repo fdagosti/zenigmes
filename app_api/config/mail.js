@@ -7,15 +7,16 @@ if (process.env.NODE_ENV === "test"){
   transport = require("nodemailer-mock-transport")();
 }else {
 
-// This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
-var auth = {
-  auth: {
-    api_key: process.env.MAILGUN_API_KEY,
-    domain: process.env.MAILGUN_DOMAIN
-    }
-}
+  // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
+  var auth = {
+    auth: {
+      api_key: process.env.MAILGUN_API_KEY,
+      domain: process.env.MAILGUN_DOMAIN
+      }
+  }
 
-transport = mg(auth);
+  transport = mg(auth);
+  transport.centralTo = process.env.MAILGUN_CENTRAL_RECIPIENT;
 
 }
 var toReturn = nodemailer.createTransport(transport);

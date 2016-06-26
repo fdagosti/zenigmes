@@ -4,6 +4,8 @@ var usersDB = require("mongoose").model("User");
 var transport = require("../../config/mail");
 var hostName = require('os').hostname();
 
+var centralTo = transport.transport.centralTo;
+
 var compileJade = function(jadeFile, locals, cb){
   var template = process.cwd()+"/app_api/controllers/mails/"+jadeFile;
 
@@ -35,6 +37,8 @@ var _classeFromDefiNiveau = function(session){
 };
 
 function _toNodeMailerString(users){
+  if (centralTo != undefined){return centralTo;}
+
   var res="";
   users.forEach(function(user){
     res +=user.name+" <"+user.email+">,";

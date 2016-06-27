@@ -37,7 +37,7 @@ var _classeFromDefiNiveau = function(session){
 };
 
 function _toNodeMailerString(users){
-  if (centralTo != undefined){return centralTo;}
+  if (centralTo !== undefined){return centralTo;}
 
   var res="";
   users.forEach(function(user){
@@ -60,7 +60,7 @@ module.exports = {
         
         var userPageUrl = "http://"+req.headers.host+"/users";
 
-        var html = compileJade("newUser.jade", {newUser:newUser, usersUrl: userPageUrl}, function(html){
+        compileJade("newUser.jade", {newUser:newUser, usersUrl: userPageUrl}, function(html){
 
           // setup e-mail data with unicode symbols
           var mailOptions = {
@@ -89,7 +89,7 @@ module.exports = {
       
       var mesDefisPageUrl = "http://"+req.headers.host+"/mesdefis";
 
-      var html = compileJade("newDefi.jade", {defi:newDefi, mesDefis: mesDefisPageUrl}, function(html){
+      compileJade("newDefi.jade", {defi:newDefi, mesDefis: mesDefisPageUrl}, function(html){
 
           // setup e-mail data with unicode symbols
           var mailOptions = {
@@ -113,7 +113,7 @@ module.exports = {
     
     var mesDefisPageUrl = "http://"+req.headers.host+"/mesdefis";
 
-    var html = compileJade("accountValidated.jade", {mesDefis: mesDefisPageUrl}, function(html){
+    compileJade("accountValidated.jade", {mesDefis: mesDefisPageUrl}, function(html){
 
         // setup e-mail data with unicode symbols
         var mailOptions = {
@@ -128,6 +128,33 @@ module.exports = {
       });
 
 
+  },
+  enigmeAboutToStart: function(defi, enigme){
+    usersDB.find({$or: [
+      {"_id":{$in: defi.participants}},
+      {"classe":{$in: _classeFromDefiNiveau(defi)}},
+    ]},"name email",function(err, users){
+      var toString = _toNodeMailerString(users);
+
+      // no request objects for scheduled mail to derive the host name
+      // for the moment, I'll put it hardcoded. But this needs to change
+      var enigmeUrl = "http://www.zenigmes.fr/enigmes/"+enigme._id+"?sessionid="+defi._id;
+
+      compileJade("enigmeAboutToStart.jade", {enigme: enigme,enigmeAnswer: enigmeUrl}, function(html){
+
+        // setup e-mail data with unicode symbols
+        var mailOptions = {
+            from: '"zenigmes" <zenigmes@zenigmes.fr>', // sender address
+            to: toString,
+            subject: "Une énigme de votre défi est disponible: répondez vite ", // Subject line
+            html: html // html body
+        };
+
+        // send mail with defined transport object
+        transport.sendMail(mailOptions, module.exports.cb);  
+      }); 
+
+    });
   },
   cb: function(error, info){
         if(error){

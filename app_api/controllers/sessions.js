@@ -3,6 +3,7 @@ var sessionDB = mongoose.model("sessions");
 var enigmesCollection = mongoose.model("enigmes");
 var async = require("async");
 var mails = require("./mails/mailsMessages");
+var enigmeMails = require("./mails/enigmesMailScheduler");
 
 var sendJsonResponse = function(res, status, content) {
     res.status(status);
@@ -39,6 +40,7 @@ module.exports.sessionCreate = function(req, res){
             sendJsonResponse(res, 400, err);
         }else{
             mails.defiHasBeenCreated(req, session);
+            enigmeMails.scheduleNextDefiEnigmeJob(session);
             sendJsonResponse(res, 201, session);
         }
     });
@@ -127,6 +129,7 @@ module.exports.sessionUpdateOne = function(req, res){
                 if (err){
                     sendJsonResponse(res, 404, err);
                 } else {
+                    enigmeMails.scheduleNextDefiEnigmeJob(session);
                     sendJsonResponse(res, 200, session);
                 }
             });
@@ -152,3 +155,7 @@ module.exports.sessionDeleteOne = function(req, res){
         });
     }
 };
+
+sessionDB.find().exec(function(err, sessions){
+    enigmeMails.handleEnigmeMails(sessions);
+});

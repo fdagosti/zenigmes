@@ -2,8 +2,8 @@ angular.module('zenigmesApp').controller('answerModalCtrl', function ($scope, $u
 
  
 
-  $scope.ok = function () {
-    $uibModalInstance.close();
+  $scope.ok = function (result) {
+    $uibModalInstance.close(result);
   };
 
   

@@ -40,6 +40,16 @@
                 controller: "loginCtrl",
                 controllerAs: "vm"
             })
+            .when("/forgot", {
+                templateUrl: "app/auth/forgot/forgot.template.html",
+                controller: "forgotCtrl",
+                controllerAs: "vm"
+            })
+            .when("/reset/:resetToken", {
+                templateUrl: "app/auth/reset/reset.template.html",
+                controller: "resetCtrl",
+                controllerAs: "vm"
+            })
             .when("/register", {
                 templateUrl: "app/auth/register/register.view.html",
                 controller: "registerCtrl",

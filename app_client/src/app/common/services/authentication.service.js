@@ -83,6 +83,17 @@
             }
         };
 
+        var forgotPassword = function(email){
+            return $http.post("/api/forgot", {email: email});
+        };
+
+        var resetPassword = function(resetToken, password){
+            return $http.post("/api/reset/"+resetToken, {password: password}).then(function(response) {
+                saveToken(response.data.token);
+                notify();
+            });
+        };
+
         var notify = function(){
             $rootScope.$emit('auth-service-event');
         };
@@ -115,7 +126,9 @@
             logout: logout,
             isLoggedIn: isLoggedIn,
             currentUser: currentUser,
-            currentUserActive: currentUserActive
+            currentUserActive: currentUserActive,
+            forgotPassword: forgotPassword,
+            resetPassword: resetPassword,
         };
     }
 })();

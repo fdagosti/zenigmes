@@ -46,7 +46,11 @@
 		      });
 		      modalInstance.result.then(function(data) {
 		      	$location.search("sessionid", null);
-		        $location.path("/");
+		      	if (data){
+		        	$location.path("/classements/"+vm.sessionId);
+		      	}else{
+		        	$location.path("/");
+		      	}
 		      });
 				}, function(e){
 					Flash.create("danger", e.data.message);

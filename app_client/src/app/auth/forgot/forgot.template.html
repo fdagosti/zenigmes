@@ -1,0 +1,20 @@
+
+<div class="container">
+    <page-header content="vm.pageHeader"></page-header>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <form ng-submit="vm.onSubmit()">
+                <div role="alert" ng-show="vm.formError" class="alert alert-danger">{{vm.formError}}</div>
+                <p>Entrez l'addresse mail que vous avez utilisé pour votre inscription. Un mail vous sera envoyé avec les instructions pour réinitialiser votre mot de passe.</p>
+                <div class="form-group">
+                    <label for="email">Addresse Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Entrez votre email" ng-model="vm.email">
+                </div>
+                <button type="submit" class="btn btn-default">Réinitialiser mot de passe</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+

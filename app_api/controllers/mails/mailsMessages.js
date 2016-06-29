@@ -156,6 +156,43 @@ module.exports = {
 
     });
   },
+  passwordReset: function(req, user){
+    
+      var toString = _toNodeMailerString([user]);
+
+      var passResetUrl = "http://"+req.headers.host+"/reset/"+user.resetPasswordToken;
+
+      compileJade("passwordReset.jade", {passResetUrl: passResetUrl}, function(html){
+
+        // setup e-mail data with unicode symbols
+        var mailOptions = {
+            from: '"zenigmes" <zenigmes@zenigmes.fr>', // sender address
+            to: toString,
+            subject: "Demande de nouveau mot de passe pour les Zenigmes", // Subject line
+            html: html // html body
+        };
+
+        // send mail with defined transport object
+        transport.sendMail(mailOptions, module.exports.cb);  
+      });
+  },
+  passwordHasChanged: function(req, user){
+      var toString = _toNodeMailerString([user]);
+
+      compileJade("passwordChanged.jade", {user: user}, function(html){
+
+        // setup e-mail data with unicode symbols
+        var mailOptions = {
+            from: '"zenigmes" <zenigmes@zenigmes.fr>', // sender address
+            to: toString,
+            subject: "Mot de passe changé", // Subject line
+            html: html // html body
+        };
+
+        // send mail with defined transport object
+        transport.sendMail(mailOptions, module.exports.cb);  
+      });
+  },
   cb: function(error, info){
         if(error){
           console.error(error);

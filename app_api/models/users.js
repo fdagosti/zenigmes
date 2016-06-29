@@ -17,12 +17,16 @@ var userSchema = new mongoose.Schema({
     classe: {type: String, enum: ["6eme", "5eme", "4eme", "3eme", "2nde", "1ere", "terminale", "externe"], default:"externe", required: true},
     status: {type: String, enum: ["actif", "enValidation"], default: "enValidation"},
     hash: String,
-    salt: String
+    salt: String,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 });
 
 userSchema.methods.setPassword = function(password) {
     this.salt = crypto.randomBytes(16).toString("hex");
     this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString("hex");
+    this.resetPasswordToken = undefined;
+    this.resetPasswordExpires = undefined;
 };
 
 userSchema.methods.validPassword = function(password) {
@@ -43,6 +47,11 @@ userSchema.methods.generateJwt = function() {
         status: this.status,
         exp: parseInt(expiry.getTime() / 1000)
     }, process.env.JWT_SECRET);
+};
+
+userSchema.methods.recoverPassword = function(){
+    this.resetPasswordToken = crypto.randomBytes(20).toString("hex");
+    this.resetPasswordExpires = Date.now() + 3600000;
 };
 
 mongoose.model("User", userSchema);

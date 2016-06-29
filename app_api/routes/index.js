@@ -33,6 +33,8 @@ router.delete("/enigmes/:enigmeid", auth, statusCheck, adminCheck, ctrlEnigmes.e
 // authentication
 router.post("/register", ctrlAuth.register);
 router.post("/login", ctrlAuth.login);
+router.post("/forgot", ctrlAuth.forgot);
+router.post("/reset/:token", ctrlAuth.reset);
 
 // users
 router.get("/users", auth, statusCheck, adminCheck, ctrlUsers.usersList);

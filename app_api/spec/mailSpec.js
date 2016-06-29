@@ -77,7 +77,7 @@ describe("The registration process", function(){
         if (errors) {
             done.fail(errors);
         } else {
-            console.log(mailConfig.transport.sentMail[mailConfig.transport.sentMail.length - 1]);
+            // console.log(mailConfig.transport.sentMail[mailConfig.transport.sentMail.length - 1]);
             done();
         }
     };
@@ -123,7 +123,7 @@ describe("The activation process", function(){
             done.fail(errors);
         } else {
              var lastMail = mailConfig.transport.sentMail[mailConfig.transport.sentMail.length - 1];
-             console.log(lastMail);
+             // console.log(lastMail);
             done();
         }
     };
@@ -167,7 +167,7 @@ describe("the Defi creation process", function(){
         if (errors) {
             done.fail(errors);
         } else {
-          console.log(mailConfig.transport.sentMail[mailConfig.transport.sentMail.length - 1]);
+          // console.log(mailConfig.transport.sentMail[mailConfig.transport.sentMail.length - 1]);
             
             done();
         }

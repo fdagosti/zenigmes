@@ -12,7 +12,14 @@ angular.module('zenigmesApp').controller('classementsCtrl', function($scope, $ro
   });
 
   vm.getNombreDePoints = function(user){
-    return user.totalPoints?user.totalPoints+" Points":"0 point";
+    var tp = user.totalPoints;
+    if (!tp){
+      return "Jamais repondu";
+    }else if (tp < 2){
+      return tp + "point";
+    }else {
+      return tp + "points";
+    }
   }
   
   

@@ -48,6 +48,7 @@ module.exports.classementsByDefis = function(req, res){
           defi.participants = users.map(function(usr){
             var u = usr.toObject();
             u.totalPoints = 0;
+            u.answeredOnce = false;
             return u;
           });
           cb(err, defi);
@@ -61,12 +62,16 @@ module.exports.classementsByDefis = function(req, res){
 
           // compute total points for each participants
           enigme.answers.forEach(function(answer){
-            if (answer.correctValue){
-              defi.participants.forEach(function(usr){
-                if (usr.email===answer.user){
+            var usr;
+            for (var i = 0; i < defi.participants.length; i++) {
+              usr = defi.participants[i];
+              if (usr.email === answer.user){
+                usr.answeredOnce = true;
+                if (answer.correctValue){
                   usr.totalPoints+= enigme.points;
                 }
-              });
+                break;
+              }
             }
           });
 

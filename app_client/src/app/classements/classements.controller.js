@@ -13,12 +13,12 @@ angular.module('zenigmesApp').controller('classementsCtrl', function($scope, $ro
 
   vm.getNombreDePoints = function(user){
     var tp = user.totalPoints;
-    if (!tp){
+    if (!user.answeredOnce){
       return "Jamais repondu";
     }else if (tp < 2){
-      return tp + "point";
+      return tp + " point";
     }else {
-      return tp + "points";
+      return tp + " points";
     }
   }
   

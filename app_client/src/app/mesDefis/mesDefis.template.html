@@ -31,32 +31,33 @@
                       <span ng-show="vm.isSessionNotStartedYet(session)">Défi à venir</span>
                       <span ng-show="vm.isSessionEnded(session)">Défi fini</span>
                     </td>
-                    <td>
-                      <ul >
-                        <li  ng-repeat="session in user.sessions">
-                          {{session.nom}}
+                    <td style="width: 20%;">
+                      <ul class="list-unstyled">
+                        <li>
+                          <a href="#" ng-show="session.enigmeDuMoment != null && !session.enigmeDuMoment.alreadyAnswered" ng-href="/#/enigmes/{{session.enigmeDuMoment._id}}?sessionid={{session._id}}" class="table-link success" ng-click="">
+                          <span class="fa-stack">
+                            <i class="fa fa-square fa-stack-2x"></i>
+                            <i class="fa fa-play-circle fa-stack-1x fa-inverse"></i>
+                          </span> Répondre
+                        </a>
+                        </li>
+                        <li>
+                          <a href="#" ng-href="/#/defis/{{session._id}}" class="table-link success" ng-click="">
+                          <span class="fa-stack">
+                            <i class="fa fa-square fa-stack-2x"></i>
+                            <i class="fa fa-plus-square fa-stack-1x fa-inverse"></i>
+                          </span> Détails de vos réponses
+                        </a> 
+                        </li>
+                        <li>
+                          <a href="#" ng-href="/#/classements/{{session._id}}" class="table-link success" ng-click="">
+                          <span class="fa-stack">
+                            <i class="fa fa-square fa-stack-2x"></i>
+                            <i class="fa fa-trophy fa-stack-1x fa-inverse"></i>
+                          </span> Classements
+                        </a>
                         </li>
                       </ul>
-                    </td>
-                    <td style="width: 20%;">
-                      <a href="#" ng-show="session.enigmeDuMoment != null && !session.enigmeDuMoment.alreadyAnswered" ng-href="/#/enigmes/{{session.enigmeDuMoment._id}}?sessionid={{session._id}}" class="table-link success" ng-click="">
-                        <span class="fa-stack">
-                          <i class="fa fa-square fa-stack-2x"></i>
-                          <i class="fa fa-play-circle fa-stack-1x fa-inverse"></i>
-                        </span>
-                      <a href="#" ng-href="/#/defis/{{session._id}}" class="table-link success" ng-click="">
-                        <span class="fa-stack">
-                          <i class="fa fa-square fa-stack-2x"></i>
-                          <i class="fa fa-plus-square fa-stack-1x fa-inverse"></i>
-                        </span>
-                      </a>
-                      <a href="#" ng-href="/#/classements/{{session._id}}" class="table-link success" ng-click="">
-                        <span class="fa-stack">
-                          <i class="fa fa-square fa-stack-2x"></i>
-                          <i class="fa fa-trophy fa-stack-1x fa-inverse"></i>
-                        </span>
-                      </a>
-                      </a>
                     </td>
                   </tr>
 

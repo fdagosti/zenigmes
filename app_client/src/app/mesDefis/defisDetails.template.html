@@ -1,19 +1,32 @@
 <div class="container">
 
-  <page-header content="{title:vm.defi.nom, strapline:vm.defi.finishedEnigmes+' enigmes finies sur '+vm.defi.numberOfEnigmes} "}"></page-header>
+  <page-header content="{title:'Détails du defi '+vm.defi.nom, strapline:'regardez vos reponses et comprenez vos erreurs'} "}"></page-header>
 
   <div class="container bootstrap snippet">
+  <div role="alert" ng-show="vm.error" class="alert alert-danger" ng-bind-html="vm.error"></div>
+        
+        
+    <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <p>Cet écran vous donne accès à vos réponses pour les énigmes passés ainsi que les bonnes réponses attendues.</p>
+                <p>Vous ne pouvez pas voir vos réponse pour l'énigme en cours.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <div class="panel" ng-class="vm.panelClassBasedOnDefiState()">
+            <div ng-show="vm.defiNotStarted" class="panel-heading">Defi pas encore commencé</div>
+            <div ng-show="vm.defiEnded" class="panel-heading">Défi Fini: {{vm.defi.numberOfEnigmes}} énigmes</div>
+            <div ng-hide="vm.defiNotStarted || vm.defiEnded" class="panel-heading">Défi en cours: {{vm.defi.finishedEnigmes}} enigmes finies sur {{vm.defi.numberOfEnigmes}}</div>
+            <div class="panel-body">{{vm.defi.points}} points</div>
+        </div>
+          </div>
+        </div>    
     <div class="row">
       <div class="col-lg-12">
         
-        <div role="alert" ng-show="vm.error" class="alert alert-danger" ng-bind-html="vm.error"></div>
-        
-        <div class="panel" ng-class="vm.panelClassBasedOnDefiState()">
-          <div ng-show="vm.defiNotStarted" class="panel-heading">Defi pas encore commencé</div>
-          <div ng-show="vm.defiEnded" class="panel-heading">Défi Fini</div>
-          <div ng-hide="vm.defiNotStarted || vm.defiEnded" class="panel-heading">Défi en cours</div>
-          <div class="panel-body">{{vm.defi.points}} points</div>
-        </div>
         <div class="main-box no-header clearfix">
           <div class="main-box-body clearfix">
             <div class="table-responsive">

@@ -2,6 +2,7 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var mails = require("./mails/mailsMessages");
+var async = require("async");
 
 
 var sendJSONresponse = function(res, status, content) {
@@ -17,27 +18,43 @@ module.exports.register = function(req, res) {
         return;
     }
 
-    var user = new User();
+    async.waterfall([
+        function(cb){
+            User.count({}, function(err, c){
+                cb(err, c === 0);
+            });
+        },
+        function(noUsers, cb){
+            var user = new User();
 
-    user.name = req.body.name;
-    user.email = req.body.email;
-    user.classe = req.body.classe;
+            user.name = req.body.name;
+            user.email = req.body.email;
+            user.classe = req.body.classe;
+            user.setPassword(req.body.password);
 
-    user.setPassword(req.body.password);
+            if (noUsers){
+                user.status = "actif";
+                user.role = "admin";
+            }
 
-    user.save(function(err){
-        var token;
-        if (err) {
-            sendJSONresponse(res, 404, err);
-        } else {
-            token = user.generateJwt();
-            mails.newUserNeedValidations(req, user);
+            user.save(function(err){
+                var token;
+                if (err) {
+                    console.log(err);
+                    sendJSONresponse(res, 404, err);
+                } else {
+                    token = user.generateJwt();
 
-            sendJSONresponse(res, 200, {
-                token: token
+                    if (!noUsers) {mails.newUserNeedValidations(req, user);}
+
+                    sendJSONresponse(res, 200, {
+                        token: token
+                    });
+                }
             });
         }
-    });
+    ]);
+
 };
 
 module.exports.login = function(req, res) {

@@ -43,16 +43,27 @@ angular.module('zenigmesApp').controller('mesDefisCtrl', function($scope, sessio
     }
   }
 
-  vm.sortValue = function(session){
-    if (vm.canAnswerEnigme(session)){
+  vm.orderByDefi = function(defi){
+    if (vm.canAnswerEnigme(defi)){
       return 0;
     }
-    if (session.enigmeDuMoment){
+    if (defi.enigmeDuMoment){
       return 1;
     }
+    if (vm.isSessionNotStartedYet(defi)){
+      return 2;
+    }
+    return 3;
+  };
 
-    return 2;
-  }
+  vm.getListBg = function(defi){
+    if (vm.canAnswerEnigme(defi)){
+      return "list-group-item-success";
+    }else if (defi.enigmeDuMoment){
+      return "list-group-item-warning";
+    }
+    return "";
+  };
 
   vm.getTimeToAnswer = function(defi){
     if (!defi.enigmeDuMoment) {return "";}

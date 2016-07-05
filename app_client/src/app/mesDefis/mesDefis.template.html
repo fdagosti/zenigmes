@@ -1,6 +1,6 @@
 <div class="container">
 
-  <page-header content="{title:'Vos Défis', strapline:'Répondez vite aux défis qui vous sont proposés'}"></page-header>
+  <page-header content="{title:'Vos Défis', strapline:'Les défis auxquels vous participez, et les énigmes associées'}"></page-header>
 
   <div class="container bootstrap snippet">
 
@@ -8,51 +8,62 @@
     <div class="col-xs-12 col-sm-8">
       <div class="error">{{ vm.message }}</div>
       <div class="row list-group">
-        <div class="col-xs-12 list-group-item" ng-repeat='session in vm.sessionsForUser | orderBy:["vm.sortValue"]:false'>
-          <div ng-show="session.enigmeDuMoment">
-            <h4>
-              <a ng-show="vm.canAnswerEnigme(session)" href="/#/enigmes/{{session.enigmeDuMoment._id}}?sessionid={{session._id}}">{{ session.enigmeDuMoment.titre }}</a>
-              <span ng-show="!vm.canAnswerEnigme(session)">{{ session.enigmeDuMoment.titre }}</span>
-              <small>{{session.nom}}</small>
-              <points enigme="session.enigmeDuMoment"/>
-            </h4>
-            <p ng-show="vm.canAnswerEnigme(session)" class="address">Encore {{ vm.getTimeToAnswer(session) }} pour répondre</p>
-            <p ng-hide="vm.canAnswerEnigme(session)">Déja répondu</p>
-            <p ng-hide="vm.canAnswerEnigme(session)">Prochaine énigme le {{vm.getEnigmeDuMomentEndTime(session) | date: 'd MMM yyyy'}}</p>
-          </div>
-          <div ng-show="vm.isSessionNotStartedYet(session)">
-            <h4 class="text-danger">
-            Défi à venir <small>{{session.nom}}</small>
-            </h4>
-            <p>Début du défi le {{session.start | date: 'd MMM yyyy'}} à {{session.start | date: "H ' heures ' mm"}}</p>
-          </div>
-          <div ng-show="vm.isSessionEnded(session)">
-            <h4 class="text-success">
-            Défi fini <small>{{session.nom}}</small> 
-            </h4>
-            <p>Défi fini le {{vm.getSessionEndDate(session) | date: 'd MMM yyyy'}}</p>
-          </div>
+        <div class="col-xs-12 list-group-item" ng-class="vm.getListBg(session)" ng-repeat='session in vm.sessionsForUser | orderBy:vm.orderByDefi:false'>
+          
+            
+            <div ng-if="session.enigmeDuMoment">
+              <h4>
+                <a ng-show="vm.canAnswerEnigme(session)" href="/#/enigmes/{{session.enigmeDuMoment._id}}?sessionid={{session._id}}">
+                <span>
+                <!-- <i class="fa fa-square fa-stack-2x"></i> -->
+                <i class="fa fa-play "></i>
+              </span> {{ session.enigmeDuMoment.titre }}
+                
+                </a>
+                <span ng-show="!vm.canAnswerEnigme(session)">{{ session.enigmeDuMoment.titre }}</span>
+                <small>{{session.nom}}</small>
+                <points enigme="session.enigmeDuMoment"/>
+              </h4>
+              <p ng-show="vm.canAnswerEnigme(session)" class="address">Encore {{ vm.getTimeToAnswer(session) }} pour répondre</p>
+              <p ng-hide="vm.canAnswerEnigme(session)">Déja répondu</p>
+              <p ng-hide="vm.canAnswerEnigme(session)">Prochaine énigme le {{vm.getEnigmeDuMomentEndTime(session) | date: 'd MMM yyyy'}}</p>
+            </div>
+            <div ng-if="vm.isSessionNotStartedYet(session)">
+              <h4 class="text-danger">
+              Défi à venir <small>{{session.nom}}</small>
+              </h4>
+              <p>Début du défi le {{session.start | date: 'd MMM yyyy'}} à {{session.start | date: "H ' heures ' mm"}}</p>
+            </div>
+            <div ng-if="vm.isSessionEnded(session)">
+              <h4 class="text-success">
+              Défi fini <small>{{session.nom}}</small> 
+              </h4>
+              <p>Défi fini le {{vm.getSessionEndDate(session) | date: 'd MMM yyyy'}}</p>
+            </div>
 
-          <p ng-hide="vm.isSessionNotStartedYet(session)">
+            <p ng-hide="vm.isSessionNotStartedYet(session)">
 
-            <a href="#" ng-href="/#/defis/{{session._id}}" class="table-link success" ng-click="">
+              <a href="#" ng-href="/#/defis/{{session._id}}" class="table-link success" ng-click="">
+                <span class="fa-stack">
+                  <i class="fa fa-square fa-stack-2x"></i>
+                  <i class="fa fa-plus-square fa-stack-1x fa-inverse"></i>
+                </span> Détails de vos réponses
+              </a> 
+              <a href="#" ng-href="/#/classements/{{session._id}}" class="table-link success" ng-click="">
               <span class="fa-stack">
                 <i class="fa fa-square fa-stack-2x"></i>
-                <i class="fa fa-plus-square fa-stack-1x fa-inverse"></i>
-              </span> Détails de vos réponses
-            </a> 
-            <a href="#" ng-href="/#/classements/{{session._id}}" class="table-link success" ng-click="">
-            <span class="fa-stack">
-              <i class="fa fa-square fa-stack-2x"></i>
-              <i class="fa fa-trophy fa-stack-1x fa-inverse"></i>
-            </span> Classements
-            </a>
-          </p>
+                <i class="fa fa-trophy fa-stack-1x fa-inverse"></i>
+              </span> Classements
+              </a>
+            </p>
         </div>
       </div>
     </div>
     <div class="col-xs-12 col-sm-4">
-      <p class="lead">bla bla bla</p>
+      <p class="lead">Voici l'ensemble des défis que votre professeur vous a assignez. <br><br>
+      Pour chaque défi, si vous avez la possibilité de répondre à une énigme, celle ci se présentera sous forme de lien que vous pourrez selectionner. <br><br>
+      Ce lien vous emmenera sur la page de réponse afin que vous puissiez répondre à l'énigme
+      </p>
     </div>
   </div>
 </div>

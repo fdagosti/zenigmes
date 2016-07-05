@@ -25,7 +25,6 @@ module.exports.sessionsList = function(req, res){
 
 module.exports.sessionCreate = function(req, res){
 
-
     sessionDB.create({
         nom: req.body.nom,
         niveau: req.body.niveau,
@@ -98,6 +97,20 @@ module.exports.sessionsListOne = function(req, res){
         });
     }
 };
+
+var _copyEnigmeKeepAnswer = function(defi, enigmes){
+    var enigmesDefi = defi.enigmes;
+    enigmesDefi.forEach(function(enigmeDefi){
+        for (var i = 0; i < enigmes.length; i++) {
+            if (enigmes[i]._id === enigmesDefi.enigme){
+                enigmes[i].answers = enigmesDefi.answers;
+                enigmesDefi = enigmes[i];
+                break;
+            }
+        }
+    });
+};
+
 module.exports.sessionUpdateOne = function(req, res){
     if (!req.params.sessionid) {
         sendJsonResponse(res, 404, {
@@ -121,7 +134,11 @@ module.exports.sessionUpdateOne = function(req, res){
             session.nom = req.body.nom;
             session.niveau = parseInt(req.body.niveau);
             session.start = req.body.start;
-            session.enigmes = req.body.enigmes;
+
+
+            // ensure answers are not lost and kept
+            _copyEnigmeKeepAnswer(session, req.body.enigmes);
+
             session.participants = req.body.participants;
             session.dureeEnigme = req.body.dureeEnigme;
             

@@ -20,7 +20,7 @@ angular.module('zenigmesApp').controller('classementsCtrl', function($scope, $ro
     }else {
       return tp + " points";
     }
-  }
+  };
   
   
 });

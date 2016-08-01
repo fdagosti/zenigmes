@@ -12,10 +12,22 @@
 		vm.enigme = {};
 
 		vm.delete = function(){
-			zenigmeData.deleteEnigme(vm.enigme)
-			.then(function(data){
-				$location.path("/");
-			});
+
+			var modalInstance = $uibModal.open({
+                templateUrl: "app/common/modals/confirmActionModal.template.html",
+                controller: "genericModalCtrl as vm"
+            });
+
+            modalInstance.result.then(function(deleteEnigme) {
+                if (deleteEnigme){
+                  zenigmeData.deleteEnigme(vm.enigme)
+									.then(function(data){
+										$location.path("/");
+									});
+                }
+            });
+
+			
 		};
 
 		vm.update = function(){

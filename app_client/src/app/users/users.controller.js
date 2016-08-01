@@ -1,14 +1,24 @@
 
 (function(){
-    angular.module('zenigmesApp').controller('usersCtrl', function($scope, zenigmeUsers) {
+    angular.module('zenigmesApp').controller('usersCtrl', function($scope, $uibModal, zenigmeUsers) {
         var vm = this;
         vm.tagline = 'Jouons un peu';   
 
         vm.deleteUser = function(user){
-            zenigmeUsers.deleteUser(user).then(function(response){
-                listUsers();
-            },function(e){
-                vm.error = e;
+
+            var modalInstance = $uibModal.open({
+                templateUrl: "app/common/modals/confirmActionModal.template.html",
+                controller: "genericModalCtrl as vm"
+            });
+
+            modalInstance.result.then(function(deleteUser) {
+                if (deleteUser){
+                    zenigmeUsers.deleteUser(user).then(function(response){
+                        listUsers();
+                    },function(e){
+                        vm.error = e;
+                    });
+                }
             });
         };
 

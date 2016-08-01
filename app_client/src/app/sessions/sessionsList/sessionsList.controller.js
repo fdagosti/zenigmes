@@ -1,6 +1,6 @@
 
 (function(){
-    angular.module('zenigmesApp').controller('sessionsCtrl', function($scope, sessionsData, zenigmeData) {
+    angular.module('zenigmesApp').controller('sessionsCtrl', function($scope, $uibModal, sessionsData, zenigmeData) {
         var vm = this;
 
         var listSessions = function() {
@@ -12,11 +12,22 @@
         listSessions();
 
         vm.deleteSession = function(session){
-            sessionsData.deleteSession(session).then(function(){
-                listSessions();
-            }, function(err){
-                console.log(err);
+
+            var modalInstance = $uibModal.open({
+                templateUrl: "app/common/modals/confirmActionModal.template.html",
+                controller: "genericModalCtrl as vm"
             });
+
+            modalInstance.result.then(function(deleteDefi) {
+                if (deleteDefi){
+                    sessionsData.deleteSession(session).then(function(){
+                        listSessions();
+                    }, function(err){
+                        console.log(err);
+                    });
+                }
+            });
+
         };
 
     });

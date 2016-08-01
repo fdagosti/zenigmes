@@ -41,7 +41,7 @@ angular.module('zenigmesApp').controller('mesDefisCtrl', function($scope, sessio
         return defi.enigmes[i].end;
       }
     }
-  }
+  };
 
   vm.orderByDefi = function(defi){
     if (vm.canAnswerEnigme(defi)){
@@ -89,7 +89,7 @@ angular.module('zenigmesApp').controller('mesDefisCtrl', function($scope, sessio
     }
     return secs+" secondes";
 
-  }
+  };
 
 });
 

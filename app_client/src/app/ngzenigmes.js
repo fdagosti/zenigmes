@@ -74,12 +74,14 @@
             .when("/defis/:defiId", {
                 templateUrl: "app/mesDefis/defisDetails.template.html",
                 controller: "defisDetailsCtrl",
-                controllerAs: "vm"
+                controllerAs: "vm",
+                css: "app/common/css/table.css",
             })
             .when("/classements/:defiId", {
                 templateUrl: "app/classements/classements.template.html",
                 controller: "classementsCtrl",
-                controllerAs: "vm"
+                controllerAs: "vm",
+                css: "app/classements/classements.css"
             })
             .when("/users", {
                 templateUrl: "app/users/users.template.html",

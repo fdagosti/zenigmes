@@ -1,0 +1,58 @@
+body{
+    background:#eee;    
+}
+  .day {
+    display: inline-block;
+   
+    height:100%;
+    
+    padding: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    /*font-size: 66pt;*/
+    line-height: 80px;
+  }
+  
+
+  .id {
+    padding-top: 5px;
+    text-align: center;
+  }
+  .name {
+    margin: 0px;
+  }
+  
+    
+    .day,
+    img  {
+      display: inline-block;
+    }
+    .day,
+    img {
+      float: left;
+    }
+    .id {
+      
+      overflow: hidden;
+    }
+    .day,
+    img {
+      max-width: 80px;
+      max-height: 80px;
+      
+      margin: 0px;
+      vertical-align:middle;
+    }
+    .id {
+      display: inline-block;
+      /*position: relative;*/
+      height: 80px;
+      text-align: left;
+      padding: 0px 10px;
+      padding-right: 0px;
+    } 
+    
+  
+        
+        
+      

@@ -13,9 +13,9 @@ angular.module('zenigmesApp').controller('defisDetailsCtrl', function($scope, $r
           sessionEnigme.userAnswer = sessionEnigme.answers[0];
       });
       vm.defi.finishedEnigmes = vm.defi.enigmes.length;
-      vm.defi.points = vm.points(vm.defi);
       vm.defiNotStarted = (new Date(vm.defi.start) > new Date()); 
       vm.defiEnded =  (vm.defi.finishedEnigmes === vm.defi.numberOfEnigmes);
+      vm.points = points(vm.defi);
   }, function(err){
       vm.error = err.data;
   });
@@ -41,7 +41,7 @@ vm.listItemClassBasedOnCorrectAnswer = function(enigme){
   }
 };
 
-  vm.points = function(session){
+  var points = function(session){
     var points = 0;
     session.enigmes.forEach(function(enigme){
         enigme.answers.forEach(function(answer){
@@ -51,7 +51,8 @@ vm.listItemClassBasedOnCorrectAnswer = function(enigme){
         });
         
     });
-    return points;
+
+    return points + (points > 1?" points":" point");
   };
   
   

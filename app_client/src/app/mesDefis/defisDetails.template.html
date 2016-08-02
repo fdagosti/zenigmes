@@ -1,6 +1,6 @@
 <div class="container">
 
-  <page-header content="{title:'Détails du defi '+vm.defi.nom, strapline:'regardez vos reponses et comprenez vos erreurs'} "}"></page-header>
+  <page-header content="{title:'Détails du defi '+vm.defi.nom, strapline:'regardez vos reponses et comprenez vos erreurs'}"></page-header>
 
   <div class="container bootstrap snippet">
 
@@ -15,7 +15,7 @@
           <p ng-show="vm.defiEnded" class="lead text-success" >Défi Fini</p>
           <p ng-hide="vm.defiNotStarted || vm.defiEnded" class="lead text-warning">Défi en cours: {{vm.defi.finishedEnigmes}} enigmes finies sur {{vm.defi.numberOfEnigmes}}</p>
 
-          <p class="lead">Score: {{vm.defi.points}} points</p>
+          <p class="lead">Score: {{vm.points}}</p>
         
       </div>
 
@@ -23,6 +23,7 @@
         <div class="col-xs-12 list-group-item" ng-class="vm.listItemClassBasedOnCorrectAnswer(enigme)" ng-repeat='enigme in vm.defi.enigmes'>
             <h4>
               <span>{{enigme.enigme.titre}}</span>
+              
               <points enigme="enigme.enigme">
             </h4>          
             

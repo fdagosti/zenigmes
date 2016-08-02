@@ -30,6 +30,16 @@ vm.panelClassBasedOnDefiState = function(){
   }
 };
   
+vm.listItemClassBasedOnCorrectAnswer = function(enigme){
+
+  if (enigme.userAnswer && enigme.userAnswer.correctValue){
+    return "list-group-item-success";
+  }else if (enigme.userAnswer){
+    return "list-group-item-danger";
+  }else{
+    return "list-group-item-warning";
+  }
+};
 
   vm.points = function(session){
     var points = 0;

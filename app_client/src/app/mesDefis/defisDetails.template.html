@@ -3,72 +3,43 @@
   <page-header content="{title:'Détails du defi '+vm.defi.nom, strapline:'regardez vos reponses et comprenez vos erreurs'} "}"></page-header>
 
   <div class="container bootstrap snippet">
-  <div role="alert" ng-show="vm.error" class="alert alert-danger" ng-bind-html="vm.error"></div>
-        
-        
-    <div class="row">
-          <div class="col-md-6 col-sm-12">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <p>Cet écran vous donne accès à vos réponses pour les énigmes passés ainsi que les bonnes réponses attendues.</p>
-                <p>Vous ne pouvez pas voir vos réponse pour l'énigme en cours.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-sm-12">
-            <div class="panel" ng-class="vm.panelClassBasedOnDefiState()">
-            <div ng-show="vm.defiNotStarted" class="panel-heading">Defi pas encore commencé</div>
-            <div ng-show="vm.defiEnded" class="panel-heading">Défi Fini: {{vm.defi.numberOfEnigmes}} énigmes</div>
-            <div ng-hide="vm.defiNotStarted || vm.defiEnded" class="panel-heading">Défi en cours: {{vm.defi.finishedEnigmes}} enigmes finies sur {{vm.defi.numberOfEnigmes}}</div>
-            <div class="panel-body">{{vm.defi.points}} points</div>
-        </div>
-          </div>
-        </div>    
-    <div class="row">
-      <div class="col-lg-12">
-        
-        <div class="main-box no-header clearfix">
-          <div class="main-box-body clearfix">
-            <div class="table-responsive">
-              <table class="table user-list">
-                <thead>
-                  <tr>
-                  <th class="text-center"><span>Enigmes passées</span></th>
-                    <th class="text-center"><span>Date</span></th>
-                    <th class="text-center"><span>Réponse donnée</span></th>
-                    <th class="text-center"><span>Bonne réponse</span></th>
-                    <th class="text-center"><span>Points Gagnés</span></th>
-                    <th>&nbsp;</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat='enigme in vm.defi.enigmes'>
-                    <td class="text-center">
-                      <span class="user-link">{{enigme.enigme.titre}}</span>
-                    </td>
-                    <td class="text-center">{{enigme.start | date: 'd MMMM yyyy'}} - {{enigme.end | date: 'd MMMM yyyy'}}</td>
-                    <td class="text-center">
-                       <span ng-show="enigme.userAnswer">{{enigme.userAnswer.value}} <br/> {{enigme.userAnswer.answerDate | date: 'short'}}</span>
-                       <span ng-hide="enigme.userAnswer"> Pas de réponse Donnée</span>
-                    </td>
-                    <td class="text-center">
-                      {{enigme.enigme.numericAnswer || enigme.enigme.reponse || enigme.enigme.textualAnswer}}
-                    </td>
-                    <td>
-                      <div ng-show="enigme.userAnswer && enigme.userAnswer.correctValue" class="alert alert-success">{{enigme.enigme.points}} Points</div>
-                      <div ng-hide="enigme.userAnswer && enigme.userAnswer.correctValue" class="alert alert-danger">0 Points</div>
-                    </td>
-                    <td style="width: 20%;">
-                      
-                    </td>
-                  </tr>
 
-                </tbody>
-              </table>
-            </div>
-          </div>
+    <div class="row">
+    <div class="col-xs-12 col-sm-8">
+      <div class="error">{{ vm.message }}</div>
+
+    
+      <div class="col-xs-12">
+
+        <p ng-show="vm.defiNotStarted" class="lead text-danger">Defi pas encore commencé</p>
+          <p ng-show="vm.defiEnded" class="lead text-success" >Défi Fini</p>
+          <p ng-hide="vm.defiNotStarted || vm.defiEnded" class="lead text-warning">Défi en cours: {{vm.defi.finishedEnigmes}} enigmes finies sur {{vm.defi.numberOfEnigmes}}</p>
+
+          <p class="lead">Score: {{vm.defi.points}} points</p>
+        
+      </div>
+
+      <div class="row list-group">
+        <div class="col-xs-12 list-group-item" ng-class="vm.listItemClassBasedOnCorrectAnswer(enigme)" ng-repeat='enigme in vm.defi.enigmes'>
+            <h4>
+              <span>{{enigme.enigme.titre}}</span>
+              <points enigme="enigme.enigme">
+            </h4>          
+            
+              <p ng-show="enigme.userAnswer">
+                Vous avez répondu <strong>{{enigme.userAnswer.value}}</strong> le <strong>{{enigme.userAnswer.answerDate | date: 'shortDate'}} à {{enigme.userAnswer.answerDate | date: 'shortTime'}}</strong> 
+              </p>
+              <p ng-hide="enigme.userAnswer"> Pas de réponse Donnée</p>
+              <p ng-hide="enigme.userAnswer.correctValue">Bonne réponse: <strong>{{enigme.enigme.numericAnswer || enigme.enigme.reponse || enigme.enigme.textualAnswer}}</strong></p>
+
+            
         </div>
       </div>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <p class="lead">Cet écran vous donne accès à vos réponses pour les énigmes passés ainsi que les bonnes réponses attendues.<br/>
+                Vous ne pouvez pas voir vos réponse pour l'énigme en cours.
+      </p>
     </div>
   </div>
 </div>

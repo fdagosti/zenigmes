@@ -53,7 +53,8 @@ angular.module('zenigmesApp').controller('mesDefisCtrl', function($scope, sessio
     if (vm.isSessionNotStartedYet(defi)){
       return 2;
     }
-    return 3;
+    var endDate = vm.getSessionEndDate(defi);
+    return (new Date).getTime() - endDate;
   };
 
   vm.getListBg = function(defi){

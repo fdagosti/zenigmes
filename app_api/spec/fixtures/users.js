@@ -3,6 +3,7 @@ module.exports = [{
   "hash" : "e42a98d04ee102c6f8bc11d8b57081f14ff42c462ec69090026ea50793c674437d2b944688def3e896064b6a46fcce9df097cc1142741408f10373001e3042c2",
   "salt" : "ebab7b909ab000dd172446663f397385",
   "email" : "td@tc.com",
+  "status" : "actif",
   "name" : "el toro maske",
   "classe": "6eme",
   "__v" : 0

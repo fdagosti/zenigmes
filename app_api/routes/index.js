@@ -61,7 +61,7 @@ router.get("/participations/:sessionid", auth, statusCheck, ctrlParticipations.p
 router.get("/classements/:defiId", auth, statusCheck, ctrlClassements.classementsByDefis);
 
 // answer
-router.post("/session/:sessionid/enigme/:enigmeid/answer", auth, ctrlParticipations.postAnswer);
+router.post("/session/:sessionid/enigme/:enigmeid/answer", auth, statusCheck, ctrlParticipations.postAnswer);
 
 // admin ask
 router.post("/ask", auth, ctrlContact.askAdmins);

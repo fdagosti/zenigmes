@@ -8,7 +8,7 @@
         var vm = this;
 
         vm.pageHeader = {
-            title: "Identifiez vous chez les zenigmes"
+            title: "Identifiez-vous chez les zenigmes"
         };
         vm.credentials = {
             email: "",

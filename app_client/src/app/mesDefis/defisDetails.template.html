@@ -1,6 +1,6 @@
 <div class="container">
 
-  <page-header content="{title:'Détails du defi '+vm.defi.nom, strapline:'regardez vos reponses et comprenez vos erreurs'}"></page-header>
+  <page-header content="{title:'Détails du defi '+vm.defi.nom, strapline:'regardez vos réponses et comprenez vos erreurs'}"></page-header>
 
   <div class="container bootstrap snippet">
 
@@ -23,7 +23,7 @@
         <div class="col-xs-12 list-group-item" ng-class="vm.listItemClassBasedOnCorrectAnswer(enigme)" ng-repeat='enigme in vm.defi.enigmes'>
             <h4>
               <span>{{enigme.enigme.titre}}</span>
-              
+
               <points enigme="enigme.enigme">
             </h4>          
             
@@ -32,14 +32,14 @@
               </p>
               <p ng-hide="enigme.userAnswer"> Pas de réponse Donnée</p>
               <p ng-hide="enigme.userAnswer.correctValue">Bonne réponse: <strong>{{enigme.enigme.numericAnswer || enigme.enigme.reponse || enigme.enigme.textualAnswer}}</strong></p>
-
+ 
             
         </div>
       </div>
     </div>
     <div class="col-xs-12 col-sm-4">
-      <p class="lead">Cet écran vous donne accès à vos réponses pour les énigmes passés ainsi que les bonnes réponses attendues.<br/>
-                Vous ne pouvez pas voir vos réponse pour l'énigme en cours.
+      <p class="lead">Cet écran vous donne accès à vos réponses pour les énigmes passées ainsi que les réponses attendues.<br/><br/>
+                Attention: vous ne pouvez pas voir vos réponses pour l'énigme en cours.
       </p>
     </div>
   </div>

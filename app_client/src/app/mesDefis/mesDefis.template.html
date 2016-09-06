@@ -47,22 +47,28 @@
                 <span class="fa-stack">
                   <i class="fa fa-square fa-stack-2x"></i>
                   <i class="fa fa-plus-square fa-stack-1x fa-inverse"></i>
-                </span> Détails de vos réponses
+                </span> Détail de vos réponses
               </a> 
               <a href="#" ng-href="/#/classements/{{session._id}}" class="table-link success" ng-click="">
               <span class="fa-stack">
                 <i class="fa fa-square fa-stack-2x"></i>
                 <i class="fa fa-trophy fa-stack-1x fa-inverse"></i>
-              </span> Classements
+              </span> Classement
               </a>
             </p>
         </div>
+
+        </p>
       </div>
+        <div ng-show="vm.sessionsForUser.length == 0">
+          <p class="lead">Vous n'avez pas encore de défis qui vous est assigné.</p>
+          <p class="lead">Votre professeur se charge de créer des défis pour votre niveau.</p>
+        </div>
     </div>
     <div class="col-xs-12 col-sm-4">
-      <p class="lead">Voici l'ensemble des défis que votre professeur vous a assigné. <br><br>
-      Pour chaque défi, si vous avez la possibilité de répondre à une énigme, celle ci se présentera sous forme de lien que vous pourrez selectionner. <br><br>
-      Ce lien vous emmenera sur la page de réponse afin que vous puissiez répondre à l'énigme
+      <p class="lead">Pour jouer, selectionnez l'énigme à laquelle vous voulez répondre.<br><br>
+      Lisez l'énoncé et donnez votre réponse dans le cadre prévu. Attention, une seule réponse est possible. <br><br>
+      Lorsque l'énigme se termine, vous pourrez voir la solution et les points qui vous ont été attribués.
       </p>
     </div>
   </div>

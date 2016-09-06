@@ -30,12 +30,12 @@ module.exports.enigmeCreate = function(req, res){
         numericAnswer: req.body.numericAnswer,
         textualAnswer: req.body.textualAnswer,
 
-    }, function(err, location){
+    }, function(err, enigme){
 
         if (err){
             sendJsonResponse(res, 400, err);
         }else{
-            sendJsonResponse(res, 201, location);
+            sendJsonResponse(res, 201, enigme);
         }
     });
 };

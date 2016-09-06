@@ -1,0 +1,18 @@
+
+<div class="container">
+  <page-header content="vm.pageHeader"></page-header>
+
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <div role="alert" ng-show="vm.error" class="alert alert-danger" ng-bind-html="vm.error"></div>
+    <form ng-submit="vm.sendMessage()">
+      <div class="form-group">
+        <label for="comment">Laissez votre message ci-dessous</label>
+        <textarea ng-model="vm.message" class="form-control" rows="5" id="comment"></textarea>
+      </div>
+      <button type="submit" class="btn btn-default">Envoyer un message à votre professeur</button>
+    </form>
+    </div>
+  </div>
+
+</div>

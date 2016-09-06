@@ -22,6 +22,7 @@ var ctrlUsers = require("../controllers/users");
 var ctrlSessions = require("../controllers/sessions");
 var ctrlParticipations = require("../controllers/participation");
 var ctrlClassements = require("../controllers/classements");
+var ctrlContact = require("../controllers/contact");
 
 // enigmes
 router.get("/enigmes", ctrlEnigmes.enigmesList);
@@ -61,5 +62,8 @@ router.get("/classements/:defiId", auth, statusCheck, ctrlClassements.classement
 
 // answer
 router.post("/session/:sessionid/enigme/:enigmeid/answer", auth, ctrlParticipations.postAnswer);
+
+// admin ask
+router.post("/ask", auth, ctrlContact.askAdmins);
  
 module.exports = router;

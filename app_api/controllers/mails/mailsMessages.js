@@ -77,6 +77,33 @@ module.exports = {
       }
     });
   },
+  messageToAdmin: function(req, message, fromUser){
+    usersDB.find({role: "admin"}, "name email", function(err, admins){
+      if (err){
+        console.error(err);
+      }else{
+
+        var toString = _toNodeMailerString(admins);
+        
+        var userPageUrl = "http://"+req.headers.host+"/users";
+
+        compileJade("adminMessage.jade", {fromUser:fromUser, message: message}, function(html){
+
+          // setup e-mail data with unicode symbols
+          var mailOptions = {
+              from: '"zenigmes" <zenigmes@bzenigmes.fr>', // sender address
+              to: toString,
+              subject: "Un utilisateur vous contacte directement", // Subject line
+              html: html // html body
+          };
+
+          // send mail with defined transport object
+          transport.sendMail(mailOptions, module.exports.cb);  
+        });
+        
+      }
+    });
+  },
   defiHasBeenCreated: function(req, newDefi){
 
      // retrieve the participants of the session

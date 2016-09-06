@@ -20,7 +20,7 @@ describe("A non activated user", function(){
     }).on("fail", function(data, response){
       done.fail("unable to login: "+data.message);
     });
-  }
+  };
 
   beforeEach(function(done){
    server = app.listen(9876, function(){

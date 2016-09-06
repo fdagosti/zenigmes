@@ -109,6 +109,11 @@
                 controller: "inactiveCtrl",
                 controllerAs: "vm",
             })
+            .when("/contact", {
+                templateUrl: "app/contact/contact.template.html",
+                controller: "contactCtrl",
+                controllerAs: "vm",
+            })
             .otherwise({redirectTo: "/"});
 
         $locationProvider.html5Mode(true);

@@ -3,7 +3,7 @@ var fs = require('fs');
 var usersDB = require("mongoose").model("User");
 var transport = require("../../config/mail");
 var hostName = require('os').hostname();
-
+var templateDir = process.cwd()+"/app_api/controllers/mails/";
 var centralTo = transport.transport.centralTo;
 
 var compileJade = function(jadeFile, locals, cb){
@@ -36,16 +36,28 @@ var _classeFromDefiNiveau = function(session){
   }
 };
 
-function _toNodeMailerString(users){
-  if (centralTo !== undefined){return centralTo;}
+function _toNodeMailerString2(users){
+  if (centralTo !== undefined){
+    return centralTo;
+  }
 
   var res="";
+  var recipientVars = {};
   users.forEach(function(user){
     res +=user.name+" <"+user.email+">,";
+    var m = user.email;
+    recipientVars[m] = {name: user.name};
   });
-  return res;
-}
 
+  return {
+    recipientVars: recipientVars,
+    toString: res
+  }
+};
+
+function _toNodeMailerString(users){
+  return _toNodeMailerString2(users).toString;
+}
 
 
 module.exports = {
@@ -57,7 +69,6 @@ module.exports = {
       }else{
 
         var toString = _toNodeMailerString(admins);
-        
         var userPageUrl = "http://"+req.headers.host+"/users";
 
         compileJade("newUser.jade", {newUser:newUser, usersUrl: userPageUrl}, function(html){
@@ -82,24 +93,29 @@ module.exports = {
       if (err){
         console.error(err);
       }else{
-
-        var toString = _toNodeMailerString(admins);
+        var recipients = _toNodeMailerString2(admins);
         
         var userPageUrl = "http://"+req.headers.host+"/users";
 
-        compileJade("adminMessage.jade", {fromUser:fromUser, message: message}, function(html){
+        var context = {fromUser:fromUser, message: message};
 
-          // setup e-mail data with unicode symbols
-          var mailOptions = {
-              from: '"zenigmes" <zenigmes@bzenigmes.fr>', // sender address
-              to: toString,
-              subject: "Un utilisateur vous contacte directement", // Subject line
-              html: html // html body
-          };
+      
+        // setup e-mail data with unicode symbols
+        var mailOptions = {
+            from: '"zenigmes" <zenigmes@bzenigmes.fr>', // sender address
+            to: recipients.toString,
+            "recipient-variables": recipients.recipientVars,
+            subject: context.fromUser.name+" vous contacte directement", // Subject line
 
-          // send mail with defined transport object
-          transport.sendMail(mailOptions, module.exports.cb);  
-        });
+            template: {
+              name: templateDir+"adminMessage.jade",
+              engine: "jade",
+              context: context
+            },
+        };
+
+        // send mail with defined transport object
+        transport.sendMail(mailOptions, module.exports.cb);  
         
       }
     });
@@ -112,8 +128,8 @@ module.exports = {
       {"classe":{$in: _classeFromDefiNiveau(newDefi)}},
     ]},"name email",function(err, users){
 
-      var toString = _toNodeMailerString(users);
-      
+      var recipients = _toNodeMailerString2(users);
+
       var mesDefisPageUrl = "http://"+req.headers.host+"/mesdefis";
 
       compileJade("newDefi.jade", {defi:newDefi, mesDefis: mesDefisPageUrl}, function(html){
@@ -121,7 +137,8 @@ module.exports = {
           // setup e-mail data with unicode symbols
           var mailOptions = {
               from: '"zenigmes" <zenigmes@bzenigmes.fr>', // sender address
-              to: toString,
+              to: recipients.toString,
+              "recipient-variables": recipients.recipientVars,
               subject: "Un nouveau défi vient d'être créé", // Subject line
               html: html // html body
           };
@@ -161,7 +178,7 @@ module.exports = {
       {"_id":{$in: defi.participants}},
       {"classe":{$in: _classeFromDefiNiveau(defi)}},
     ]},"name email",function(err, users){
-      var toString = _toNodeMailerString(users);
+      var recipients = _toNodeMailerString2(users);
 
       // no request objects for scheduled mail to derive the host name
       // for the moment, I'll put it hardcoded. But this needs to change
@@ -172,7 +189,8 @@ module.exports = {
         // setup e-mail data with unicode symbols
         var mailOptions = {
             from: '"zenigmes" <zenigmes@zenigmes.fr>', // sender address
-            to: toString,
+            to: recipients.toString,
+            "recipient-variables": recipients.recipientVars,
             subject: "Une énigme de votre défi est disponible: répondez vite ", // Subject line
             html: html // html body
         };
@@ -184,7 +202,6 @@ module.exports = {
     });
   },
   passwordReset: function(req, user){
-    
       var toString = _toNodeMailerString([user]);
 
       var passResetUrl = "http://"+req.headers.host+"/reset/"+user.resetPasswordToken;

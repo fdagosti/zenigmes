@@ -55,7 +55,6 @@ describe("the classement API", function(){
             function(cb){_loginAndAnswer(answeringGuys[2], cb);},
           ], function(err, results){
 
-            console.log("yes, everyone has answered");
             if (err){done.fail(err);}
             else {done();}
           });
@@ -85,7 +84,7 @@ describe("the classement API", function(){
         expect(p.name).toBeDefined();
 
         if (p.name === "maskman"){
-          expect(p.totalPoints).toBeDefined();
+          expect(p.totalPoints).toBe(1);
           maskmanAnswer = true;
         }
       });
@@ -101,5 +100,27 @@ describe("the classement API", function(){
     }).on("fail", function(err, response){
       done.fail(err);
     });
+  });
+
+
+  it("should not return the points for an enigme which is ongoing, even if people have already answered", function(done){
+
+      var baseTime = new Date(2016,4,28);
+      jasmine.clock().mockDate(baseTime);
+      rest.get(base+"/api/classements/"+toAnswer.session, {accessToken: loginToken})
+      .on("success", function(defi, response){
+        defi.participants.forEach(function(p){
+
+          if (p.name === "maskman"){
+            expect(p.totalPoints).toBe(0);
+            maskmanAnswer = true;
+          }
+        });
+        expect(maskmanAnswer).toBe(true);
+        done();
+      }).on("fail", function(error, response){
+        done.fail(error);
+      });
+
   });
 });

@@ -22,6 +22,13 @@ var _classeFromDefiNiveau = function(session){
   }
 };
 
+var _enigmeInThePast = function(sessionEnigme){
+    var now = new Date();
+    var enigmeEnd = new Date(sessionEnigme.end);
+    return (enigmeEnd < now);
+};
+
+
 module.exports.classementsByDefis = function(req, res){
   if (!req.params.defiId) {
         sendJsonResponse(res, 404, {
@@ -55,8 +62,13 @@ module.exports.classementsByDefis = function(req, res){
         });
         
     },function(defi, cb){
+      // filter out the future enigmes
+      defi.enigmes = defi.enigmes.filter(_enigmeInThePast);
+
+
+
       // retrieve the enigmes points of the session
-      async.each(defi.enigmes, function(enigme, cb){
+        async.each(defi.enigmes, function(enigme, cb){
         enigmeDB.findById(enigme.enigme, "points",function(err, enigmePoints){
           enigme.points = enigmePoints.points;
 

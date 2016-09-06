@@ -7,14 +7,14 @@
             <form ng-submit="vm.onSubmit()">
                 <div role="alert" ng-show="vm.formError" class="alert alert-danger">{{vm.formError}}</div>
                 <div class="form-group">
-                    <label for="email">Nouveau Mot de passe</label>
+                    <label for="email">Nouveau mot de passe</label>
                     <input type="password" class="form-control" id="email" placeholder="Entrer votre nouveau mot de passe" ng-model="vm.newPassword">
                 </div>
                 <div class="form-group">
-                    <label for="password">Confirmez votre Mot de passe</label>
+                    <label for="password">Confirmez votre mot de passe</label>
                     <input type="password" class="form-control" id="password" placeholder="Confirmez votre Mot de passe" ng-model="vm.passwordCheck">
                 </div>
-                <button type="submit" class="btn btn-primary">Mettre à jour le Mot de passe</button>
+                <button type="submit" class="btn btn-primary">Mettre à jour le mot de passe</button>
             </form>
         </div>
     </div>

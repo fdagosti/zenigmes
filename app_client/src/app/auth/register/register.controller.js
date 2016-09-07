@@ -3,8 +3,8 @@
         .module("zenigmesApp")
         .controller("registerCtrl", registerCtrl);
 
-    registerCtrl.$inject = ["$location", "authentication"];
-    function registerCtrl($location, authentication) {
+    registerCtrl.$inject = ["$location", "$uibModal", "authentication"];
+    function registerCtrl($location, $uibModal, authentication) {
         var vm = this;
 
         vm.pageHeader = {
@@ -37,8 +37,17 @@
             authentication
                 .register(vm.credentials)
                 .then(function() {
-                    $location.search("page", null);
-                    $location.path(vm.returnPage);
+
+                    var modalInstance = $uibModal.open({
+                        templateUrl: "app/auth/register/registerModal.template.html",
+                        controller: "genericModalCtrl as vm"
+                    });
+                    modalInstance.result.then(function(data) {
+                        $location.search("page", null);
+                        $location.path(vm.returnPage);
+                  });
+
+                    
                 }, function(response) {
                     if (response.data.code===11000){
                         vm.formError = "L'adresse Email est déja utilisée";

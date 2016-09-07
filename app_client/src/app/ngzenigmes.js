@@ -105,7 +105,7 @@
                 css: "app/common/css/table.css"
             })
             .when("/inactive", {
-                templateUrl: "app/common/templates/genericText.template.html",
+                templateUrl: "app/inactive/inactive.template.html",
                 controller: "inactiveCtrl",
                 controllerAs: "vm",
             })

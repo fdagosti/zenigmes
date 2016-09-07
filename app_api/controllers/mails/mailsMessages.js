@@ -134,6 +134,9 @@ module.exports = {
 
       compileJade("newDefi.jade", {defi:newDefi, mesDefis: mesDefisPageUrl}, function(html){
 
+          console.log("HTML to send ");
+          console.log(html);
+
           // setup e-mail data with unicode symbols
           var mailOptions = {
               from: '"zenigmes" <zenigmes@bzenigmes.fr>', // sender address

@@ -13,6 +13,7 @@
         vm.credentials = {
             name: "",
             email: "",
+            email2: "",
             password: ""
         };
 
@@ -23,7 +24,10 @@
             if (!vm.credentials.name || !vm.credentials.email || !vm.credentials.password) {
                 vm.formError = "Tous les champs sont requis !";
                 return false;
-            } else {
+            } else if (vm.credentials.email != vm.credentials.email2){
+                vm.formError = "Votre adresse E-mail n'est pas identique dans les deux champs";
+                return false;
+            }else {
                 vm.doRegister();
             }
         };

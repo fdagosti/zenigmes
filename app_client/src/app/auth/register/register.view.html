@@ -12,8 +12,12 @@
                     <input type="text" placeholder="Enter your name" ng-model="vm.credentials.name" class="form-control" id="name"/>
                 </div>
                 <div class="form-group">
-                    <label for="email">adresse Email</label>
+                    <label for="email">Adresse E-mail</label>
                     <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="vm.credentials.email">
+                </div>
+                <div class="form-group">
+                    <label for="email2">Confirmation de votre adresse E-mail</label>
+                    <input type="email" class="form-control" id="email2" placeholder="Enter email" ng-model="vm.credentials.email2">
                 </div>
                 <div class="form-group" ng-init="vm.credentials.classe='externe'">
                     <p for="classe"><label>Classe</label></p>

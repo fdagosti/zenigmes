@@ -23,6 +23,12 @@ var _sessionFromClasse = function(user){
 
 module.exports.participationsList = function(req, res){
 
+    // test. To be removed after
+    var d = new Date();
+    console.log("TEST Date = "+d);
+    console.log("Date.toLocaleTimeString() = "+d.toLocaleTimeString());
+    console.log("Date.toLocaleTimeString('fr') = "+d.toLocaleTimeString("fr"));
+    // end test
     sessionDB.find({ $or: [
         {participants: {$all: [req.user._id]}},
         {niveau: _sessionFromClasse(req.user)}

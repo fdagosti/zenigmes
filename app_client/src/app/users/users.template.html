@@ -40,11 +40,12 @@
                                         <user-status save-status="vm.updateUser(user)"  user="user"/>
                                     </td>
                                     <td class="text-center">
-                                        
+
                                         <select class="form-control" ng-change="vm.updateUser(user)" ng-model="user.classe">
                                             <option ng-repeat="classe in vm.classes" value="{{classe.dbValue}}">{{classe.displayName}}</option>
                                         </select>
                                         <select class="form-control" ng-hide="!vm.getClasseNumbersFromClasse(user.classe)" ng-change="vm.updateUser(user)" ng-model="user.classeNumber">
+                                            <option value="" disabled>Pas de numéro &nbsp;&nbsp;&nbsp;&nbsp;</option>
                                             <option value="{{classNumber}}" ng-repeat="classNumber in vm.getClasseNumbersFromClasse(user.classe)">{{classNumber}}</option>
                                         </select>
                                     </td>

@@ -1,8 +1,10 @@
 
 (function(){
-    angular.module('zenigmesApp').controller('usersCtrl', function($scope, $uibModal, zenigmeUsers) {
+    angular.module('zenigmesApp').controller('usersCtrl', function($scope, $uibModal, zenigmeUsers, etablissement) {
         var vm = this;
         vm.tagline = 'Jouons un peu';   
+
+        vm.classes = etablissement.getEtablissement().classes;
 
         vm.deleteUser = function(user){
 
@@ -46,6 +48,14 @@
             return function(user){
                 return user.status == status;
             };
+        };
+
+        vm.getClasseNumbersFromClasse = function(classeDbValue){
+            for (var i = 0; i < vm.classes.length; i++) {
+                if (vm.classes[i].dbValue === classeDbValue){
+                    return vm.classes[i].classNumbers;
+                }
+            }
         };
 
         listUsers();

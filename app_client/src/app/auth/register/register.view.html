@@ -21,31 +21,13 @@
                 </div>
                 <div class="form-group" ng-init="vm.credentials.classe='externe'">
                     <p for="classe"><label>Classe</label></p>
-                    <label class="radio-inline" id="toto">
-                        <input id="classe" type="radio" name="classe" ng-model="vm.credentials.classe" value="6eme"> 6ème
+                    <label class="radio-inline" id="toto" ng-repeat="classe in vm.classes">
+                        <input id="classe" type="radio" name="classe" ng-model="vm.credentials.classe" value="{{classe.dbValue}}"> {{classe.displayName}}
+                        <select ng-show="classe.classNumbers && vm.credentials.classe==='{{classe.dbValue}}'" ng-model="vm.credentials.classeNumber">
+                            <option value="{{classNumber}}" ng-repeat="classNumber in classe.classNumbers">{{classNumber}}</option>
+                        </select>
                     </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="classe" ng-model="vm.credentials.classe" value="5eme"> 5ème
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="classe" ng-model="vm.credentials.classe" value="4eme"> 4ème
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="classe" ng-model="vm.credentials.classe" value="3eme"> 3ème
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="classe" ng-model="vm.credentials.classe" value="2nde"> 2nde
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="classe" ng-model="vm.credentials.classe" value="1ere"> 1ère
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="classe" ng-model="vm.credentials.classe" value="terminale"> Terminale
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="classe" ng-model="vm.credentials.classe" value="externe"> Externe
-                    </label>
-
+                    
 
                 </div>
                 <div class="form-group">

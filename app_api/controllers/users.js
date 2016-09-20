@@ -75,6 +75,7 @@ module.exports.userUpdate = function(req, res){
             user.email = req.body.email;
             user.role = req.body.role;
             user.classe = req.body.classe;
+            user.classeNumber = req.body.classeNumber;
             user.status = req.body.status;
 
             

@@ -40,15 +40,12 @@
                                         <user-status save-status="vm.updateUser(user)"  user="user"/>
                                     </td>
                                     <td class="text-center">
+                                        
                                         <select class="form-control" ng-change="vm.updateUser(user)" ng-model="user.classe">
-                                            <option value="6eme">6ème</option>
-                                            <option value="5eme">5ème</option>
-                                            <option value="4eme">4ème</option>
-                                            <option value="3eme">3ème</option>
-                                            <option value="2nde">2nde</option>
-                                            <option value="1ere">1ère</option>
-                                            <option value="terminale">Terminale</option>
-                                            <option value="externe">Externe</option>
+                                            <option ng-repeat="classe in vm.classes" value="{{classe.dbValue}}">{{classe.displayName}}</option>
+                                        </select>
+                                        <select class="form-control" ng-hide="!vm.getClasseNumbersFromClasse(user.classe)" ng-change="vm.updateUser(user)" ng-model="user.classeNumber">
+                                            <option value="{{classNumber}}" ng-repeat="classNumber in vm.getClasseNumbersFromClasse(user.classe)">{{classNumber}}</option>
                                         </select>
                                     </td>
                                     <td>
@@ -84,11 +81,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div ui-grid="{ data: vm.users }" class="myGrid"></div>
-        </div>
-    </div>
+    
 </div>  
 
  

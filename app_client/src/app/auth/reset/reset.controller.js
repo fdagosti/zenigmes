@@ -6,7 +6,6 @@
     resetCtrl.$inject = ["$location", "$uibModal","$routeParams", "authentication"];
     function resetCtrl($location, $uibModal, $routeParams, authentication) {
         var vm = this;
-console.log("starting Reset controller");
         vm.pageHeader = {
             title: "Réinitialisation du mot de passe"
         };

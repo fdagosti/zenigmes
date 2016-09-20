@@ -3,9 +3,13 @@
         .module("zenigmesApp")
         .controller("registerCtrl", registerCtrl);
 
-    registerCtrl.$inject = ["$location", "$uibModal", "authentication"];
-    function registerCtrl($location, $uibModal, authentication) {
+
+    
+
+    registerCtrl.$inject = ["$location", "$uibModal", "authentication", "etablissement"];
+    function registerCtrl($location, $uibModal, authentication, etablissement) {
         var vm = this;
+        vm.classes = etablissement.getEtablissement().classes;
 
         vm.pageHeader = {
             title: "Création d'un compte pour les 'zenigmes'"
@@ -15,7 +19,7 @@
             email: "",
             email2: "",
             password: ""
-        };
+        };        
 
         vm.returnPage = $location.search().page || "/";
 

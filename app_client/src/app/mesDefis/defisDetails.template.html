@@ -32,8 +32,13 @@
               </p>
               <p ng-hide="enigme.userAnswer"> Pas de réponse donnée</p>
               <p ng-hide="enigme.userAnswer.correctValue">Bonne réponse: <strong>{{enigme.enigme.numericAnswer || enigme.enigme.reponse || enigme.enigme.textualAnswer}}</strong></p>
+              <uib-accordion>
+                <div uib-accordion-group class="panel-default" heading="Enoncé de l'énigme" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                  <p ng-bind-html="enigme.enigme.description">
+                </div>
+              </uib-accordion>
               <uib-accordion ng-hide="!enigme.enigme.answerExplanation">
-                <div uib-accordion-group class="panel-info" heading="Détail de la réponse" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                <div uib-accordion-group class="panel-default" heading="Détail de la réponse" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
                   <p ng-bind-html="enigme.enigme.answerExplanation">
                 </div>
               </uib-accordion>

@@ -69,7 +69,7 @@ module.exports.participationsListOne = function(req, res){
                 async.each(session.enigmes, function(sessionEnigme, asyncCb){
                     enigmesCollection
                     .findById(sessionEnigme.enigme)
-                    .select("-description")
+                    // .select("-description")
                     .exec(function(err, enigme){
                         sessionEnigme.enigme = enigme;
 

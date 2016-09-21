@@ -3,26 +3,44 @@
   <page-header content="{title:vm.defi.nom, strapline:'classement du défi'} "}"></page-header>
 
   <div class="container bootstrap snippet">
-
+    <div class="row">
+      <div class="col-xs-12">
+        <form >
+          <div class="form-group" ng-init="vm.filtre=''">
+            <p for="classe"><label>Filtrer les classements par classe</label></p>
+            <label class="radio-inline">
+                <input id="classe" type="radio" name="classe" ng-model="vm.filtre" value=""> Pas de filtre
+            </label>
+            <label class="radio-inline" ng-repeat="classe in vm.classes">
+                <input id="classe" type="radio" name="classe" ng-model="vm.filtre.classe" ng-click="vm.deleteClassNumberFilter()" value="{{classe.dbValue}}"> {{classe.dbValue | formatClasse}}
+                <select ng-show="classe.classNumbers && vm.filtre.classe==='{{classe.dbValue}}'" ng-model="vm.filtre.classeNumber">
+                    <option value="">Toutes les classes</option>
+                    <option value="{{classNumber}}" ng-repeat="classNumber in classe.classNumbers">{{classNumber}}</option>
+                </select>
+            </label>
+        </div>
+        </form>
+      </div>
+    </div>  
     <div class="row">
     <div class="col-xs-12 col-sm-8">
       <div class="error">{{ vm.message }}</div>
 
       <div class="row list-group">
-        <div class="col-xs-12 list-group-item" ng-class="vm.getItemClass(user)" ng-repeat='user in vm.defi.participants | orderBy:"-totalPoints"'>
+        <div class="col-xs-12 list-group-item" ng-class="vm.getItemClass(user)" ng-repeat='user in vm.defi.participants | filter: vm.filtre | orderBy:"-totalPoints" as filtered'>
               
-                <h1 class="day">{{$index+1}}</h1>
-                <img ng-src="http://www.gravatar.com/avatar/{{vm.getGravatarURL(user.email)}}?d=http://bootdey.com/img/Content/user_1.jpg" alt="">    
-                <div class="id">
-                  <h4 class="name">{{user.name}}</h4>
-                  <p>{{vm.getNombreDePoints(user)}}</p>
-                </div>
+          <h1 class="day">{{$index+1}}</h1>
+          <img ng-src="http://www.gravatar.com/avatar/{{vm.getGravatarURL(user.email)}}?d=http://bootdey.com/img/Content/user_1.jpg" alt="">    
+          <div class="id">
+            <h4 class="name">{{user.name}}</h4>
+            <p>{{user.classe | formatClasse}} {{user.classeNumber}}</p>
+            <p>{{vm.getNombreDePoints(user)}}</p>
+          </div>
                 
-
-            
-            
-            
-            
+        </div>
+        <div ng-show="filtered.length === 0" >
+          <p class="lead">Pas d'utilisateurs ne sont inclus dans votre filtre</p>
+          <p class="lead">Assurez vous de choisir des classes qui ont effectivement participés aux défi</p>
         </div>
       </div>
     </div>

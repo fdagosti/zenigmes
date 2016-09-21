@@ -22,7 +22,7 @@
                 <div class="form-group" ng-init="vm.credentials.classe='externe'">
                     <p for="classe"><label>Classe</label></p>
                     <label class="radio-inline" id="toto" ng-repeat="classe in vm.classes">
-                        <input id="classe" type="radio" name="classe" ng-model="vm.credentials.classe" value="{{classe.dbValue}}"> {{classe.displayName}}
+                        <input id="classe" type="radio" name="classe" ng-model="vm.credentials.classe" value="{{classe.dbValue}}"> {{classe.dbValue | formatClasse}}
                         <select ng-show="classe.classNumbers && vm.credentials.classe==='{{classe.dbValue}}'" ng-model="vm.credentials.classeNumber">
                             <option value="" disabled>Numero de classe</option>
                             <option value="{{classNumber}}" ng-repeat="classNumber in classe.classNumbers">{{classNumber}}</option>

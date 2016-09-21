@@ -1,7 +1,13 @@
 ((function(){
 
-angular.module('zenigmesApp').controller('classementsCtrl', function($scope, $routeParams, classementService, authentication) {
+angular.module('zenigmesApp').controller('classementsCtrl', function($scope, $routeParams, classementService, authentication, etablissement) {
   var vm = this;
+
+  vm.classes = etablissement.getEtablissement().classes;
+
+  vm.deleteClassNumberFilter = function(){
+    delete vm.filtre["classeNumber"];
+  };
 
   vm.defiId = $routeParams.defiId;
   classementService.classementByDefis(vm.defiId).then(function(response){

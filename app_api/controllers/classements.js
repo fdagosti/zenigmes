@@ -50,7 +50,7 @@ module.exports.classementsByDefis = function(req, res){
         userDB.find({$or: [
           {"_id":{$in: defi.participants}},
           {"classe":{$in: _classeFromDefiNiveau(defi)}},
-        ]},"name email",function(err, users){
+        ]},"name email classe classeNumber",function(err, users){
 
           defi.participants = users.map(function(usr){
             var u = usr.toObject();

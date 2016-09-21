@@ -92,6 +92,13 @@
                   <input ng-show="typeAnswer == 'numeric'" class="form-control" id="title" ng-model="vm.enigme.numericAnswer" type="number" placeholder="Réponse Numérique">
                   <input ng-show="typeAnswer == 'textual'" class="form-control" id="title" ng-model="vm.enigme.textualAnswer" placeholder="Réponse Textuelle">
                 </div>
+                <uib-accordion close-others="oneAtATime">
+                  <div uib-accordion-group class="panel-default" heading="Ajouter une explication de la réponse" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                    <div class="form-group">
+                      <textArea ui-tinymce="tinymceOptions" name="review" rows="8" ng-model="vm.enigme.answerExplanation" class="form-control"></textArea>
+                    </div>
+                  </div>
+                </uib-accordion>
               </div>
             </div>
           <button type="submit" class="btn btn-default">{{vm.buttonTitle}}</button>

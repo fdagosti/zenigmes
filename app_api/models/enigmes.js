@@ -8,6 +8,7 @@ var enigmeSchema = new mongoose.Schema({
     points: {type: Number, "default": 1, min: 1, max: 3},
     numericAnswer: {type: Number},
     textualAnswer: {type: String},
+    answerExplanation: String,
 });
 
 mongoose.model("enigmes", enigmeSchema);

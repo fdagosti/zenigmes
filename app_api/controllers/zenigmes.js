@@ -29,7 +29,7 @@ module.exports.enigmeCreate = function(req, res){
         points: req.body.points,
         numericAnswer: req.body.numericAnswer,
         textualAnswer: req.body.textualAnswer,
-
+        answerExplanation: req.body.answerExplanation
     }, function(err, enigme){
 
         if (err){
@@ -96,6 +96,7 @@ module.exports.enigmeUpdateOne = function(req, res){
             enigme.niveau = parseInt(req.body.niveau);
             enigme.numericAnswer = req.body.numericAnswer;
             enigme.textualAnswer = req.body.textualAnswer;
+            enigme.answerExplanation = req.body.answerExplanation;
             enigme.save(function(err, enigme){
                 if (err){
                     sendJsonResponse(res, 404, err);

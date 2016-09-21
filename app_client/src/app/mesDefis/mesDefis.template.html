@@ -36,9 +36,9 @@
             </div>
             <div ng-if="vm.isSessionEnded(session)">
               <h4 class="text-success">
-              Défi fini <small>{{session.nom}}</small> 
+              Défi terminé <small>{{session.nom}}</small> 
               </h4>
-              <p>Défi fini le {{vm.getSessionEndDate(session) | date: 'd MMM yyyy'}}</p>
+              <p>Défi terminé le {{vm.getSessionEndDate(session) | date: 'd MMM yyyy'}}</p>
             </div>
 
             <p ng-hide="vm.isSessionNotStartedYet(session)">

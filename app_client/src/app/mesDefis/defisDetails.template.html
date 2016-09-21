@@ -12,7 +12,7 @@
       <div class="col-xs-12">
 
         <p ng-show="vm.defiNotStarted" class="lead text-danger">Defi pas encore commencé</p>
-          <p ng-show="vm.defiEnded" class="lead text-success" >Défi Fini</p>
+          <p ng-show="vm.defiEnded" class="lead text-success" >Défi terminé</p>
           <p ng-hide="vm.defiNotStarted || vm.defiEnded" class="lead text-warning">Défi en cours: {{vm.defi.finishedEnigmes}} enigmes finies sur {{vm.defi.numberOfEnigmes}}</p>
 
           <p class="lead">Score: {{vm.points}}</p>
@@ -30,9 +30,13 @@
               <p ng-show="enigme.userAnswer">
                 Vous avez répondu <strong>{{enigme.userAnswer.value}}</strong> le <strong>{{enigme.userAnswer.answerDate | date: 'shortDate'}} à {{enigme.userAnswer.answerDate | date: 'shortTime'}}</strong> 
               </p>
-              <p ng-hide="enigme.userAnswer"> Pas de réponse Donnée</p>
+              <p ng-hide="enigme.userAnswer"> Pas de réponse donnée</p>
               <p ng-hide="enigme.userAnswer.correctValue">Bonne réponse: <strong>{{enigme.enigme.numericAnswer || enigme.enigme.reponse || enigme.enigme.textualAnswer}}</strong></p>
- 
+              <uib-accordion ng-hide="!enigme.enigme.answerExplanation">
+                <div uib-accordion-group class="panel-info" heading="Détail de la réponse" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                  <p ng-bind-html="enigme.enigme.answerExplanation">
+                </div>
+              </uib-accordion>
             
         </div>
       </div>

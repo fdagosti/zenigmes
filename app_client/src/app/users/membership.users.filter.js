@@ -5,10 +5,15 @@
     .filter('formatMembership', formatMembership);
   function formatMembership() {
     return function (membership) {
-      if (membership === "admin")
+      if (membership === "admin"){
         return "Administrateur";
-      else
-        return "Membre";
+      }
+      else if (membership === "teacher"){
+        return "Professeur"
+      } else if (membership === "member"){
+        return "Eleve";
+      }
+
     };
   }
 })();

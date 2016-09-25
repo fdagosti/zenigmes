@@ -55,6 +55,7 @@
                     email: payload.email,
                     name: payload.name,
                     admin: payload.admin,
+                    teacher: payload.teacher,
                     status: payload.status,
                 };
             }

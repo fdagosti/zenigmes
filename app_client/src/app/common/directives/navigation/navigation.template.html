@@ -17,13 +17,18 @@
           <a href="" class="dropdown-toggle" data-toggle="dropdown">{{navvm.currentUser.name}}<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="/#mesdefis" data-toggle="collapse" data-target=".navbar-collapse">Mes Défis</a></li>
+            <li ng-show="navvm.isAdmin || navvm.isTeacher"  role="separator" class="divider"></li>
+            <li ng-show="navvm.isAdmin || navvm.isTeacher" class="dropdown-header">Le coin des profs</li>
+            <li ng-show="navvm.isAdmin || navvm.isTeacher"><a href="/#defis" data-toggle="collapse" data-target=".navbar-collapse">Tous les défis</a></li>
+            <li ng-show="navvm.isAdmin || navvm.isTeacher"><a href="/#eleves" data-toggle="collapse" data-target=".navbar-collapse">Tous les élèves</a></li>
             <li ng-show="navvm.isAdmin" role="separator" class="divider"></li>
+            <li ng-show="navvm.isAdmin" role="separator" class="dropdown-header">La zone de l'administrateur</li>
             <li ng-show="navvm.isAdmin"><a href="/#enigmes" data-toggle="collapse" data-target=".navbar-collapse">Toutes les énigmes</a></li>
             <li ng-show="navvm.isAdmin"><a href="/#enigmes/new" data-toggle="collapse" data-target=".navbar-collapse">Créer une nouvelle énigme</a></li>
             <li ng-show="navvm.isAdmin"><a href="/#sessions/new" data-toggle="collapse" data-target=".navbar-collapse">Créer un nouveau défi</a></li>
             <li ng-show="navvm.isAdmin" ><a href="/#sessions" data-toggle="collapse" data-target=".navbar-collapse">Gestion des défis</a></li>
             <li ng-show="navvm.isAdmin" ><a href="/#users" data-toggle="collapse" data-target=".navbar-collapse">Gestion des utilisateurs</a></li>
-            <li ng-show="navvm.isAdmin" role="separator" class="divider"></li>
+            <li ng-show="navvm.isAdmin || navvm.isTeacher" role="separator" class="divider"></li>
             <li><a href="" ng-click="navvm.logout()" data-toggle="collapse" data-target=".navbar-collapse">Deconnexion</a></li>
           </ul>
         </li>

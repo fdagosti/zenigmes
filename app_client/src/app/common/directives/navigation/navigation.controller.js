@@ -11,6 +11,7 @@
             vm.isLoggedIn = authentication.isLoggedIn();
             vm.currentUser = authentication.currentUser();
             vm.isAdmin = vm.isLoggedIn && vm.currentUser.admin;
+            vm.isTeacher = vm.isLoggedIn && vm.currentUser.teacher;
         };
 
         _updateUser();

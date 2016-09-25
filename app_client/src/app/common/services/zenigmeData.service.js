@@ -16,7 +16,6 @@
     };
 
     var addEnigme = function(enigme){
-
       return $http.post("/api/enigmes/", enigme, {
         headers: {
           Authorization: "Bearer "+ authentication.getToken()
@@ -24,10 +23,12 @@
       });
     };
 
-
-
     var allEnigmes = function () {
-     return $http.get('/api/enigmes');
+     return $http.get('/api/enigmes', {
+        headers: {
+          Authorization: "Bearer "+ authentication.getToken()
+        }
+      });
 
    };
 

@@ -11,6 +11,11 @@ var adminCheck = function(req, res, next){
     next();
 };
 
+var profOrAdminCheck = function(req, res, next){
+    if (!req.user.admin && !req.user.teacher) return res.sendStatus(401);
+    next();
+};
+
 var statusCheck = function(req, res, next){
   if (req.user.status != "actif") return res.sendStatus(401);
   next();
@@ -25,7 +30,7 @@ var ctrlClassements = require("../controllers/classements");
 var ctrlContact = require("../controllers/contact");
 
 // enigmes
-router.get("/enigmes", ctrlEnigmes.enigmesList);
+router.get("/enigmes", auth, profOrAdminCheck, ctrlEnigmes.enigmesList);
 router.post("/enigmes", auth, statusCheck, adminCheck, ctrlEnigmes.enigmeCreate);
 router.get("/enigmes/:enigmeid", auth, ctrlEnigmes.enigmeReadOne);
 router.put("/enigmes/:enigmeid", auth, statusCheck, adminCheck, ctrlEnigmes.enigmeUpdateOne);
@@ -38,7 +43,7 @@ router.post("/forgot", ctrlAuth.forgot);
 router.post("/reset/:token", ctrlAuth.reset);
 
 // users
-router.get("/users", auth, statusCheck, adminCheck, ctrlUsers.usersList);
+router.get("/users", auth, statusCheck, profOrAdminCheck, ctrlUsers.usersList);
 router.delete("/users/:userid", auth, statusCheck, adminCheck, ctrlUsers.userDelete);
 router.put("/users/:userid", auth, statusCheck, adminCheck, ctrlUsers.userUpdate);
 router.get("/users/:userid", auth, statusCheck, ctrlUsers.userDetails);
@@ -47,7 +52,7 @@ router.get("/users/:userid", auth, statusCheck, ctrlUsers.userDetails);
 router.get("/activation/", auth, ctrlUsers.userActivated);
 
 // sessions
-router.get("/sessions", auth, statusCheck, adminCheck, ctrlSessions.sessionsList);
+router.get("/sessions", auth, statusCheck, profOrAdminCheck, ctrlSessions.sessionsList);
 router.post("/sessions", auth, statusCheck, adminCheck, ctrlSessions.sessionCreate);
 router.get("/sessions/:sessionid", auth, statusCheck, adminCheck, ctrlSessions.sessionsListOne);
 router.put("/sessions/:sessionid", auth, statusCheck, adminCheck, ctrlSessions.sessionUpdateOne);

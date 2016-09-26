@@ -1,6 +1,6 @@
 
 (function(){
-    angular.module('zenigmesApp').controller('sessionsCtrl', function($scope, $uibModal, sessionsData, zenigmeData) {
+    angular.module('zenigmesApp').controller('sessionsCtrl', function($scope, $uibModal, sessionsData) {
         var vm = this;
 
         var listSessions = function() {

@@ -1,0 +1,42 @@
+
+
+<div class="container">
+
+  <page-header content="{title:'Tous les défis', strapline:'Voici tous les défis disponibles sur le serveur'}"></page-header>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-12">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-4 control-label" for="filter">Trouver rapidement un defi</label>
+          <div class="col-sm-8">
+            <input id="filter" class="form-control col-sm-8" type="text", name="filter", ng-model="textFilter"/>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+
+        <div class="list-group col-xs-12 col-md-4" ng-repeat="level in vm.niveaux">
+          <div class="panel panel-default">
+            <div class="panel-heading text-center"><h4><niveau enigme="{niveau:level}"/></h4>{{filtered.length}} Défis</div>
+            <div class="panel-body">
+              <div class="list-group-item" ng-repeat="defi in vm.defis | filter: textFilter | filter: vm.filterByLevel(level) as filtered " >
+                
+                  <a href="/#/enigmes/{{enigme._id}}">{{defi.nom}}</a>
+                  
+                  
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  
+  </div>
+  
+
+ 
+</div>

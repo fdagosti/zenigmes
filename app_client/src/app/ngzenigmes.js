@@ -61,6 +61,11 @@
                 controllerAs: "vm",
                 css: "app/common/css/table.css"
             })
+            .when("/defis", {
+                templateUrl: "app/teacherSpace/defiOverview/defiOverview.template.html",
+                controller: "defiOverviewCtrl",
+                controllerAs: "vm",
+            })
             .when("/sessions/new", {
                 templateUrl: "app/sessions/sessionCreate/sessionCreateUpdate.template.html",
                 controller: "sessionCreateCtrl",

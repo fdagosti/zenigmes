@@ -43,7 +43,17 @@
           });
         });
         return sessions;
+      })
+      .then(function(parts){
+      var promises = [];
+      parts.forEach(function(participation){
+        promises.push(getEnigmesDuMomentId(participation));
       });
+      return $q.all(promises).then(function(res){
+
+        return parts;
+      });
+    });
     };
 
     var addSession = function(session){
@@ -85,7 +95,6 @@
 
 
   var participations = function() {
-
     return $http.get("/api/participations", {
       headers: {
         Authorization: "Bearer "+ authentication.getToken() 
@@ -105,6 +114,7 @@
 
   var _getEnigmeDuMoment = function(session, enigme){
     return zenigmeData.enigmeById(enigme.enigme).then(function(res){
+
       session.enigmeDuMoment = res.data;
       var user = authentication.currentUser();
       session.enigmeDuMoment.alreadyAnswered = enigme.answers.filter(function(an){
@@ -120,7 +130,13 @@
     for (i = 0; i < enigmes.length; i++){
       enigme = enigmes[i];
       if ((d >= new Date(enigme.start).getTime()) && (d <= new Date(enigme.end).getTime())){
-        return _getEnigmeDuMoment(session, enigme);
+        if (typeof(enigme.enigme) === "string"){
+          return _getEnigmeDuMoment(session, enigme);
+        }else {
+          session.enigmeDuMoment = enigme.enigme;
+          return session;
+        }
+
       }
     }
     

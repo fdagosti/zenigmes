@@ -20,9 +20,73 @@
           <div class="panel panel-default">
             <div class="panel-heading text-center"><h4><niveau enigme="{niveau:level}"/></h4>{{filtered.length}} Défis</div>
             <div class="panel-body">
-              <div class="list-group-item" ng-repeat="defi in vm.defis | filter: textFilter | filter: vm.filterByLevel(level) as filtered " >
+              <div class="list-group-item" ng-repeat="defi in vm.defis | filter: textFilter | filter: vm.filterByLevel(level) | orderBy:vm.orderByDefi:false as filtered " >
                 
-                  <a href="/#/enigmes/{{enigme._id}}">{{defi.nom}}</a>
+                  
+
+
+
+            <div ng-if="defi.enigmeDuMoment">
+              <h4>
+                
+                {{defi.nom}}
+                <small class="pull-right">Défi en cours</small>
+              </h4>
+              <p>
+              <a href="/#/enigmes/{{defi.enigmeDuMoment._id}}">
+                <span>
+                
+              </span> {{ defi.enigmeDuMoment.titre }}
+                
+                </a>
+                <points enigme="defi.enigmeDuMoment"/>
+              </p>
+            </div>
+            <div ng-if="vm.isSessionNotStartedYet(defi)">
+              <h4 class="text-danger">
+              <span>{{defi.nom }}</span><small class="pull-right">Défi à venir </small>
+              </h4>
+            </div>
+            <div ng-if="vm.isSessionEnded(defi)">
+              <h4 class="text-success">
+              {{defi.nom}} <small class="pull-right">Défi terminé </small>
+              </h4>
+            </div>
+
+            
+            <p>Durée du défi: {{vm.defiDuration(defi)}} <br> Du {{defi.start | date: 'd MMM yyyy'}} au {{vm.getSessionEndDate(defi) | date: 'd MMM yyyy'}}</p>
+
+
+            <p ng-hide="vm.isSessionNotStartedYet(defi)">
+              <a href="#" ng-href="/#/classements/{{defi._id}}" class="table-link success" ng-click="">
+              <span class="fa-stack">
+                <i class="fa fa-square fa-stack-2x"></i>
+                <i class="fa fa-trophy fa-stack-1x fa-inverse"></i>
+              </span> Classement
+              </a>
+            </p>
+
+
+            <uib-accordion>
+            <div uib-accordion-group class="panel-default"  is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+              <uib-accordion-heading>
+                Liste des enigmes ({{defi.enigmes.length}}) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+              </uib-accordion-heading>
+              
+                <ul class="list-unstyled">
+                  <li ng-repeat="enigme in defi.enigmes">
+                    <a ng-href="/#enigmes/{{enigme.enigme._id}}">{{enigme.enigme.titre}}</a><points enigme="enigme.enigme"/>
+                  </li>
+                </ul>
+            </div>
+          </uib-accordion>
+
+
+
+
+
+
+
                   
                   
                 

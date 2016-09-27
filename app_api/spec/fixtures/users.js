@@ -6,6 +6,7 @@ module.exports = [{
   "status" : "actif",
   "name" : "el toro maske",
   "classe": "6eme",
+  "classeNumber": "A",
   "__v" : 0
 },
 {
@@ -34,6 +35,7 @@ module.exports = [{
   "name" : "toto",
   "status" : "actif",
   "classe" : "6eme",
+  "classeNumber": "A",
   "role" : "member",
   "__v" : 0
 },
@@ -45,6 +47,7 @@ module.exports = [{
   "name" : "montest",
   "role" : "member",
   "classe": "6eme",
+  "classeNumber": "B",
   "__v" : 0
 },
 {
@@ -56,6 +59,7 @@ module.exports = [{
   "role" : "member",
   "status": "actif",
   "classe": "6eme",
+  "classeNumber": "C",
   "__v" : 0
 },
 {

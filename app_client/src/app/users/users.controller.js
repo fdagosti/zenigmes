@@ -18,7 +18,8 @@
                     zenigmeUsers.deleteUser(user).then(function(response){
                         listUsers();
                     },function(e){
-                        vm.error = e;
+                        listUsers();
+                        vm.error = e.data;
                     });
                 }
             });
@@ -40,7 +41,8 @@
             zenigmeUsers.updateUser(user).then(function(response){
                 listUsers();
             }, function(e){
-                vm.error = e;
+                listUsers();
+                vm.error = e.data;
             });
         };
 

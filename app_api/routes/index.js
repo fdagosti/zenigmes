@@ -24,6 +24,7 @@ var statusCheck = function(req, res, next){
 var ctrlEnigmes = require("../controllers/zenigmes");
 var ctrlAuth = require("../controllers/authentication");
 var ctrlUsers = require("../controllers/users");
+var ctrlClasses = require("../controllers/classes");
 var ctrlSessions = require("../controllers/sessions");
 var ctrlParticipations = require("../controllers/participation");
 var ctrlClassements = require("../controllers/classements");
@@ -47,6 +48,14 @@ router.get("/users", auth, statusCheck, profOrAdminCheck, ctrlUsers.usersList);
 router.delete("/users/:userid", auth, statusCheck, adminCheck, ctrlUsers.userDelete);
 router.put("/users/:userid", auth, statusCheck, adminCheck, ctrlUsers.userUpdate);
 router.get("/users/:userid", auth, statusCheck, ctrlUsers.userDetails);
+
+// classes
+router.get("/classes/", auth, statusCheck, profOrAdminCheck, ctrlClasses.classesList);
+// router.get("/classes/:classeName", auth, statusCheck, profOrAdminCheck, ctrlClasses.classeDetail);
+// router.get("/classes/:classeName/count", auth, statusCheck, profOrAdminCheck, ctrlClasses.classeCount);
+// router.get("/classes/:classeName/:classeNumber", auth, statusCheck, profOrAdminCheck, ctrlClasses.classeDetail);
+// router.get("/classes/:classeName/:classeNumber/count", auth, statusCheck, profOrAdminCheck, ctrlClasses.classeCount);
+
 
 // specific activation api
 router.get("/activation/", auth, ctrlUsers.userActivated);

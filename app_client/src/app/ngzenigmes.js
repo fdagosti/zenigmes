@@ -94,6 +94,12 @@
                 controllerAs: "vm",
                 css: "app/common/css/table.css"
             })
+            .when("/classes", {
+                templateUrl: "app/teacherSpace/elevesOverview/elevesOverview.template.html",
+                controller: "elevesOverviewCtrl",
+                controllerAs: "vm",
+                css: "app/classements/classements.css"
+            })
             .when("/mesdefis", {
                 templateUrl: "app/mesDefis/mesDefis.template.html",
                 controller: "mesDefisCtrl",

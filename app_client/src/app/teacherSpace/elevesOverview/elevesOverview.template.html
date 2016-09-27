@@ -1,0 +1,65 @@
+
+
+<div class="container-fluid">
+
+  <page-header content="{title:'Tous les élèves', strapline:'Les classes et leurs élèves'}"></page-header>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-9">
+      <!-- <form class="form-horizontal">
+        <div class="form-group">
+          <label class="col-sm-4 control-label" for="filter">Trouver rapidement un élève</label>
+          <div class="col-sm-8">
+            <input id="filter" class="form-control col-sm-8" type="text", name="filter", ng-model="textFilter"/>
+          </div>
+        </div>
+      </form> -->
+      <div class="row">
+
+
+        <uib-accordion close-others="true">
+          <div ng-repeat="classe in vm.classes" uib-accordion-group class="panel panel-default" >
+            <uib-accordion-heading>
+              {{classe.className | formatClasse}} <small>({{vm.getStudentsNbPerClass(classe)}} élèves) </small>
+            </uib-accordion-heading>
+            <uib-accordion close-others="false">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="number in classe.classeNumbers">
+              <div uib-accordion-group class="panel-info">
+                <uib-accordion-heading ng-class="text-center">
+                {{classe.className | formatClasse}} <em>{{number.number}}</em> <small>({{number.students.length}} élèves)</small>
+              </uib-accordion-heading>
+                <div class="list-group">
+                      <div class="list-group-item" ng-repeat='student in number.students'>
+                        <div class="media">
+                          <div class="media-left">
+                            <a href="#">
+                              <img width="50" class="media-object" ng-src="http://www.gravatar.com/avatar/{{vm.getGravatarURL(student.email)}}?d=http://bootdey.com/img/Content/user_1.jpg" alt="">    
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            <h4 class="media-heading">{{student.name}}</h4>
+                            {{student.email}}
+                          </div>
+                        </div>    
+                              
+                      </div>
+                    </div>
+              </div>
+              </div>
+            </uib-accordion>
+                   
+                </div>
+        </uib-accordion>
+       
+
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3">
+    <p class="lead">Voici la liste de toutes les classes enregistrées ainsi que les élèves appartenant à ces classes</p>
+    </div>
+  
+  </div>
+  
+
+ 
+</div>

@@ -22,7 +22,7 @@
                   </div>
                   <div uib-collapse="isCollapsed" class="panel-collapse collapse">
                     <div class="list-group">
-                      <a href = "#" class="list-group-item" ng-repeat='student in number.students'>
+                      <a ng-href="/#users/{{student._id}}" class="list-group-item" ng-repeat='student in number.students'>
                         <h4 class="list-group-item-heading">{{student.name}}</h4>
                         <p>{{student.email}}</p>
                       </a>
@@ -32,7 +32,7 @@
               </div>
             </div>
             <ul ng-show="classe.className==='externe' && classe.classeNumbers.length>0" class="list-group">
-              <li href = "#" class="list-group-item" ng-repeat='student in classe.classeNumbers[0].students'>
+              <li class="list-group-item" ng-repeat='student in classe.classeNumbers[0].students'>
                 <h4 class="list-group-item-heading">{{student.name}}</h4>
                 <p>{{student.email}}</p>
               </li>

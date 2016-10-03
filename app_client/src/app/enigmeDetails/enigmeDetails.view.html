@@ -44,6 +44,33 @@
                 
             </div>
         </div>
+
+          <div ng-show="vm.isAdminOrTeacher && !vm.sessionId"  class="panel-group">
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a ng-init="isCollapsed=true" ng-click="isCollapsed = !isCollapsed" >Afficher la réponse</a>
+                </h4>
+              </div>
+              <div uib-collapse="isCollapsed" class="panel-collapse collapse">
+                <p>{{vm.enigme.numericAnswer}}</p>
+                <p>{{vm.enigme.textualAnswer}}</p>
+              </div>
+            </div>
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a ng-init="explanationCollapse=true" ng-click="explanationCollapse = !explanationCollapse" >Afficher l'explication de la réponse</a>
+                </h4>
+              </div>
+              <div uib-collapse="explanationCollapse" class="panel-collapse collapse">
+                <p ng-bind-html="vm.enigme.answerExplanation"></p>
+                
+              </div>
+            </div>
+          </div>
+
+
     </div>
     <div class="col-xs-12 col-md-3">
         <p class="lead">{{vm.enigme.trivia}}</p>

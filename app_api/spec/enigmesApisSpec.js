@@ -22,6 +22,11 @@ var nonAdminCredentials = {
   password: "toto"
 };
 
+var teacherCredentials = {
+  email: "sfavero@hotmail.fr",
+  password: "toto"
+};
+
 describe("The API in general", function(){
 
 var server;
@@ -117,10 +122,13 @@ beforeEach(function(done){
     });
   });
 
-  it("should return the numericAnswer field with the right value if we are an admin", function(done){
+  it("should return the numericAnswer and explanation field with the right value if we are an admin", function(done){
       rest.post(base+"/api/login", {data: francoisCredentials}).on("success", function(data, response){
         rest.get(base+"/api/enigmes/57067248a28caf6e09f7bc74",{accessToken: data.token}).on("success", function(en, response){
           expect(en.numericAnswer).toBe(22222);
+          expect(en.answerExplanation).toBeDefined();
+          // and yet, check that the other parts of the enigmes are still there
+          expect(en.description).toBeDefined();
           done();
         }).on("fail", function(data, response){
           done.fail("this enigme should exist "+data);
@@ -130,10 +138,31 @@ beforeEach(function(done){
       });
   });
 
-  it("should mask the answer if we log in with a non admin account", function(done){
+  it("should return the numericAnswer and explanation field with the right value if we are a teacher", function(done){
+      rest.post(base+"/api/login", {data: teacherCredentials}).on("success", function(data, response){
+        rest.get(base+"/api/enigmes/57067248a28caf6e09f7bc74",{accessToken: data.token}).on("success", function(en, response){
+          expect(en.numericAnswer).toBe(22222);
+          expect(en.answerExplanation).toBeDefined();
+          // and yet, check that the other parts of the enigmes are still there
+          expect(en.description).toBeDefined();
+          done();
+        }).on("fail", function(data, response){
+          done.fail("this enigme should exist "+data);
+        });
+      }).on("fail", function(data, response){
+        done.fail("unable to login");
+      });
+  });
+
+  it("should mask the answer and explanation if we log in with a student account", function(done){
       rest.post(base+"/api/login", {data: nonAdminCredentials}).on("success", function(data, response){
         rest.get(base+"/api/enigmes/57067248a28caf6e09f7bc74",{accessToken: data.token}).on("success", function(en, response){
+          // the numericAnswer field should be defined, but with masked value
+          expect(en.numericAnswer).toBeDefined();
           expect(en.numericAnswer).not.toBe(22222);
+          expect(en.answerExplanation).not.toBeDefined();
+          // and yet, check that the other parts of the enigmes are still there
+          expect(en.description).toBeDefined();
           done();
         }).on("fail", function(data, response){
           done.fail("this enigme should exist "+data);

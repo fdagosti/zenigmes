@@ -5,6 +5,7 @@
 		Flash.clear();
 		vm.isLoggedIn = authentication.isLoggedIn();
 		vm.isAdmin = vm.isLoggedIn && authentication.currentUser().admin;
+		vm.isAdminOrTeacher = vm.isAdmin || (vm.isLoggedIn && authentication.currentUser().teacher);
 		vm.currentPath = $location.path();
 
 		vm.sessionId = $location.search().sessionid;

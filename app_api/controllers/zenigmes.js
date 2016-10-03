@@ -48,9 +48,15 @@ function _maskAnswers(admin, enigme){
     }
 }
 
+
 module.exports.enigmeReadOne = function(req, res){
     if (req.params && req.params.enigmeid){
-        zngm.findById(req.params.enigmeid).exec(function(err, enigme){
+
+        var adminOrTeacher = req.user && (req.user.admin || req.user.teacher);
+        var filter = adminOrTeacher ? {} : {"answerExplanation": 0 };
+        zngm.findById(req.params.enigmeid)
+        .select(filter)
+        .exec(function(err, enigme){
             if (!enigme){
                 sendJsonResponse(res, 404, {"message":"enigmeid not found"});
                 return;
@@ -58,9 +64,9 @@ module.exports.enigmeReadOne = function(req, res){
                 sendJsonResponse(res, 404, err);
                 return;
             }
-            
-            _maskAnswers(req.user && req.user.admin, enigme);
 
+            _maskAnswers(adminOrTeacher, enigme);
+            
             sendJsonResponse(res, 200, enigme);
         });
     } else {

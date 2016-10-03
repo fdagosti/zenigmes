@@ -21,10 +21,11 @@ module.exports = [{
 },
 {
   "_id" : "5705359c4e07f8817caa067d",
-  "hash" : "89e5afddf4b1c711160ca14b32d0b14cb25c3302cd2678209bed32c8643535ff71224b3b6696c650ab3c740a008a9b0f386dbd62c75d8e26dc18631ed9747c00",
-  "salt" : "cc30c6a208f80e6545b8c50e1e18faee",
+  "hash" : "bf6471971d45bc73bb1ad197884a7db91edf864521885d253a93c29ce67a6c56c4d94ebb9fb34e93f3d9cbd13c3f98bd5923b9bd272d9b9630f26f25443c4ecd",
+  "salt" : "ddc3610d1f0513bfd1b3bf89f8c35333",
   "email" : "sfavero@hotmail.fr",
   "name" : "FAVERO stephanie",
+  "role" : "teacher",
   "__v" : 0,
 },
 {

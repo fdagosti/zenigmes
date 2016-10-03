@@ -28,28 +28,26 @@
 
             <div ng-if="defi.enigmeDuMoment">
               <h4>
-                
-                {{defi.nom}}
                 <small class="pull-right">Défi en cours</small>
+                {{defi.nom}}
               </h4>
               <p>
-              <a href="/#/enigmes/{{defi.enigmeDuMoment._id}}">
-                <span>
-                
-              </span> {{ defi.enigmeDuMoment.titre }}
-                
+                <a href="/#/enigmes/{{defi.enigmeDuMoment._id}}">
+                  {{ defi.enigmeDuMoment.titre }}
                 </a>
                 <points enigme="defi.enigmeDuMoment"/>
               </p>
             </div>
             <div ng-if="vm.isSessionNotStartedYet(defi)">
               <h4 class="text-danger">
-              <span>{{defi.nom }}</span><small class="pull-right">Défi à venir </small>
+              <small class="pull-right">Défi à venir </small>
+              <span>{{defi.nom }}</span>
               </h4>
             </div>
             <div ng-if="vm.isSessionEnded(defi)">
               <h4 class="text-success">
-              {{defi.nom}} <small class="pull-right">Défi terminé </small>
+              <small class="pull-right">Défi terminé </small>
+              {{defi.nom}} 
               </h4>
             </div>
 

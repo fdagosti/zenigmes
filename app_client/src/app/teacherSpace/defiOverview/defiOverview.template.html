@@ -84,7 +84,7 @@
                       <ul class="list-unstyled">
                         <li ng-class="{'bg-success':answer.correctValue, 'bg-danger':'!answer.correctValue'}" ng-repeat="answer in enigme.answers">
                           {{answer.user}}  <span  class="pull-right">{{answer.value}}</span>
-                          <p>{{answer.answerDate | date: 'd MMM yyyy'}}</p>
+                          <p>{{answer.answerDate | date: 'd MMM yyyy   hh:mm'}}</p>
                         </li>
                       </ul>
                       <div ng-show="enigme.answers.length == 0">

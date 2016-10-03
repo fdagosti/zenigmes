@@ -57,7 +57,7 @@
                 <p>{{vm.enigme.textualAnswer}}</p>
               </div>
             </div>
-            <div class="panel panel-info">
+            <div ng-show="vm.enigme.answerExplanation" class="panel panel-info">
               <div class="panel-heading">
                 <h4 class="panel-title">
                   <a ng-init="explanationCollapse=true" ng-click="explanationCollapse = !explanationCollapse" >Afficher l'explication de la réponse</a>

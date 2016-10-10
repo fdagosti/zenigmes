@@ -76,8 +76,8 @@
                     <span ng-hide="enigme.answers.length == 0" >
                       <a ng-click="coll = !coll"><i ng-show="coll" class="fa fa-plus-square"></i> <i ng-show="!coll" class="fa fa-minus-square"></i></a>                
                     </span> 
-                    <a ng-hide="enigme.enigme._id == defi.enigmeDuMoment._id" ng-href="/#enigmes/{{enigme.enigme._id}}">{{enigme.enigme.titre}}</a>
-                    <a ng-show="enigme.enigme._id == defi.enigmeDuMoment._id"  ng-href="/#enigmes/{{enigme.enigme._id}}"><strong>{{enigme.enigme.titre}}</strong></a>
+                    <a ng-hide="enigme.enigme._id == defi.enigmeDuMoment._id" ng-href="/#enigmes/{{enigme.enigme._id}}">{{enigme.enigme.titre}} <span ng-hide="enigme.answers.length == 0">({{enigme.answers.length}})</span> </a>
+                    <a ng-show="enigme.enigme._id == defi.enigmeDuMoment._id"  ng-href="/#enigmes/{{enigme.enigme._id}}"><strong>{{enigme.enigme.titre}} <span ng-hide="enigme.answers.length == 0">({{enigme.answers.length}})</span></strong> </a>
                     <points enigme="enigme.enigme"/>
                     <div uib-collapse="coll">
                       <ul class="list-unstyled">

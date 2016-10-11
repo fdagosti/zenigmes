@@ -16,7 +16,7 @@
       </form>
       <div class="row">
 
-        <div class="list-group col-xs-12 col-md-4" ng-repeat="level in vm.niveaux">
+        <div class="list-group col-xs-12 col-lg-4" ng-repeat="level in vm.niveaux">
           <div class="panel panel-default">
             <div class="panel-heading text-center"><h4><niveau enigme="{niveau:level}"/></h4>{{filtered.length}} Défis</div>
             <div class="panel-body">
@@ -73,12 +73,12 @@
               
                 <ul class="list-unstyled">
                   <li ng-init="coll = true" ng-repeat="enigme in defi.enigmes">
+                    <points enigme="enigme.enigme"/>
                     <span ng-hide="enigme.answers.length == 0" >
                       <a ng-click="coll = !coll"><i ng-show="coll" class="fa fa-plus-square"></i> <i ng-show="!coll" class="fa fa-minus-square"></i></a>                
                     </span> 
                     <a ng-hide="enigme.enigme._id == defi.enigmeDuMoment._id" ng-href="/#enigmes/{{enigme.enigme._id}}">{{enigme.enigme.titre}} <small ng-hide="enigme.answers.length == 0">({{enigme.answers.length}} réponses)</small> </a>
                     <a ng-show="enigme.enigme._id == defi.enigmeDuMoment._id"  ng-href="/#enigmes/{{enigme.enigme._id}}"><strong>{{enigme.enigme.titre}} <small ng-hide="enigme.answers.length == 0">({{enigme.answers.length}} réponses)</small></strong> </a>
-                    <points enigme="enigme.enigme"/>
                     <div uib-collapse="coll">
                       <ul class="list-unstyled">
                         <li ng-class="answer.correctValue?'bg-success':'bg-danger'" ng-repeat="answer in enigme.answers">
@@ -86,15 +86,7 @@
                           <p>{{answer.answerDate | date: 'd MMM yyyy   hh:mm'}}</p>
                         </li>
                       </ul>
-                      <div ng-show="enigme.answers.length == 0">
-                        <div class="panel panel-default">
-                          <div class="panel-body">
-                        <p >aucune réponse donnée</p>
-                            
-                          </div>
-                        </div>
-
-                    </div>
+                      
                     </div>
                   </li>
                 </ul>

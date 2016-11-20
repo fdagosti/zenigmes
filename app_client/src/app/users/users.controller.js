@@ -1,6 +1,6 @@
 
 (function(){
-    angular.module('zenigmesApp').controller('usersCtrl', function($scope, $uibModal, zenigmeUsers, etablissement) {
+    angular.module('zenigmesApp').controller('usersCtrl', function($scope, $uibModal, sessionsData, etablissement) {
         var vm = this;
         vm.tagline = 'Jouons un peu';   
 
@@ -26,7 +26,7 @@
         };
 
         function listUsers(){
-            zenigmeUsers.allUsersWithSessions().then(function(data){
+            sessionsData.allUsersWithSessions().then(function(data){
                 vm.users = data;
             },function(error){
                 vm.error = error.statusText;

@@ -1,6 +1,6 @@
 
 (function(){
-    angular.module('zenigmesApp').controller('usersCtrl', function($scope, $uibModal, sessionsData, etablissement) {
+    angular.module('zenigmesApp').controller('usersCtrl', function($scope, $uibModal, sessionsData, zenigmeUsers, etablissement) {
         var vm = this;
         vm.tagline = 'Jouons un peu';   
 

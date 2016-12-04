@@ -8,56 +8,45 @@
     <div class="row">
         <div class="col-lg-12">
             <div role="alert" ng-show="vm.error" class="alert alert-danger" ng-bind-html="vm.error"></div>
-            <div class="main-box no-header clearfix">
-                <div class="main-box-body clearfix">
-                    <div class="table-responsive">
-                        <table class="table user-list">
-                            <thead>
-                                <tr>
-                                <th><span>Utilisateur</span></th>
-                                <th><span>Date de création</span></th>
-                                <th><span>classe</span></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="user in vm.users | orderBy:['status']:true as filtered">
-                                    <td>
-                                        <img ng-src="http://www.gravatar.com/avatar/{{vm.getGravatarURL(user.email)}}?d=http://bootdey.com/img/Content/user_1.jpg" alt="">
-                                        <a href="#" ng-href="/#/users/{{user._id}}" class="user-link">{{user.name}}</a>
-                                        <p>{{user.email}}</p>
-                                        <span class="user-subhead">
-                                            <select ng-change="vm.updateUser(user)" ng-model="user.role">
-                                                <option value="admin">{{"admin" | formatMembership}}</option>
-                                                <option value="teacher">{{"teacher" | formatMembership}}</option>
-                                                <option value="member">{{"member" | formatMembership}}</option>
-                                            </select>
-                                        </span>
-                                        <a href="#" class="table-link danger" ng-click="vm.deleteUser(user)">
-                                            <span class="fa-stack">
-                                                <i class="fa fa-square fa-stack-2x"></i>
-                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </a>
-                                        <p><user-status save-status="vm.updateUser(user)"  user="user"/></p>
-                                    </td>
-                                    <td>{{user.createdOn | date: 'd MMMM yyyy'}}</td>
-                                    <td class="text-center">
-
-                                        <select class="form-control input-sm" ng-change="vm.updateUser(user)" ng-model="user.classe">
-                                            <option ng-repeat="classe in vm.classes" value="{{classe.dbValue}}">{{classe.dbValue | formatClasse}}</option>
-                                        </select>
-                                        <select class="form-control input-sm" ng-hide="!vm.getClasseNumbersFromClasse(user.classe)" ng-change="vm.updateUser(user)" ng-model="user.classeNumber">
-                                            <option value="" disabled>Pas de numéro &nbsp;&nbsp;&nbsp;&nbsp;</option>
-                                            <option value="{{classNumber}}" ng-repeat="classNumber in vm.getClasseNumbersFromClasse(user.classe)">{{classNumber}}</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                
-                            </tbody>
-                        </table>
+            <div class="list-group">
+                <div class="list-group-item" ng-repeat="user in vm.users | orderBy:['status']:true as filtered">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <a href="#" class="table-link danger pull-right" ng-click="vm.deleteUser(user)">
+                                <span class="fa-stack">
+                                    <i class="fa fa-square fa-stack-2x"></i>
+                                    <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                            <img ng-src="http://www.gravatar.com/avatar/{{vm.getGravatarURL(user.email)}}?d=http://bootdey.com/img/Content/user_1.jpg" alt="">
+                            <a href="#" ng-href="/#/users/{{user._id}}" class="user-link">{{user.name}}</a>
+                            <p>{{user.email}}</p>
+                            <span class="user-subhead">
+                                <select ng-change="vm.updateUser(user)" ng-model="user.role">
+                                    <option value="admin">{{"admin" | formatMembership}}</option>
+                                    <option value="teacher">{{"teacher" | formatMembership}}</option>
+                                    <option value="member">{{"member" | formatMembership}}</option>
+                                </select>
+                            </span>
+                            <p><user-status save-status="vm.updateUser(user)"  user="user"/></p>
+                        </div>
+                        <div class="col-sm-3">
+                            Créé le <em>{{user.createdOn | date: 'd MMMM yyyy'}}</em>
+                        </div>
+                        <div class="col-sm-3">
+                            <select class="form-control input-sm" ng-change="vm.updateUser(user)" ng-model="user.classe">
+                                <option ng-repeat="classe in vm.classes" value="{{classe.dbValue}}">{{classe.dbValue | formatClasse}}</option>
+                            </select>
+                            <select class="form-control input-sm" ng-hide="!vm.getClasseNumbersFromClasse(user.classe)" ng-change="vm.updateUser(user)" ng-model="user.classeNumber">
+                                <option value="" disabled>Pas de numéro &nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                <option value="{{classNumber}}" ng-repeat="classNumber in vm.getClasseNumbersFromClasse(user.classe)">{{classNumber}}</option>
+                            </select>                            
+                        </div>
+                    
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
     

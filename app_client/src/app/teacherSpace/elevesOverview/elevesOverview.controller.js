@@ -65,7 +65,6 @@
         };
 
         vm.classForGroup = function(classe){
-            console.log("class for group");
             if (classe.className === "externe"){
                 return "panel panel-warning";
             }else{

@@ -16,18 +16,15 @@
                                 <tr>
                                 <th><span>Utilisateur</span></th>
                                 <th><span>Date de création</span></th>
-                                <th class="text-center"><span>Status</span></th>
                                 <th><span>classe</span></th>
-                                <th><span>Email</span></th>
-                                <th><span>Defis</span></th>
-                                <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="user in vm.users | orderBy:'status' as filtered">
+                                <tr ng-repeat="user in vm.users | orderBy:['status']:true as filtered">
                                     <td>
                                         <img ng-src="http://www.gravatar.com/avatar/{{vm.getGravatarURL(user.email)}}?d=http://bootdey.com/img/Content/user_1.jpg" alt="">
-                                        <a href="#" class="user-link">{{user.name}}</a>
+                                        <a href="#" ng-href="/#/users/{{user._id}}" class="user-link">{{user.name}}</a>
+                                        <p>{{user.email}}</p>
                                         <span class="user-subhead">
                                             <select ng-change="vm.updateUser(user)" ng-model="user.role">
                                                 <option value="admin">{{"admin" | formatMembership}}</option>
@@ -35,44 +32,24 @@
                                                 <option value="member">{{"member" | formatMembership}}</option>
                                             </select>
                                         </span>
-                                    </td>
-                                    <td>{{user.createdOn | date: 'd MMMM yyyy'}}</td>
-                                    <td class="text-center">
-                                        <user-status save-status="vm.updateUser(user)"  user="user"/>
-                                    </td>
-                                    <td class="text-center">
-
-                                        <select class="form-control" ng-change="vm.updateUser(user)" ng-model="user.classe">
-                                            <option ng-repeat="classe in vm.classes" value="{{classe.dbValue}}">{{classe.dbValue | formatClasse}}</option>
-                                        </select>
-                                        <select class="form-control" ng-hide="!vm.getClasseNumbersFromClasse(user.classe)" ng-change="vm.updateUser(user)" ng-model="user.classeNumber">
-                                            <option value="" disabled>Pas de numéro &nbsp;&nbsp;&nbsp;&nbsp;</option>
-                                            <option value="{{classNumber}}" ng-repeat="classNumber in vm.getClasseNumbersFromClasse(user.classe)">{{classNumber}}</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        {{user.email}}
-                                    </td>
-                                    <td>
-                                        <ul >
-                                            <li  ng-repeat="session in user.sessions">
-                                                {{session.nom}}
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td style="width: 20%;">
-                                        <a href="#" ng-href="/#/users/{{user._id}}" class="table-link danger" >
-                                            <span class="fa-stack">
-                                                <i class="fa fa-square fa-stack-2x"></i>
-                                                <i class="fa fa-user fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </a>
                                         <a href="#" class="table-link danger" ng-click="vm.deleteUser(user)">
                                             <span class="fa-stack">
                                                 <i class="fa fa-square fa-stack-2x"></i>
                                                 <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
                                             </span>
                                         </a>
+                                        <p><user-status save-status="vm.updateUser(user)"  user="user"/></p>
+                                    </td>
+                                    <td>{{user.createdOn | date: 'd MMMM yyyy'}}</td>
+                                    <td class="text-center">
+
+                                        <select class="form-control input-sm" ng-change="vm.updateUser(user)" ng-model="user.classe">
+                                            <option ng-repeat="classe in vm.classes" value="{{classe.dbValue}}">{{classe.dbValue | formatClasse}}</option>
+                                        </select>
+                                        <select class="form-control input-sm" ng-hide="!vm.getClasseNumbersFromClasse(user.classe)" ng-change="vm.updateUser(user)" ng-model="user.classeNumber">
+                                            <option value="" disabled>Pas de numéro &nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                            <option value="{{classNumber}}" ng-repeat="classNumber in vm.getClasseNumbersFromClasse(user.classe)">{{classNumber}}</option>
+                                        </select>
                                     </td>
                                 </tr>
                                 

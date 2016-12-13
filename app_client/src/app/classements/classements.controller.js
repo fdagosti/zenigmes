@@ -35,6 +35,11 @@ angular.module('zenigmesApp').controller('classementsCtrl', function($scope, $ro
     return "";
   }
 
+  vm.min = function(arr) {
+    return $filter('min')
+      ($filter('map')(arr, 'totalPoints'));
+  }
+
 
   vm.getNombreDePoints = function(user){
     var tp = user.totalPoints;

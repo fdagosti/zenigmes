@@ -27,17 +27,20 @@
       <div class="error">{{ vm.message }}</div>
 
       <div class="row list-group">
-        <div class="col-xs-12 list-group-item" ng-class="vm.getItemClass(user)" ng-repeat='user in vm.defi.participants | filter: vm.filtre | orderBy:"-totalPoints" as filtered'>
-              
-          <h1 class="day">{{$index+1}}</h1>
-          <img ng-src="http://www.gravatar.com/avatar/{{vm.getGravatarURL(user.email)}}?d=http://bootdey.com/img/Content/user_1.jpg" alt="">    
-          <div class="id">
-            <h4 class="name">{{user.name}}</h4>
-            <p>{{user.classe | formatClasse}} {{user.classeNumber}}</p>
-            <p>{{vm.getNombreDePoints(user)}}</p>
-          </div>
+        <div ng-repeat='group in vm.defi.participants | filter: vm.filtre | groupBy: "totalPoints" | toArray:true | orderBy:min'>
+
+          <div class="col-xs-12 list-group-item" ng-class="vm.getItemClass(user)" ng-repeat='user in group as filtered'>
                 
-        </div>
+            <h1 class="day">{{$parent.$index+1}}</h1>
+            <img ng-src="http://www.gravatar.com/avatar/{{vm.getGravatarURL(user.email)}}?d=http://bootdey.com/img/Content/user_1.jpg" alt="">    
+            <div class="id">
+              <h4 class="name">{{user.name}}</h4>
+              <p>{{user.classe | formatClasse}} {{user.classeNumber}}</p>
+              <p>{{vm.getNombreDePoints(user)}}</p>
+            </div>
+                  
+          </div>
+        </div>  
         <div ng-show="filtered.length === 0" >
           <p class="lead">Aucun utilisateur dans ce filtre</p>
         </div>

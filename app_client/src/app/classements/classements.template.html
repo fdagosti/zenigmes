@@ -27,7 +27,7 @@
       <div class="error">{{ vm.message }}</div>
 
       <div class="row list-group">
-        <div ng-repeat='group in vm.defi.participants | filter: vm.filtre | groupBy: "totalPoints" | toArray:true | orderBy:min'>
+        <div ng-repeat='group in vm.defi.participants | filter: vm.filtre | groupBy: "totalPoints" | toArray:true | orderBy:vm.min'>
 
           <div class="col-xs-12 list-group-item" ng-class="vm.getItemClass(user)" ng-repeat='user in group as filtered'>
                 

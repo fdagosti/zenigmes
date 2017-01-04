@@ -103,6 +103,33 @@ module.exports.participationsListOne = function(req, res){
     }
 };
 
+module.exports.AnswersDeleteOne = function(req, res){
+    
+    var sessionId = req.params.sessionid;
+    var enigmeId = req.params.enigmeid;
+    var answerId = req.params.answerid;
+
+    if (answerId){
+
+        sessionDB
+        .update({_id: sessionId,"enigmes.enigme":enigmeId},
+                {$pull: {"enigmes.$.answers":{_id: answerId}}})
+        .exec(
+            function(err, session) {
+                if (err) {
+                    sendJsonResponse(res, 404, err);
+                    return;
+                }
+                sendJsonResponse(res, 204, null);
+            });
+    } else {
+        sendJsonResponse(res, 404, {
+            message : "No enigmeid"
+        });
+    }
+    
+}
+
 function _validateAnswer(answer, enigme){
     // doing soft validation as some answers are strings, other are numbers
     return (enigme.numericAnswer == answer.value) || (enigme.textualAnswer == answer.value);

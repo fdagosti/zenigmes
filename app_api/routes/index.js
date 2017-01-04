@@ -76,6 +76,7 @@ router.get("/classements/:defiId", auth, statusCheck, ctrlClassements.classement
 
 // answer
 router.post("/session/:sessionid/enigme/:enigmeid/answer", auth, statusCheck, ctrlParticipations.postAnswer);
+router.delete("/session/:sessionid/enigme/:enigmeid/answer/:answerid", auth, statusCheck, ctrlParticipations.AnswersDeleteOne);
 
 // admin ask
 router.post("/ask", auth, ctrlContact.askAdmins);

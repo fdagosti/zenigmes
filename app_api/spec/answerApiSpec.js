@@ -167,4 +167,28 @@ describe("The Answer API", function(){
     }, done);
   });
 
+
+  it("should allow to delete just one answer", function(done){
+    var sesid = "570e7986a3c7b8b5330b287a";
+    var enId = "5706689e44be3f420562c667"
+     _sendAnswerAndRetrieveIt(sesid, 32, enId, function(answerFromDb){      
+      rest.del(base+"/api/session/"+sesid+"/enigme/"+enId+"/answer/"+answerFromDb._id,
+                  {accessToken: loginToken})
+      .on("success", function(a, b){  
+        rest.get(base+"/api/users/"+francoisCredentials.id,{accessToken: loginToken})
+        .on("success", function(user, response){
+          var a = _extractAnswer(user, sesid, enId, francoisCredentials.email);
+          expect(a).toBeUndefined();
+          done();
+        })
+        .on("fail", function(data, response){
+          done.fail("error in retrieving users "+data);
+        });
+      }).on("fail", function(error, response){
+        console.log("Answer data failed");
+        done.fail();
+      })
+    }, done);
+   });
+
 });

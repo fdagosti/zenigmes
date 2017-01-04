@@ -109,6 +109,7 @@ describe("The Answer API", function(){
       return enigme.enigme._id === eid;
     });
 
+
     return enigme.answers.find(function(answer){
       return answer.user === email;
     });
@@ -188,6 +189,35 @@ describe("The Answer API", function(){
         console.log("Answer data failed");
         done.fail();
       })
+    }, done);
+   });
+
+  it("should allow to modify an answer", function(done){
+    var sesid = "570e7986a3c7b8b5330b287a";
+    var enId = "570536454e07f8817caa067e"
+     rest.get(base+"/api/users/"+francoisCredentials.id,{accessToken: loginToken})
+        .on("success", function(user, response){
+          var answerFromDb = _extractAnswer(user, sesid, enId, francoisCredentials.email);
+     
+          answerFromDb.value = 45;
+          answerFromDb.correctValue = false;
+          rest.put(base+"/api/session/"+sesid+"/enigme/"+enId+"/answer/"+answerFromDb._id,
+                      {accessToken: loginToken, data: {answer:JSON.stringify(answerFromDb)}})
+          .on("success", function(a, b){  
+            rest.get(base+"/api/users/"+francoisCredentials.id,{accessToken: loginToken})
+            .on("success", function(user, response){
+              var a = _extractAnswer(user, sesid, enId, francoisCredentials.email);
+              expect(a.value).toBe('45');
+              expect(a.correctValue).toBe(false);
+              done();
+            })
+            .on("fail", function(data, response){
+              done.fail("error in retrieving users "+data);
+            });
+          }).on("fail", function(error, response){
+            console.log("Answer data failed");
+            done.fail();
+          })
     }, done);
    });
 

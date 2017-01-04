@@ -130,6 +130,57 @@ module.exports.AnswersDeleteOne = function(req, res){
     
 }
 
+module.exports.AnswersUpdateOne = function(req, res){
+    
+    var sessionId = req.params.sessionid;
+    var enigmeId = req.params.enigmeid;
+    var answerId = req.params.answerid;
+
+    var data = JSON.parse(req.body.answer);
+
+
+    if (answerId){
+        sessionDB.findOne({_id: sessionId,"enigmes.enigme":enigmeId}, "enigmes.$.answers")
+        .exec(function(err, result){
+            var answers = result.enigmes[0].answers;
+            var answer = answers.find(function(el){return el._id == answerId});
+            
+            answer.value = data.value;
+            answer.correctValue = data.correctValue;
+
+            sessionDB
+            .update({_id: sessionId,"enigmes.enigme":enigmeId},
+                    {$pull: {"enigmes.$.answers":{_id: answerId}}})
+            .exec(function(err, b) {
+
+                if (err) {
+                    sendJsonResponse(res, 404, err);
+                    return;
+                }
+
+              sessionDB
+                .update({_id: sessionId,"enigmes.enigme":enigmeId},
+                {$addToSet: {"enigmes.$.answers":answer}})
+                .exec(function(err, answer) {
+
+                    if (err) {
+                        sendJsonResponse(res, 404, err);
+                        return;
+                    }
+                   
+                  sendJsonResponse(res, 200, answer);
+                });
+            });    
+        })
+        
+    } else {
+        sendJsonResponse(res, 404, {
+            message : "No enigmeid"
+        });
+    }
+    
+}
+
 function _validateAnswer(answer, enigme){
     // doing soft validation as some answers are strings, other are numbers
     return (enigme.numericAnswer == answer.value) || (enigme.textualAnswer == answer.value);

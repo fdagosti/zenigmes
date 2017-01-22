@@ -17,7 +17,8 @@ var parentCredentials = {
 describe("The Answer API", function(){
   
   var loginToken;
-  function _login(done, credentials=francoisCredentials){
+  function _login(done, credentials){
+    if (!credentials) credentials=francoisCredentials
     rest.post(base+"/api/login", {data: credentials})
     .on("success", function(data, response){
       loginToken = data.token;

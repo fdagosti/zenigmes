@@ -56,6 +56,7 @@
                     name: payload.name,
                     admin: payload.admin,
                     teacher: payload.teacher,
+                    parent: payload.parent,
                     status: payload.status,
                 };
             }

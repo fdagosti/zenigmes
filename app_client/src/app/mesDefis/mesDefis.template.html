@@ -24,9 +24,9 @@
                 <small>{{session.nom}}</small>
                 <points enigme="session.enigmeDuMoment"/>
               </h4>
-              <p ng-show="vm.canAnswerEnigme(session)" class="address">Encore {{ vm.getTimeToAnswer(session) }} pour répondre</p>
-              <p ng-hide="vm.canAnswerEnigme(session)">Déja répondu</p>
-              <p ng-hide="vm.canAnswerEnigme(session)">Prochaine énigme le {{vm.getEnigmeDuMomentEndTime(session) | date: 'd MMM yyyy'}}</p>
+              <p ng-show="vm.isEnigmeCurrent(session)" class="address">Encore {{ vm.getTimeToAnswer(session) }} pour répondre</p>
+              <p ng-hide="vm.canAnswerEnigme(session) || vm.isParent">Déja répondu</p>
+              <p ng-hide="vm.isEnigmeCurrent(session)">Prochaine énigme le {{vm.getEnigmeDuMomentEndTime(session) | date: 'd MMM yyyy'}}</p>
             </div>
             <div ng-if="vm.isSessionNotStartedYet(session)">
               <h4 class="text-danger">
@@ -47,7 +47,7 @@
                 <span class="fa-stack">
                   <i class="fa fa-square fa-stack-2x"></i>
                   <i class="fa fa-plus-square fa-stack-1x fa-inverse"></i>
-                </span> Détail de vos réponses
+                </span> <span ng-if="!vm.isParent">Détail de vos réponses</span><span ng-if="vm.isParent">Historique des énigmes</span>
               </a> 
               <a href="#" ng-href="/#/classements/{{session._id}}" class="table-link success" ng-click="">
               <span class="fa-stack">

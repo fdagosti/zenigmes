@@ -9,11 +9,16 @@ var francoisCredentials = {
   id: "57091325117230600f0d1fae"
 };
 
+var parentCredentials = {
+  email: "parent@parent.com",
+  password: "toto"
+}
+
 describe("The Answer API", function(){
   
   var loginToken;
-  function _login(done){
-    rest.post(base+"/api/login", {data: francoisCredentials})
+  function _login(done, credentials=francoisCredentials){
+    rest.post(base+"/api/login", {data: credentials})
     .on("success", function(data, response){
       loginToken = data.token;
       done();
@@ -100,6 +105,21 @@ describe("The Answer API", function(){
 
 
   });
+
+  it("should not allow a parent to answer any enigme", function(done){
+    _login(function(){
+      rest.post(base+"/api/session/"+sessionId+"/enigme/"+enigmeId+"/answer", 
+              {accessToken: loginToken, data: {answer:answerValue}})
+    .on("success", function(session, response){
+      done.fail("a parent should never be allowed to answer an enigme")
+    })
+    .on("fail", function(data, response){
+      done();
+    });
+    },parentCredentials)
+  });
+
+
 
   function _extractAnswer(user, sid, eid, email){
     var session = user.sessions.find(function(session){

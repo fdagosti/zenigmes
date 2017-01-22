@@ -8,6 +8,11 @@ var francoisCredentials = {
   password: "toto"
 };
 
+var parentCredentials = {
+  email: "parent@parent.com",
+  password: "toto"
+};
+
 var francoisId = "57091325117230600f0d1fae";
 
 describe("The Participations API", function(){
@@ -50,6 +55,23 @@ describe("The Participations API", function(){
         done();
       }).on("fail", function(data, response){
         done.fail("getting a list of participations for francois should work");
+      });
+    }).on("fail", function(data, response){
+      done.fail("unable to login: "+data.message);
+    });
+  });
+
+
+
+it("should return all sessions for a parent", function(done){
+    rest.post(base+"/api/login", {data: parentCredentials}).on("success", function(data, response){
+      rest.get(base+"/api/participations", {accessToken: data.token}).on("success", function(data, response){
+        expect(response.statusCode).toBe(200);
+        expect(data.length).toBe(2);
+        done();
+      }).on("fail", function(data, response){
+        console.log("FAIL ",data)
+        done.fail("getting a list of participations for a parent should work ");
       });
     }).on("fail", function(data, response){
       done.fail("unable to login: "+data.message);

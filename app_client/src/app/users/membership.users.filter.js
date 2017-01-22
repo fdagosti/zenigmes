@@ -12,6 +12,8 @@
         return "Professeur"
       } else if (membership === "member"){
         return "Eleve";
+      } else if (membership === "parent"){
+        return "Parent";
       }
 
     };

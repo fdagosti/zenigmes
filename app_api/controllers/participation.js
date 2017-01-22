@@ -23,21 +23,32 @@ var _sessionFromClasse = function(user){
 
 module.exports.participationsList = function(req, res){
 
-    // test. To be removed after
-    var d = new Date();
-    // end test
-    sessionDB.find({ $or: [
-        {participants: {$all: [req.user._id]}},
-        {niveau: _sessionFromClasse(req.user)}
-        ]
-    },function(err, session){
-        if (err){
-            sendJsonResponse(res, 404, err);
-        }else{
-            sendJsonResponse(res, 200, session);
-        }
+    
+    console.log("parent ",req.user.parent);
+
+    if (req.user.parent){
+        sessionDB.find({},function(err, sessions){
+            if (err){
+                sendJsonResponse(res, 404, err);
+            }else{
+                sendJsonResponse(res, 200, sessions);
+            }
+        });
+    }else{
+        sessionDB.find({ $or: [
+            {participants: {$all: [req.user._id]}},
+            {niveau: _sessionFromClasse(req.user)}
+            ]
+        },function(err, session){
+            if (err){
+                sendJsonResponse(res, 404, err);
+            }else{
+                sendJsonResponse(res, 200, session);
+            }
+        });
     }
-    );
+
+    
 };
 
 var _enigmeInThePast = function(sessionEnigme){
@@ -187,6 +198,11 @@ function _validateAnswer(answer, enigme){
 }
 
 module.exports.postAnswer = function(req, res){
+    if (req.user.parent){
+        sendJsonResponse(res, 401, {"message":"Un parent ne peut pas répondre aux enigmes"});
+        return;
+    }
+
     var sessionId = req.params.sessionid;
     var enigmeId = req.params.enigmeid;
     var answer = {

@@ -29,6 +29,16 @@ module.exports = [{
   "__v" : 0,
 },
 {
+  "_id" : "575d64cee3ee388a20a94ef8",
+  "hash" : "bf6471971d45bc73bb1ad197884a7db91edf864521885d253a93c29ce67a6c56c4d94ebb9fb34e93f3d9cbd13c3f98bd5923b9bd272d9b9630f26f25443c4ecd",
+  "salt" : "ddc3610d1f0513bfd1b3bf89f8c35333",
+  "email" : "parent@parent.com",
+  "status" : "actif",
+  "name" : "Madame Parent",
+  "role" : "parent",
+  "__v" : 0,
+},
+{
   "_id" : "575d64cee3ee380a20a94ef8",
   "hash" : "29faead904071b2d986a041b30432eadff4f68ac62a855135e44e27161991326c35cbe19c2c49444e27a84151292c0725dc2fb504a15fe81b8c2354c52bcc0a1",
   "salt" : "a057bf328aa9739be1f3c130cb4567bc",

@@ -16,6 +16,7 @@ angular.module('zenigmesApp').controller('mesDefisCtrl', function($scope, sessio
   // this page only displays if user is logged in, no need to check
   var user = authentication.currentUser();
   vm.isAdmin = user !== undefined? user.admin:false;
+  vm.isParent = user !== undefined? user.parent:false;
 
   vm.isSessionNotStartedYet = function(session){
     return new Date(session.start) > new Date(); 
@@ -25,9 +26,15 @@ angular.module('zenigmesApp').controller('mesDefisCtrl', function($scope, sessio
     return vm.getSessionEndDate(session) < new Date(); 
   };
 
-  vm.canAnswerEnigme = function(defi){
+  vm.isEnigmeCurrent = function(defi){
     return defi.enigmeDuMoment != null && !defi.enigmeDuMoment.alreadyAnswered;
   };
+
+  vm.canAnswerEnigme = function(defi){
+
+    return !vm.isParent && vm.isEnigmeCurrent(defi);
+  };
+
 
   var s = 1000;
   var m = 60*s;

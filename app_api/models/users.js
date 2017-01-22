@@ -13,7 +13,7 @@ var userSchema = new mongoose.Schema({
         required: true
     },
     createdOn: {type: Date, "default": Date.now},
-    role: {type: String, enum: ["admin", "member", "teacher"], default: "member"},
+    role: {type: String, enum: ["admin", "member", "teacher", "parent"], default: "member"},
     classe: {type: String, enum: ["6eme", "5eme", "4eme", "3eme", "2nde", "1ere", "terminale", "externe"], default:"externe", required: true},
     classeNumber: String,
     status: {type: String, enum: ["actif", "enValidation"], default: "enValidation"},
@@ -45,6 +45,7 @@ userSchema.methods.generateJwt = function() {
         name: this.name,
         admin: this.role === "admin",
         teacher: this.role === "teacher",
+        parent: this.role === "parent",
         classe: this.classe,
         status: this.status,
         exp: parseInt(expiry.getTime() / 1000)

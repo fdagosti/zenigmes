@@ -50,14 +50,15 @@
         };
 
         var _classeOrder = {
-            "6eme": 0,
-            "5eme": 1,
-            "4eme": 2,
-            "3eme": 3,
-            "2nde": 4,
-            "1ere": 5,
-            "terminale": 6,
-            "externe": 7,
+            "cm2": 0,
+            "6eme": 1,
+            "5eme": 2,
+            "4eme": 3,
+            "3eme": 4,
+            "2nde": 5,
+            "1ere": 6,
+            "terminale": 7,
+            "externe": 8,
         }
 
         vm.orderByClasse = function(classe){

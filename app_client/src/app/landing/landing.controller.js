@@ -12,7 +12,6 @@
     
 
     vm.areButtonEnabled = function(){
-      console.log("are buttons enabled ", vm.participations)
       return vm.participations && vm.participations.length >0;
     };
 

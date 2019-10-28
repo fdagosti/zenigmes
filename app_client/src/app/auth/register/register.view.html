@@ -19,10 +19,18 @@
                     <label for="email2">Confirmation de votre adresse E-mail</label>
                     <input type="email" class="form-control" id="email2" placeholder="Enter email" ng-model="vm.credentials.email2">
                 </div>
+
+                <div class="form-group" ng-init="vm.credentials.etablissement='jbsay'">
+                    <p for="etablissement"><label>Etablissement</label></p>
+                    <label class="radio-inline" id={{etablissement.dbValue}} ng-repeat="etablissement in vm.etablissements">
+                        <input id="{{etablissement.dbValue}}" type="radio" name="etablissement" ng-model="vm.credentials.etablissement" value="{{etablissement.dbValue}}"> {{etablissement.dbValue | formatEtablissement}}
+                    </label>
+                </div>
+
                 <div class="form-group" ng-init="vm.credentials.classe='externe'">
                     <p for="classe"><label>Classe</label></p>
                     <label class="radio-inline" id="toto" ng-repeat="classe in vm.classes">
-                        <input id="classe" type="radio" name="classe" ng-model="vm.credentials.classe" value="{{classe.dbValue}}"> {{classe.dbValue | formatClasse}}
+                        <input id="{{classe.dbValue}}" type="radio" name="classe" ng-model="vm.credentials.classe" value="{{classe.dbValue}}"> {{classe.dbValue | formatClasse}}
                         <select ng-show="classe.classNumbers && vm.credentials.classe==='{{classe.dbValue}}'" ng-model="vm.credentials.classeNumber">
                             <option value="" disabled>Numero de classe</option>
                             <option value="{{classNumber}}" ng-repeat="classNumber in classe.classNumbers">{{classNumber}}</option>

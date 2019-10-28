@@ -35,6 +35,7 @@
                             Créé le <em>{{user.createdOn | date: 'd MMMM yyyy'}}</em>
                         </div>
                         <div class="col-sm-3">
+                            <p ng-show="user.etablissement"><strong>Etablissement:</strong> {{user.etablissement | formatEtablissement}}</p>
                             <select class="form-control input-sm" ng-change="vm.updateUser(user)" ng-model="user.classe">
                                 <option ng-repeat="classe in vm.classes" value="{{classe.dbValue}}">{{classe.dbValue | formatClasse}}</option>
                             </select>

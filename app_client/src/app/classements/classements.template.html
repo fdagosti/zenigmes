@@ -6,14 +6,28 @@
     <div class="row">
       <div class="col-xs-12">
         <form >
-          <div class="form-group" ng-init="vm.filtre=''">
-            <p for="classe"><label>Filtrer les classements par classe</label></p>
+          <div class="form-group" ng-init="vm.etablissementFilter=''">
+              <label>Etablissement:&nbsp;&nbsp;</label>
+              <label class="radio-inline">
+                <input id="none" type="radio" name="etablissement" ng-model="vm.etablissementFilter" value=""> Pas de filtre
+              </label>
+              <label class="radio-inline" ng-repeat="etablissement in vm.etablissements">
+                  <input 
+                  id="{{etablissement.dbValue}}" 
+                  type="radio" 
+                  name="etablissement" 
+                  ng-model="vm.etablissementFilter" 
+                  value="{{etablissement.dbValue}}"> {{etablissement.dbValue | formatEtablissement}}
+              </label>
+          </div>
+          <div class="form-group" ng-init="vm.classFilter=''">
+            <label>Classe:&nbsp;&nbsp;</label>
             <label class="radio-inline">
-                <input id="classe" type="radio" name="classe" ng-model="vm.filtre" value=""> Pas de filtre
+                <input id="classe" type="radio" name="classe" ng-model="vm.classFilter" value=""> Pas de filtre
             </label>
             <label class="radio-inline" ng-repeat="classe in vm.classes">
-                <input id="classe" type="radio" name="classe" ng-model="vm.filtre.classe" ng-click="vm.deleteClassNumberFilter()" value="{{classe.dbValue}}"> {{classe.dbValue | formatClasse}}
-                <select ng-show="classe.classNumbers && vm.filtre.classe==='{{classe.dbValue}}'" ng-model="vm.filtre.classeNumber">
+                <input id="classe" type="radio" name="classe" ng-model="vm.classFilter.classe" ng-click="vm.deleteClassNumberFilter()" value="{{classe.dbValue}}"> {{classe.dbValue | formatClasse}}
+                <select ng-show="classe.classNumbers && vm.classFilter.classe==='{{classe.dbValue}}'" ng-model="vm.classFilter.classeNumber">
                     <option value="">Toutes les classes</option>
                     <option value="{{classNumber}}" ng-repeat="classNumber in classe.classNumbers">{{classNumber}}</option>
                 </select>
@@ -27,14 +41,19 @@
       <div class="error">{{ vm.message }}</div>
 
       <div class="row list-group">
-        <div class="col-xs-12 list-group-item" ng-class="vm.getItemClass(user)" ng-repeat='user in vm.defi.participants | filter: vm.filtre | orderBy:"-totalPoints" as filtered'>
+        <div class="col-xs-12 list-group-item" ng-class="vm.getItemClass(user)" ng-repeat='user in vm.defi.participants | filter: vm.etablissementFilter | filter: vm.classFilter | orderBy:"-totalPoints" as filtered'>
               
           <h1 class="day">{{vm.getClassement(user.totalPoints, $index, $first)}}</h1>
           <img ng-src="http://www.gravatar.com/avatar/{{vm.getGravatarURL(user.email)}}?d=http://bootdey.com/img/Content/user_1.jpg" alt="">    
           <div class="id">
             <h4 class="name">{{user.name}}</h4>
-            <p>{{user.classe | formatClasse}} {{user.classeNumber}}</p>
-            <p>{{vm.getNombreDePoints(user)}}</p>
+            <p>
+              {{user.classe | formatClasse}} {{user.classeNumber}} 
+              <br>
+              {{user.etablissement | formatEtablissement}}
+              <br>
+              {{vm.getNombreDePoints(user)}}
+            </p>
           </div>
                 
         </div>

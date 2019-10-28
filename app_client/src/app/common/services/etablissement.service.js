@@ -4,8 +4,24 @@
     .service("etablissement", authentication);
 
     var etablissement = {
-        name: "Lycée Jean Baptiste Say",
+        names: [
+            {
+                dbValue: "jbsay"
+            },
+            {
+                dbValue: "lafontaine"
+            },
+            {
+                dbValue: "musset"
+            },
+            {
+                dbValue: "boileau"
+            },
+        ],
         classes: [
+            {
+                dbValue: "cm2",
+            },
             {
                 dbValue: "6eme",
                 classNumbers: [1,2,3,4,5,6]
@@ -45,10 +61,8 @@
         var getEtablissement = function() {
             return etablissement;
         };
-
        
         return {
-       
             getEtablissement: getEtablissement,
         };
     }

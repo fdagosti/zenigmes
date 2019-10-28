@@ -10,6 +10,7 @@
     function registerCtrl($location, $uibModal, authentication, etablissement) {
         var vm = this;
         vm.classes = etablissement.getEtablissement().classes;
+        vm.etablissements = etablissement.getEtablissement().names;
 
         vm.pageHeader = {
             title: "Création d'un compte pour les 'zenigmes'"

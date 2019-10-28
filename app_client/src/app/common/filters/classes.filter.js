@@ -6,6 +6,7 @@
   
 
     var classes = {
+                "cm2": "CM2",
                 "6eme": "6ème",
                 "5eme": "5ème",
                 "4eme": "4ème",

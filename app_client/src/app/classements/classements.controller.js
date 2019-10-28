@@ -3,16 +3,37 @@
 angular.module('zenigmesApp').controller('classementsCtrl', function($scope, $routeParams, classementService, authentication, etablissement) {
   var vm = this;
 
-  vm.classes = etablissement.getEtablissement().classes;
 
-  vm.deleteClassNumberFilter = function(){
-    delete vm.filtre["classeNumber"];
+  var classeFromDefiNiveau = function(session){
+    var niveau = session.niveau;
+    if (niveau === 1){
+      return ["cm2","6eme"];
+    }else if (niveau === 2){
+      return ["4eme", "3eme"];
+    }else if (niveau === 3){
+      return ["2nde", "1ere", "terminale"];
+    }else {
+      return "exterieur";
+    }
   };
 
+
+  
+
+  vm.deleteClassNumberFilter = function(){
+    delete vm.classFilter["classeNumber"];
+  };
+
+  
   vm.defiId = $routeParams.defiId;
   classementService.classementByDefis(vm.defiId).then(function(response){
 
       vm.defi = response.data;
+      var defiClasses = classeFromDefiNiveau(vm.defi);
+      vm.classes = etablissement.getEtablissement().classes.filter(v => defiClasses.indexOf(v.dbValue) >=0);
+
+      vm.etablissements = etablissement.getEtablissement().names;
+
       var currentUser = authentication.currentUser().email;
       for (var i = 0; i < vm.defi.participants.length; i++) {
         if (vm.defi.participants[i].email === currentUser){

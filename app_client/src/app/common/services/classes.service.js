@@ -19,6 +19,7 @@
 
    };
 
+// @TODO Algorithm to refactor
 var _addMetadataAboutClassesChange = function(classes){
   var result = [];
   var currentClasse, currentClasseNumber = "something stupid";
@@ -30,12 +31,16 @@ var _addMetadataAboutClassesChange = function(classes){
       currentClasseNumberArray = [];
       currentClasse = student.classe;
       result.push({className: student.classe, classeNumbers: currentClasseNumberArray});
-    }
-    if (currentClasseNumber != student.classeNumber){
       currentStudentArray = [];
       currentClasseNumber = student.classeNumber;
-      currentClasseNumberArray.push({number: student.classeNumber ? student.classeNumber:"__", students: currentStudentArray});
-    }
+        currentClasseNumberArray.push({number: student.classeNumber ? student.classeNumber:"__", students: currentStudentArray});
+    }else {
+      if (currentClasseNumber != student.classeNumber){
+        currentStudentArray = [];
+        currentClasseNumber = student.classeNumber;
+        currentClasseNumberArray.push({number: student.classeNumber ? student.classeNumber:"__", students: currentStudentArray});
+      }
+    } 
     currentStudentArray.push(student);
   }
   return result;

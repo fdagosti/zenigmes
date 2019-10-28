@@ -16,7 +16,7 @@
                 vm.getLevelText = function(enigme){
                     var level = parseInt(enigme.niveau);
                     if (level === 1){
-                        return "6ème/5ème";
+                        return "CM2/6ème";
                     } else if (level === 2){
                         return "4ème/3ème";
                     } else if (level === 3){

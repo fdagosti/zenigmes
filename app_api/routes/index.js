@@ -51,11 +51,6 @@ router.get("/users/:userid", auth, statusCheck, ctrlUsers.userDetails);
 
 // classes
 router.get("/classes/", auth, statusCheck, profOrAdminCheck, ctrlClasses.classesList);
-// router.get("/classes/:classeName", auth, statusCheck, profOrAdminCheck, ctrlClasses.classeDetail);
-// router.get("/classes/:classeName/count", auth, statusCheck, profOrAdminCheck, ctrlClasses.classeCount);
-// router.get("/classes/:classeName/:classeNumber", auth, statusCheck, profOrAdminCheck, ctrlClasses.classeDetail);
-// router.get("/classes/:classeName/:classeNumber/count", auth, statusCheck, profOrAdminCheck, ctrlClasses.classeCount);
-
 
 // specific activation api
 router.get("/activation/", auth, ctrlUsers.userActivated);

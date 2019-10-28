@@ -23,42 +23,6 @@
       });
     };
 
-    var _classeNiveauMatch = function(user, session){
-    var classe = user.classe;
-    var niveau = session.niveau;
-    if (niveau === 1){
-      return (classe === "6eme" || classe === "5eme");
-    }else if (niveau === 2){
-      return (classe === "4eme" || classe === "3eme");
-    }else if (niveau ===3){
-      return (classe === "2nde" || classe === "1ere" || classe === "terminale");
-    }
-   };
-
-   var allUsersWithSessions = function() {
-    usersPromise = zenigmeUsers.allUsers();
-    sessionPromise = allSessions();
-    return $q.all([usersPromise, sessionPromise]).then(function(data){
-
-      var users = data[0].data;
-      var sessions = data[1].data;
-
-      users.forEach(function(user){
-        sessions.forEach(function(session){
-          var participant = session.participants.indexOf(user._id);
-          if (participant >= 0 || _classeNiveauMatch(user, session)){
-            if (!user.sessions){
-              user.sessions=[];
-            }
-            user.sessions.push(session);
-          }
-        });
-      });
-      return users;
-
-    });
-  };
-
   var _createMailUsernameMapping = function(users){
       var result = {};
 
@@ -209,7 +173,6 @@
    updateSession: updateSession,
    allSessionsWithEnigmes:allSessionsWithEnigmes,
    participations : participations,
-   allUsersWithSessions:allUsersWithSessions,
    participationsBySessionId : participationsBySessionId
  };
 }

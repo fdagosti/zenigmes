@@ -9,17 +9,7 @@ var sendJsonResponse = function(res, status, content) {
     res.json(content);
 };
 
-var _sessionFromClasse = function(user){
-    var classe = user.classe;
-    if (classe == "6eme" || classe == "5eme"){
-        return 1;
-    } else if (classe == "4eme" || classe == "3eme"){
-        return 2;
-    } else if (classe == "2nde" || classe == "1ere" || classe == "terminale"){
-        return 3;
-    } 
-    return 0;
-};
+var _sessionFromClasse = require("./utils").defiNiveauFromClasse;
 
 module.exports.participationsList = function(req, res){
 

@@ -4,7 +4,7 @@ var sessionDB = mongoose.model("sessions");
 var zenigmesDB = mongoose.model("enigmes");
 var async = require("async");
 var mails = require("./mails/mailsMessages");
-
+var niveauFromClass = require("./utils").defiNiveauFromClasse;
 
 var sendJsonResponse = function(res, status, content) {
     res.status(status);
@@ -110,18 +110,6 @@ module.exports.userDetails = function(req, res){
         return;
     }
 
-    var _niveauFromClasse = function(user){
-        var classe = user.classe;
-        if (classe == "6eme" || classe == "5eme"){
-            return 1;
-        } else if (classe == "4eme" || classe == "3eme"){
-            return 2;
-        } else if (classe == "2nde" || classe == "1ere" || classe == "terminale"){
-            return 3;
-        } 
-        return 0;
-    };
-
     async.waterfall([
         function(cb){
             // retrieve user detail
@@ -139,7 +127,7 @@ module.exports.userDetails = function(req, res){
             sessionDB.find(
             { $or: [
                 {participants: {$all: [user._id]}},
-                {niveau: _niveauFromClasse(user)}
+                {niveau: niveauFromClass(user)}
             ]} ,function(err, sessions){
                 // transform mongoose object into plain JSON
                 cb(err, user, sessions.map(function(session){

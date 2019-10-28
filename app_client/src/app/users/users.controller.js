@@ -26,8 +26,8 @@
         };
 
         function listUsers(){
-            sessionsData.allUsersWithSessions().then(function(data){
-                vm.users = data;
+            zenigmeUsers.allUsers().then(function(data){
+                vm.users = data.data;
             },function(error){
                 vm.error = error.statusText;
             });

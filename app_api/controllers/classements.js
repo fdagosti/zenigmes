@@ -9,18 +9,7 @@ var sendJsonResponse = function(res, status, content) {
     res.json(content);
 };
 
-var _classeFromDefiNiveau = function(session){
-  var niveau = session.niveau;
-  if (niveau === 1){
-    return ["6eme", "5eme"];
-  }else if (niveau === 2){
-    return ["4eme", "3eme"];
-  }else if (niveau === 3){
-    return ["2nde", "1ere", "terminale"];
-  }else {
-    return "exterieur";
-  }
-};
+var _classeFromDefiNiveau = require("./utils").classeFromDefiNiveau;
 
 var _enigmeInThePast = function(sessionEnigme){
     var now = new Date();

@@ -7,7 +7,7 @@
     "postinstall": "gulp compile"
   },
   "engines": {
-    "node": "~7.6.0",
+    "node": "~7.6.0"
   },
   "dependencies": {
     "async": "~2.0.0-rc.3",

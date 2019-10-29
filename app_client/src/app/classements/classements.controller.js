@@ -30,7 +30,7 @@ angular.module('zenigmesApp').controller('classementsCtrl', function($scope, $ro
 
       vm.defi = response.data;
       var defiClasses = classeFromDefiNiveau(vm.defi);
-      vm.classes = etablissement.getEtablissement().classes.filter(v => defiClasses.indexOf(v.dbValue) >=0);
+      vm.classes = etablissement.getEtablissement().classes.filter(function(v) { return defiClasses.indexOf(v.dbValue) >=0});
 
       vm.etablissements = etablissement.getEtablissement().names;
 

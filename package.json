@@ -6,10 +6,6 @@
     "start": "node ./bin/www",
     "postinstall": "gulp compile"
   },
-  "engines": {
-    "node": "~5.6.0",
-    "npm": "~3.6.0"
-  },
   "dependencies": {
     "async": "^2.0.0-rc.3",
     "body-parser": "~1.13.2",

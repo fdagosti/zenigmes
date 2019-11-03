@@ -14,7 +14,7 @@
                 "2nde": "Seconde",
                 "1ere": "Première",
                 "terminale": "Terminale",
-                "externe": "Externe",
+                "externe": "Professeur/Externe",
             };
 
   function formatClasse() {

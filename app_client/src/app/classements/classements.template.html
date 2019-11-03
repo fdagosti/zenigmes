@@ -44,7 +44,7 @@
         <div class="col-xs-12 list-group-item" ng-class="vm.getItemClass(user)" ng-repeat='user in vm.defi.participants | filter: vm.etablissementFilter | filter: vm.classFilter | orderBy:"-totalPoints" as filtered'>
               
           <h1 class="day">{{vm.getClassement(user.totalPoints, $index, $first)}}</h1>
-          <img ng-src="http://www.gravatar.com/avatar/{{vm.getGravatarURL(user.email)}}?d=http://bootdey.com/img/Content/user_1.jpg" alt="">    
+          <img ng-src="https://www.gravatar.com/avatar/{{vm.getGravatarURL(user.email)}}?d=http://bootdey.com/img/Content/user_1.jpg" alt="">    
           <div class="id">
             <h4 class="name">{{user.name}}</h4>
             <p>

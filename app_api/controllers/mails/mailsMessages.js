@@ -172,7 +172,7 @@ module.exports = {
 
       // no request objects for scheduled mail to derive the host name
       // for the moment, I'll put it hardcoded. But this needs to change
-      var enigmeUrl = "http://www.zenigmes.fr/enigmes/"+enigme._id+"?sessionid="+defi._id;
+      var enigmeUrl = "https://zenigmes.herokuapp.com/enigmes/"+enigme._id+"?sessionid="+defi._id;
 
       compileJade("enigmeAboutToStart.jade", {enigme: enigme,enigmeAnswer: enigmeUrl}, function(html){
 

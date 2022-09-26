@@ -40,7 +40,7 @@
     "morgan": "~1.6.1",
     "node-schedule": "~1.1.1",
     "nodemailer": "~2.4.2",
-    "nodemailer-mailgun-transport": "~1.2.2",
+    "nodemailer-mailgun-transport": "~2.1.5",
     "passport": "~0.3.2",
     "passport-local": "~1.0.0",
     "run-sequence": "~1.1.5",
